@@ -47,10 +47,6 @@ def main():
     raw_data = data_loader.load_data(raw_data_path)
     logger.info(f"数据加载完成，共加载 {len(raw_data)} 条记录。")
 
-    print(raw_data[0])  # 打印前5条数据以供检查
-    print()
-    print(raw_data[1])  # 打印前5条数据以供检查
-    return
 
     # 4. 数据预处理
     from preprocessing import preprocess_text  # 假设预处理函数已实现
