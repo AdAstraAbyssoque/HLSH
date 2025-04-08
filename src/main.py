@@ -1,0 +1,148 @@
+'''
+	•	作用：作为整个系统的入口文件，负责整个工作流程的调度。
+	•	主要内容：
+	•	导入配置：加载config/config.yaml。
+	•	初始化日志：调用utils/logger.py中的设置函数。
+	•	数据加载：调用utils/data_loader.py读取原始数据。
+	•	预处理：调用preprocessing.py中预处理类或函数，对原始数据进行清洗、token化以及n-gram生成。
+	•	特征提取：调用feature_extraction.py，生成文本特征表示（如set或向量）。
+	•	指纹生成：根据配置依次调用fingerprint/minhash.py、fingerprint/simhash.py、fingerprint/bitsampling.py中的类与方法生成文本指纹。
+	•	LSH索引构建：传入各类签名到lsh/lsh_index.py中，建立LSH索引，过滤产生候选文档对。
+	•	评估：调用lsh/evaluation.py或evaluation.py对生成的候选对进行定量与定性评估。
+	•	输出结果：将评估报告、日志和候选对结果写入data/results/目录中。
+	•	调用关系：是其他所有模块的上层调用入口，通过依次调用预处理、特征提取、指纹生成、LSH索引和评估模块，形成整体流水线。
+'''
+import os
+import yaml
+import time
+from utils.logger import setup_logger
+from utils.data_loader import DataLoader
+from feature_extraction import FeatureExtractor
+from fingerprint.minhash import MinHash
+from fingerprint.simhash import SimHash
+from fingerprint.bitsampling import BitSampling
+from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex
+from lsh.evaluation import Evaluator
+
+# 加载配置文件
+def load_config(config_path: str) -> dict:
+    with open(config_path, "r") as file:
+        return yaml.safe_load(file)
+
+def main():
+    # 1. 加载配置
+    config_path = "config/config.yaml"
+    config = load_config(config_path)
+
+    # 2. 初始化日志
+    log_file = config["logging"]["log_file"]
+    log_level = config["logging"]["log_level"]
+    logger = setup_logger(log_file, log_level)
+    logger.info("系统启动，加载配置完成。")
+
+    # 3. 数据加载
+    data_loader = DataLoader()
+    raw_data_path = config["data"]["raw_data_path"]
+    logger.info(f"加载数据文件：{raw_data_path}")
+    raw_data = data_loader.load_data(raw_data_path)
+    logger.info(f"数据加载完成，共加载 {len(raw_data)} 条记录。")
+
+    print(raw_data[0])  # 打印前5条数据以供检查
+    print()
+    print(raw_data[1])  # 打印前5条数据以供检查
+    return
+
+    # 4. 数据预处理
+    from preprocessing import preprocess_text  # 假设预处理函数已实现
+    logger.info("开始数据预处理...")
+    preprocessed_data = [preprocess_text(text) for text in raw_data]
+    logger.info("数据预处理完成。")
+
+
+    # 5. 特征提取
+    feature_method = config["feature_extraction"]["method"]
+    ngram_size = config["feature_extraction"].get("ngram_size", 3)
+    logger.info(f"开始特征提取，方法：{feature_method}")
+    extractor = FeatureExtractor(method=feature_method, n=ngram_size)
+    features = [extractor.extract_features(text) for text in preprocessed_data]
+    logger.info("特征提取完成。")
+
+
+    # 6. 指纹生成
+    fingerprint_method = config["fingerprint"]["method"]
+    logger.info(f"开始指纹生成，方法：{fingerprint_method}")
+    if fingerprint_method == "minhash":
+        num_hashes = config["fingerprint"]["num_hashes"]
+        seed = config["fingerprint"].get("seed", None)
+        minhash = MinHash(num_hashes=num_hashes,seed=seed)
+        signatures = [minhash.compute_signature(feature) for feature in features]
+    elif fingerprint_method == "simhash":
+        hash_bits = config["fingerprint"]["hash_bits"]
+        simhash = SimHash(hash_bits=hash_bits)
+        signatures = [simhash.compute_signature(feature) for feature in features]
+    elif fingerprint_method == "bitsampling":
+        sample_size = config["fingerprint"]["sample_size"]
+        hash_bits = config["fingerprint"]["hash_bits"]
+        seed = config["fingerprint"].get("seed", None)
+        bitsampling = BitSampling(sample_size=sample_size, hash_bits=hash_bits,seed=seed)
+        signatures = [bitsampling.compute_signature(feature) for feature in features]
+    else:
+        logger.error(f"未知的指纹生成方法：{fingerprint_method}")
+        return
+    logger.info("指纹生成完成。")
+
+    # 7. LSH 索引构建
+    lsh_method = config["lsh"]["method"]
+    logger.info(f"开始 LSH 索引构建，方法：{lsh_method}")
+    if lsh_method == "minhash":
+        num_bands = config["lsh"]["num_bands"]
+        rows_per_band = config["lsh"]["rows_per_band"]
+        lsh_index = MinHashLSHIndex(num_bands=num_bands, rows_per_band=rows_per_band)
+    elif lsh_method == "simhash":
+        radius = config["lsh"]["radius"]
+        lsh_index = SimHashLSHIndex(radius=radius)
+    elif lsh_method == "bitsampling":
+        num_hash_tables = config["lsh"]["num_hash_tables"]
+        bits_per_table = config["lsh"]["bits_per_table"]
+        lsh_index = BitSamplingLSHIndex(num_hash_tables=num_hash_tables, bits_per_table=bits_per_table)
+    else:
+        logger.error(f"未知的 LSH 方法：{lsh_method}")
+        return
+
+    lsh_index.index(signatures)
+    candidate_pairs = lsh_index.get_candidate_pairs()
+    logger.info(f"LSH 索引构建完成，共生成 {len(candidate_pairs)} 个候选对。")
+
+    # 8. 评估
+    ground_truth_path = config["evaluation"]["ground_truth_path"]
+    if os.path.exists(ground_truth_path):
+        logger.info(f"加载真实标签数据：{ground_truth_path}")
+        with open(ground_truth_path, "r") as file:
+            ground_truth = set(tuple(map(int, line.strip().split(","))) for line in file)
+    else:
+        logger.warning("未提供真实标签数据，跳过性能评估。")
+        ground_truth = None
+
+    evaluator = Evaluator(candidate_pairs, ground_truth)
+    if ground_truth:
+        start_time = time.time()
+        metrics = evaluator.compute_performance_metrics()
+        runtime = time.time() - start_time
+        evaluator.generate_report(metrics, runtime)
+    else:
+        duplicate_rate = evaluator.compute_duplicate_rate()
+        logger.info(f"候选对中的近重复文档比率：{duplicate_rate:.2f}")
+
+    # 9. 输出结果
+    results_path = config["output"]["results_path"]
+    os.makedirs(os.path.dirname(results_path), exist_ok=True)
+    with open(results_path, "w") as file:
+        for pair in candidate_pairs:
+            file.write(f"{pair[0]},{pair[1]}\n")
+    logger.info(f"候选对结果已保存至：{results_path}")
+
+    logger.info("系统运行完成。")
+
+
+if __name__ == "__main__":
+    main()

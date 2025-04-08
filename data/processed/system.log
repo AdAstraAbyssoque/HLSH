@@ -1,0 +1,113 @@
+2025-04-08 19:32:33,576 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:32:33,576 - data/processed/system.log - INFO - 加载数据文件：data/raw/sample_test.parquet
+2025-04-08 19:32:33,683 - data/processed/system.log - INFO - 数据加载完成，共加载 4 条记录。
+2025-04-08 19:32:33,684 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:32:33,684 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-08 19:32:33,684 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-08 19:32:33,684 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-08 19:32:33,684 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-08 19:32:33,686 - data/processed/system.log - INFO - 指纹生成完成。
+2025-04-08 19:32:33,686 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-08 19:32:33,686 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 0 个候选对。
+2025-04-08 19:32:33,686 - data/processed/system.log - WARNING - 未提供真实标签数据，跳过性能评估。
+2025-04-08 19:32:33,686 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.00
+2025-04-08 19:32:33,687 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs.csv
+2025-04-08 19:32:33,687 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-08 19:33:38,319 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:33:38,319 - data/processed/system.log - INFO - 加载数据文件：data/raw/sample_test.parquet
+2025-04-08 19:33:38,377 - data/processed/system.log - INFO - 数据加载完成，共加载 4 条记录。
+2025-04-08 19:33:38,377 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:33:38,377 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-08 19:33:59,889 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:33:59,889 - data/processed/system.log - INFO - 加载数据文件：data/raw/sample_test.parquet
+2025-04-08 19:33:59,920 - data/processed/system.log - INFO - 数据加载完成，共加载 4 条记录。
+2025-04-08 19:33:59,920 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:33:59,920 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-08 19:33:59,920 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-08 19:33:59,920 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-08 19:34:50,482 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:34:50,482 - data/processed/system.log - INFO - 加载数据文件：data/raw/sample_test.parquet
+2025-04-08 19:34:50,540 - data/processed/system.log - INFO - 数据加载完成，共加载 4 条记录。
+2025-04-08 19:34:50,540 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:34:50,540 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-08 19:34:50,540 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-08 19:34:50,540 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-08 19:34:50,540 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-08 19:34:50,542 - data/processed/system.log - INFO - 指纹生成完成。
+2025-04-08 19:34:50,542 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-08 19:34:50,542 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 0 个候选对。
+2025-04-08 19:34:50,542 - data/processed/system.log - WARNING - 未提供真实标签数据，跳过性能评估。
+2025-04-08 19:34:50,542 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.00
+2025-04-08 19:34:50,542 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs.csv
+2025-04-08 19:34:50,542 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-08 19:35:23,800 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:35:23,800 - data/processed/system.log - INFO - 加载数据文件：data/raw/sample_test.parquet
+2025-04-08 19:35:23,829 - data/processed/system.log - INFO - 数据加载完成，共加载 8 条记录。
+2025-04-08 19:35:23,830 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:35:23,830 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-08 19:35:23,830 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-08 19:35:23,830 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-08 19:35:23,830 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-08 19:35:23,853 - data/processed/system.log - INFO - 指纹生成完成。
+2025-04-08 19:35:23,853 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-08 19:35:23,853 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 0 个候选对。
+2025-04-08 19:35:23,853 - data/processed/system.log - WARNING - 未提供真实标签数据，跳过性能评估。
+2025-04-08 19:35:23,853 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.00
+2025-04-08 19:35:23,853 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs.csv
+2025-04-08 19:35:23,853 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-08 19:35:50,676 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:35:50,676 - data/processed/system.log - INFO - 加载数据文件：data/raw/sample_test.parquet
+2025-04-08 19:35:50,705 - data/processed/system.log - INFO - 数据加载完成，共加载 8 条记录。
+2025-04-08 19:35:50,705 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:35:50,705 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-08 19:35:50,705 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-08 19:35:50,705 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-08 19:35:50,705 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-08 19:35:50,727 - data/processed/system.log - INFO - 指纹生成完成。
+2025-04-08 19:35:50,727 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-08 19:35:50,727 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 0 个候选对。
+2025-04-08 19:35:50,727 - data/processed/system.log - WARNING - 未提供真实标签数据，跳过性能评估。
+2025-04-08 19:35:50,727 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.00
+2025-04-08 19:35:50,727 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs.csv
+2025-04-08 19:35:50,727 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-08 19:36:15,993 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:36:15,993 - data/processed/system.log - INFO - 加载数据文件：data/raw/sample_test.parquet
+2025-04-08 19:36:16,028 - data/processed/system.log - INFO - 数据加载完成，共加载 8 条记录。
+2025-04-08 19:36:16,028 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:36:16,028 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-08 19:36:16,028 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-08 19:36:16,028 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-08 19:36:16,028 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-08 19:36:16,051 - data/processed/system.log - INFO - 指纹生成完成。
+2025-04-08 19:36:16,051 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-08 19:36:16,051 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 1 个候选对。
+2025-04-08 19:36:16,051 - data/processed/system.log - WARNING - 未提供真实标签数据，跳过性能评估。
+2025-04-08 19:36:16,051 - data/processed/system.log - INFO - 候选对中的近重复文档比率：1.00
+2025-04-08 19:36:16,051 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs.csv
+2025-04-08 19:36:16,052 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-08 19:40:08,708 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:40:08,708 - data/processed/system.log - INFO - 加载数据文件：data/raw/0000.parquet
+2025-04-08 19:40:09,176 - data/processed/system.log - INFO - 数据加载完成，共加载 154029 条记录。
+2025-04-08 19:40:09,177 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:40:23,977 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-08 19:40:23,977 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-08 19:40:40,372 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-08 19:40:40,373 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-08 19:47:06,733 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:47:06,733 - data/processed/system.log - INFO - 加载数据文件：data/raw/0000.parquet
+2025-04-08 19:47:07,057 - data/processed/system.log - INFO - 数据加载完成，共加载 154029 条记录。
+2025-04-08 19:47:07,058 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:47:31,004 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:47:31,005 - data/processed/system.log - INFO - 加载数据文件：data/raw/0000.parquet
+2025-04-08 19:47:31,321 - data/processed/system.log - INFO - 数据加载完成，共加载 154029 条记录。
+2025-04-08 19:47:31,322 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-08 19:47:46,142 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-08 19:48:45,465 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:48:45,465 - data/processed/system.log - INFO - 加载数据文件：data/raw/0000.parquet
+2025-04-08 19:48:45,779 - data/processed/system.log - INFO - 数据加载完成，共加载 154029 条记录。
+2025-04-08 19:49:32,058 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:49:32,058 - data/processed/system.log - INFO - 加载数据文件：data/raw/0000.parquet
+2025-04-08 19:49:32,370 - data/processed/system.log - INFO - 数据加载完成，共加载 154029 条记录。
+2025-04-08 19:53:24,175 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-08 19:53:24,176 - data/processed/system.log - INFO - 加载数据文件：data/raw/0000.parquet
+2025-04-08 19:53:24,420 - data/processed/system.log - INFO - 数据加载完成，共加载 81137 条记录。
