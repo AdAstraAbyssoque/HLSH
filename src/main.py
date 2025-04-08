@@ -23,11 +23,15 @@ from fingerprint.simhash import SimHash
 from fingerprint.bitsampling import BitSampling
 from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex
 from lsh.evaluation import Evaluator
+from tqdm import tqdm
 
 # 加载配置文件
+
+
 def load_config(config_path: str) -> dict:
     with open(config_path, "r") as file:
         return yaml.safe_load(file)
+
 
 def main():
     # 1. 加载配置
@@ -42,9 +46,41 @@ def main():
 
     # 3. 数据加载
     data_loader = DataLoader()
-    raw_data_path = config["data"]["raw_data_path"]
-    logger.info(f"加载数据文件：{raw_data_path}")
-    raw_data = data_loader.load_data(raw_data_path)
+    raw_data_path = config["data"]["raw_data_path"]  # 可以是文件路径或目录路径
+    logger.info(f"加载数据路径：{raw_data_path}")
+
+    raw_data = []
+
+    if os.path.isfile(raw_data_path) and raw_data_path.endswith(".parquet"):
+        # 如果是单个 Parquet 文件路径
+        try:
+            logger.info(f"加载单个文件：{raw_data_path}")
+            raw_data = data_loader.load_data(raw_data_path)
+        except Exception as e:
+            logger.error(f"文件 {raw_data_path} 加载失败，错误信息：{e}")
+            return
+    elif os.path.isdir(raw_data_path):
+        # 如果是目录路径，加载目录下所有 .parquet 文件
+        logger.info(f"加载目录中的所有 Parquet 文件：{raw_data_path}")
+        parquet_files = [os.path.join(raw_data_path, f) for f in os.listdir(raw_data_path) if f.endswith(".parquet")]
+        if not parquet_files:
+            logger.error("指定目录中未找到任何 Parquet 文件。")
+            return
+
+        for file_path in parquet_files:
+            try:
+                logger.info(f"加载文件：{file_path}")
+                raw_data.extend(data_loader.load_data(file_path))
+            except Exception as e:
+                logger.warning(f"文件 {file_path} 加载失败，错误信息：{e}")
+    else:
+        logger.error("提供的路径既不是有效的 Parquet 文件，也不是目录路径。")
+        return
+
+    if not raw_data:
+        logger.error("未能成功加载任何数据。")
+        return
+
     logger.info(f"数据加载完成，共加载 {len(raw_data)} 条记录。")
 
 
@@ -54,7 +90,6 @@ def main():
     preprocessed_data = [preprocess_text(text) for text in raw_data]
     logger.info("数据预处理完成。")
 
-
     # 5. 特征提取
     feature_method = config["feature_extraction"]["method"]
     ngram_size = config["feature_extraction"].get("ngram_size", 3)
@@ -63,25 +98,28 @@ def main():
     features = [extractor.extract_features(text) for text in preprocessed_data]
     logger.info("特征提取完成。")
 
-
     # 6. 指纹生成
     fingerprint_method = config["fingerprint"]["method"]
     logger.info(f"开始指纹生成，方法：{fingerprint_method}")
     if fingerprint_method == "minhash":
         num_hashes = config["fingerprint"]["num_hashes"]
         seed = config["fingerprint"].get("seed", None)
-        minhash = MinHash(num_hashes=num_hashes,seed=seed)
-        signatures = [minhash.compute_signature(feature) for feature in features]
+        minhash = MinHash(num_hashes=num_hashes, seed=seed)
+        signatures = [minhash.compute_signature(
+            feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
     elif fingerprint_method == "simhash":
         hash_bits = config["fingerprint"]["hash_bits"]
         simhash = SimHash(hash_bits=hash_bits)
-        signatures = [simhash.compute_signature(feature) for feature in features]
+        signatures = [simhash.compute_signature(
+            feature) for feature in tqdm(features, desc="生成 SimHash 签名")]
     elif fingerprint_method == "bitsampling":
         sample_size = config["fingerprint"]["sample_size"]
         hash_bits = config["fingerprint"]["hash_bits"]
         seed = config["fingerprint"].get("seed", None)
-        bitsampling = BitSampling(sample_size=sample_size, hash_bits=hash_bits,seed=seed)
-        signatures = [bitsampling.compute_signature(feature) for feature in features]
+        bitsampling = BitSampling(
+            sample_size=sample_size, hash_bits=hash_bits, seed=seed)
+        signatures = [bitsampling.compute_signature(
+            feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
     else:
         logger.error(f"未知的指纹生成方法：{fingerprint_method}")
         return
@@ -93,14 +131,16 @@ def main():
     if lsh_method == "minhash":
         num_bands = config["lsh"]["num_bands"]
         rows_per_band = config["lsh"]["rows_per_band"]
-        lsh_index = MinHashLSHIndex(num_bands=num_bands, rows_per_band=rows_per_band)
+        lsh_index = MinHashLSHIndex(
+            num_bands=num_bands, rows_per_band=rows_per_band)
     elif lsh_method == "simhash":
         radius = config["lsh"]["radius"]
         lsh_index = SimHashLSHIndex(radius=radius)
     elif lsh_method == "bitsampling":
         num_hash_tables = config["lsh"]["num_hash_tables"]
         bits_per_table = config["lsh"]["bits_per_table"]
-        lsh_index = BitSamplingLSHIndex(num_hash_tables=num_hash_tables, bits_per_table=bits_per_table)
+        lsh_index = BitSamplingLSHIndex(
+            num_hash_tables=num_hash_tables, bits_per_table=bits_per_table)
     else:
         logger.error(f"未知的 LSH 方法：{lsh_method}")
         return
@@ -114,7 +154,8 @@ def main():
     if os.path.exists(ground_truth_path):
         logger.info(f"加载真实标签数据：{ground_truth_path}")
         with open(ground_truth_path, "r") as file:
-            ground_truth = set(tuple(map(int, line.strip().split(","))) for line in file)
+            ground_truth = set(tuple(map(int, line.strip().split(",")))
+                               for line in file)
     else:
         logger.warning("未提供真实标签数据，跳过性能评估。")
         ground_truth = None
