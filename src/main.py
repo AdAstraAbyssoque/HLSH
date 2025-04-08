@@ -62,7 +62,8 @@ def main():
     elif os.path.isdir(raw_data_path):
         # 如果是目录路径，加载目录下所有 .parquet 文件
         logger.info(f"加载目录中的所有 Parquet 文件：{raw_data_path}")
-        parquet_files = [os.path.join(raw_data_path, f) for f in os.listdir(raw_data_path) if f.endswith(".parquet")]
+        parquet_files = [os.path.join(raw_data_path, f) for f in os.listdir(
+            raw_data_path) if f.endswith(".parquet")]
         if not parquet_files:
             logger.error("指定目录中未找到任何 Parquet 文件。")
             return
@@ -82,7 +83,6 @@ def main():
         return
 
     logger.info(f"数据加载完成，共加载 {len(raw_data)} 条记录。")
-
 
     # 4. 数据预处理
     from preprocessing import preprocess_text  # 假设预处理函数已实现
@@ -123,7 +123,18 @@ def main():
     else:
         logger.error(f"未知的指纹生成方法：{fingerprint_method}")
         return
-    logger.info("指纹生成完成。")
+
+    logger.info("指纹生成完成，共生成签名数量：{}".format(len(signatures)))
+
+    # 使用 DataLoader 保存签名指纹
+    fingerprint_output_path = config["fingerprint"]["output_path"]
+    try:
+        logger.info(f"开始保存签名指纹到文件：{fingerprint_output_path}")
+        data_loader.save_signatures(signatures, fingerprint_output_path)
+        logger.info(f"签名指纹已成功保存到文件：{fingerprint_output_path}")
+    except Exception as e:
+        logger.error(f"保存签名指纹失败，错误信息：{e}")
+        return
 
     # 7. LSH 索引构建
     lsh_method = config["lsh"]["method"]
