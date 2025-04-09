@@ -1,5 +1,8 @@
-data/raw/*.parquet
+*.parquet
 src/__pycache__
 src/fingerprint/__pycache__
 src/lsh/__pycache__
 src/utils/__pycache__
+*.csv
+.*
+*.log
