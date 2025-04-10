@@ -127,7 +127,7 @@ def main():
     logger.info("指纹生成完成，共生成签名数量：{}".format(len(signatures)))
 
     # 使用 DataLoader 保存签名指纹
-    fingerprint_output_path = config["fingerprint"]["output_path"]
+    fingerprint_output_path = config["output"]["fingerpritnts_path"]
     try:
         logger.info(f"开始保存签名指纹到文件：{fingerprint_output_path}")
         data_loader.save_signatures(signatures, fingerprint_output_path)
