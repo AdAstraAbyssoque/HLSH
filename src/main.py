@@ -15,6 +15,7 @@
 import os
 import yaml
 import time
+import gc
 from utils.logger import setup_logger
 from utils.data_loader import DataLoader
 from feature_extraction import FeatureExtractor
@@ -24,6 +25,7 @@ from fingerprint.bitsampling import BitSampling
 from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex
 from lsh.evaluation import Evaluator
 from tqdm import tqdm
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 
 # 加载配置文件
 
@@ -37,6 +39,12 @@ def main():
     # 1. 加载配置
     config_path = "config/config.yaml"
     config = load_config(config_path)
+
+    # 1.1 获取并行配置
+    parallel_config = config.get("parallel", {})
+    parallel_enabled = parallel_config.get("enabled", False)
+    thread_pool_size = parallel_config.get("thread_pool_size", 4)
+    process_pool_size = parallel_config.get("process_pool_size", 8)
 
     # 2. 初始化日志
     log_file = config["logging"]["log_file"]
@@ -68,12 +76,19 @@ def main():
             logger.error("指定目录中未找到任何 Parquet 文件。")
             return
 
-        for file_path in parquet_files:
-            try:
-                logger.info(f"加载文件：{file_path}")
-                raw_data.extend(data_loader.load_data(file_path))
-            except Exception as e:
-                logger.warning(f"文件 {file_path} 加载失败，错误信息：{e}")
+        if parallel_enabled:
+            logger.info(f"使用线程池并行加载文件，线程数：{thread_pool_size}")
+            with ThreadPoolExecutor(max_workers=thread_pool_size) as executor:
+                results = list(executor.map(data_loader.load_data, parquet_files))
+                for result in results:
+                    raw_data.extend(result)
+        else:
+            for file_path in parquet_files:
+                try:
+                    logger.info(f"加载文件：{file_path}")
+                    raw_data.extend(data_loader.load_data(file_path))
+                except Exception as e:
+                    logger.warning(f"文件 {file_path} 加载失败，错误信息：{e}")
     else:
         logger.error("提供的路径既不是有效的 Parquet 文件，也不是目录路径。")
         return
@@ -87,7 +102,13 @@ def main():
     # 4. 数据预处理
     from preprocessing import preprocess_text  # 假设预处理函数已实现
     logger.info("开始数据预处理...")
-    preprocessed_data = [preprocess_text(text) for text in raw_data]
+    if parallel_enabled:
+        from concurrent.futures import ProcessPoolExecutor
+        logger.info(f"使用进程池并行预处理，进程数：{process_pool_size}")
+        with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
+            preprocessed_data = list(executor.map(preprocess_text, raw_data))
+    else:
+        preprocessed_data = [preprocess_text(text) for text in raw_data]
     logger.info("数据预处理完成。")
 
     # 5. 特征提取
@@ -95,34 +116,82 @@ def main():
     ngram_size = config["feature_extraction"].get("ngram_size", 3)
     logger.info(f"开始特征提取，方法：{feature_method}")
     extractor = FeatureExtractor(method=feature_method, n=ngram_size)
-    features = [extractor.extract_features(text) for text in preprocessed_data]
+    if parallel_enabled:
+        logger.info(f"使用进程池并行特征提取，进程数：{process_pool_size}")
+        with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
+            features = list(tqdm(executor.map(extractor.extract_features, preprocessed_data), 
+                              total=len(preprocessed_data), 
+                              desc="并行特征提取"))
+    else:
+        features = [extractor.extract_features(text) for text in tqdm(preprocessed_data, desc="特征提取")]
     logger.info("特征提取完成。")
 
     # 6. 指纹生成
     fingerprint_method = config["fingerprint"]["method"]
-    logger.info(f"开始指纹生成，方法：{fingerprint_method}")
-    if fingerprint_method == "minhash":
-        num_hashes = config["fingerprint"]["num_hashes"]
-        seed = config["fingerprint"].get("seed", None)
-        minhash = MinHash(num_hashes=num_hashes, seed=seed)
-        signatures = [minhash.compute_signature(
-            feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
-    elif fingerprint_method == "simhash":
-        hash_bits = config["fingerprint"]["hash_bits"]
-        simhash = SimHash(hash_bits=hash_bits)
-        signatures = [simhash.compute_signature(
-            feature) for feature in tqdm(features, desc="生成 SimHash 签名")]
-    elif fingerprint_method == "bitsampling":
-        sample_size = config["fingerprint"]["sample_size"]
-        hash_bits = config["fingerprint"]["hash_bits"]
-        seed = config["fingerprint"].get("seed", None)
-        bitsampling = BitSampling(
-            sample_size=sample_size, hash_bits=hash_bits, seed=seed)
-        signatures = [bitsampling.compute_signature(
-            feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
-    else:
-        logger.error(f"未知的指纹生成方法：{fingerprint_method}")
-        return
+    batch_size = parallel_config.get("batch_size", 1000)
+    use_cache = parallel_config.get("use_memory_cache", True)
+    logger.info(f"开始指纹生成，方法：{fingerprint_method}，批处理大小：{batch_size}")
+
+    if parallel_enabled == False:
+        if fingerprint_method == "minhash":
+            num_hashes = config["fingerprint"]["num_hashes"]
+            seed = config["fingerprint"].get("seed", None)
+            minhash = MinHash(num_hashes=num_hashes, seed=seed)
+            signatures = [minhash.compute_signature(
+                    feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
+        elif fingerprint_method == "simhash":
+            hash_bits = config["fingerprint"]["hash_bits"]
+            simhash = SimHash(hash_bits=hash_bits)
+            signatures = [simhash.compute_signature(
+                feature) for feature in tqdm(features, desc="生成 SimHash 签名")]
+        elif fingerprint_method == "bitsampling":
+            sample_size = config["fingerprint"]["sample_size"]
+            hash_bits = config["fingerprint"]["hash_bits"]
+            seed = config["fingerprint"].get("seed", None)
+            bitsampling = BitSampling(
+                sample_size=sample_size, hash_bits=hash_bits, seed=seed)
+            signatures = [bitsampling.compute_signature(
+                feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
+        else:
+            logger.error(f"未知的指纹生成方法：{fingerprint_method}")
+            return
+        
+    if parallel_enabled == True:
+        logger.info(f"使用进程池并行生成指纹，进程数：{process_pool_size}")
+        if fingerprint_method == "minhash":
+            num_hashes = config["fingerprint"]["num_hashes"]
+            seed = config["fingerprint"].get("seed", None)
+            minhash = MinHash(num_hashes=num_hashes, seed=seed)
+        elif fingerprint_method == "simhash":
+            hash_bits = config["fingerprint"]["hash_bits"]
+            simhash = SimHash(hash_bits=hash_bits)
+        elif fingerprint_method == "bitsampling":
+            sample_size = config["fingerprint"]["sample_size"]
+            hash_bits = config["fingerprint"]["hash_bits"]
+            seed = config["fingerprint"].get("seed", None)
+            bitsampling = BitSampling(sample_size=sample_size, hash_bits=hash_bits, seed=seed)
+        else:
+            logger.error(f"未知的指纹生成方法：{fingerprint_method}")
+            return
+        
+        # 分批处理特征数据
+        def process_batch(batch_features):
+            with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
+                if fingerprint_method == "minhash":
+                    return list(executor.map(minhash.compute_signature, batch_features))
+                elif fingerprint_method == "simhash":
+                    return list(executor.map(simhash.compute_signature, batch_features))
+                elif fingerprint_method == "bitsampling":
+                    return list(executor.map(bitsampling.compute_signature, batch_features))
+                
+        signatures = []
+        for i in tqdm(range(0, len(features), batch_size), desc="批处理指纹生成"):
+            batch = features[i:i + batch_size]
+            signatures.extend(process_batch(batch))
+                
+            # 如果启用内存缓存，定期清理进程池
+            if use_cache and i % (batch_size * 10) == 0:
+                gc.collect()
 
     logger.info("指纹生成完成，共生成签名数量：{}".format(len(signatures)))
 
