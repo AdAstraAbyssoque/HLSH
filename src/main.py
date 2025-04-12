@@ -130,12 +130,14 @@ def main():
     preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
     if parallel_enabled:
-        from concurrent.futures import ProcessPoolExecutor
-        logger.info(f"使用进程池并行预处理，进程数：{process_pool_size}")
-        with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
-            preprocessed_data = list(executor.map(preprocess_text, raw_data))
+        logger.info(f"使用joblib并行预处理，进程数：{process_pool_size}")
+        from joblib import Parallel, delayed
+        preprocessed_data = Parallel(n_jobs=process_pool_size, prefer="processes")(
+            delayed(preprocess_text)(text)
+            for text in tqdm(raw_data, desc="并行预处理")
+        )
     else:
-        preprocessed_data = [preprocess_text(text) for text in raw_data]
+        preprocessed_data = [preprocess_text(text) for text in tqdm(raw_data, desc="预处理")]
     logger.info("数据预处理完成。")
     preprocess_data_time = time.time() - preprocess_data_time
     pipeline_log.add_runtime("preprocess_data_time", preprocess_data_time)
@@ -148,11 +150,12 @@ def main():
     logger.info(f"开始特征提取，方法：{feature_method}")
     extractor = FeatureExtractor(method=feature_method, n=ngram_size)
     if parallel_enabled:
-        logger.info(f"使用进程池并行特征提取，进程数：{process_pool_size}")
-        with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
-            features = list(tqdm(executor.map(extractor.extract_features, preprocessed_data), 
-                              total=len(preprocessed_data), 
-                              desc="并行特征提取"))
+        logger.info(f"使用joblib并行特征提取，进程数：{process_pool_size}")
+        from joblib import Parallel, delayed
+        features = Parallel(n_jobs=process_pool_size, prefer="processes")(
+            delayed(extractor.extract_features)(text) 
+            for text in tqdm(preprocessed_data, desc="并行特征提取")
+        )
     else:
         features = [extractor.extract_features(text) for text in tqdm(preprocessed_data, desc="特征提取")]
     logger.info("特征提取完成。")
