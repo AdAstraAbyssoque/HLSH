@@ -6,30 +6,30 @@ logging:
 
 # 数据配置
 data:
-  # raw_data_path: data/raw/test/0000.parquet  # 原始数据文件路径
-  raw_data_path: data/raw/sample_test.parquet  # 原始数据文件路径
+  raw_data_path: data/raw/test/0000.parquet  # 原始数据文件路径
+  # raw_data_path: data/raw/sample_test.parquet  # 原始数据文件路径
 
 # 特征提取配置
 feature_extraction:
-  method: ngram  # 可选值: ngram, token, vectorize
+  method: token  # 可选值: ngram, token, vectorize
   ngram_size: 3  # n-gram 的 n 值
 
 # 指纹生成配置
 fingerprint:
-  method: minhash  # 可选值: minhash, simhash, bitsampling
+  method: simhash  # 可选值: minhash, simhash, bitsampling
   num_hashes: 100  # MinHash 的哈希函数数量
-  hash_bits: 64  # SimHash 和 BitSampling 的签名位数
-  sample_size: 16  # BitSampling 的采样位数
+  hash_bits: 32  # SimHash 和 BitSampling 的签名位数
+  sample_size: 32  # BitSampling 的采样位数
   seed: 42  # 随机种子
 
 # LSH 索引配置
 lsh:
-  method: minhash  # 可选值: minhash, simhash, bitsampling
+  method: simhash  # 可选值: minhash, simhash, bitsampling
   num_bands: 20  # MinHash 的 band 数量
   rows_per_band: 5  # 每个 band 的行数
   radius: 2  # SimHash 的 Hamming 距离半径
   num_hash_tables: 10  # BitSampling 的哈希表数量
-  bits_per_table: 8  # 每个哈希表的采样位数
+  bits_per_table: 32  # 每个哈希表的采样位数
 
 # 评估配置
 evaluation:
@@ -38,5 +38,6 @@ evaluation:
 # 输出配置
 output:
   fingerpritnts_path: data/processed/fingerprints.csv  # 指纹输出路径
-  evaluation_figure_path: data/processed  # 评估结果图保存路径
-  results_path: data/results/candidate_pairs.csv  # 候选对结果保存路径
+  evaluation_output_path: data/processed  # 评估结果图保存路径
+  results_path: data/results/candidate_pairs_sampling.csv  # 候选对结果保存路径
+  pipeline_output_path: data/processed/pipeline_output.csv  # 流水线输出路径

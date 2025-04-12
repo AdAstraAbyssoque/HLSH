@@ -25,6 +25,7 @@ from typing import List, Tuple, Set
 from collections import defaultdict
 import random
 import itertools
+from tqdm import tqdm
 
 
 class MinHashLSHIndex:
@@ -126,11 +127,12 @@ class SimHashLSHIndex:
             List[int]: 近邻签名列表。
         """
         # 如果缓存存在则直接返回缓存结果
+        
         if signature in self.neighbor_cache:
             return self.neighbor_cache[signature]
 
         neighbors = {signature}
-        bits = 64  # 假设签名为 64 位
+        bits = 32  # 假设签名为 64 位
         # 对于距离 d = 1, 2, ..., self.radius 生成邻居
         for d in range(1, self.radius + 1):
             for bits_to_flip in itertools.combinations(range(bits), d):
@@ -148,8 +150,11 @@ class SimHashLSHIndex:
         参数:
             signatures (List[int]): SimHash 签名列表。
         """
-        for doc_id, signature in enumerate(signatures):
-            self.buckets[signature].append(doc_id)
+        # 修改部分：为每个签名，不仅存储其自身键，还存储所有在允许半径内的邻居签名
+        for doc_id, signature in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
+            neighbor_signatures = self._generate_neighbors(signature)
+            for neighbor in neighbor_signatures:
+                self.buckets[neighbor].append(doc_id)
 
     def query(self, signature: int) -> Set[int]:
         """
@@ -159,11 +164,9 @@ class SimHashLSHIndex:
         返回:
             Set[int]: 可能相似的文档 ID 集合。
         """
-        candidates = set()
-        neighbors = self._generate_neighbors(signature)
-        for neighbor in neighbors:
-            candidates.update(self.buckets.get(neighbor, []))
-        return candidates
+        # 如果需要查找与某个签名近似的文档，也可以直接生成邻居再查询，
+        # 但此处由于 index 时已经将所有邻居都存入桶中，可以直接使用查询键
+        return set(self.buckets.get(signature, []))
 
     def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
         """
@@ -172,12 +175,12 @@ class SimHashLSHIndex:
             Set[Tuple[int, int]]: 候选文档对集合。
         """
         candidate_pairs = set()
-        for bucket in self.buckets.values():
+        for bucket in tqdm(self.buckets.values(), desc="Processing buckets", total=len(self.buckets)):
             if len(bucket) > 1:
-                for pair in itertools.combinations(bucket, 2):
+            # 桶中可能包含重复加入的同一个文档，这里可以利用 set 去重
+                for pair in itertools.combinations(set(bucket), 2):
                     candidate_pairs.add(tuple(sorted(pair)))
         return candidate_pairs
-
 
 class BitSamplingLSHIndex:
     """
@@ -225,7 +228,7 @@ class BitSamplingLSHIndex:
         参数:
             signatures (List[int]): BitSampling 签名列表。
         """
-        for doc_id, signature in enumerate(signatures):
+        for doc_id, signature in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
             for table_idx in range(self.num_hash_tables):
                 bucket_key = self._hash_signature(signature, table_idx)
                 self.tables[table_idx][bucket_key].append(doc_id)
@@ -239,10 +242,12 @@ class BitSamplingLSHIndex:
             Set[int]: 可能相似的文档 ID 集合。
         """
         candidates = set()
-        for table_idx in range(self.num_hash_tables):
+        for table_idx in tqdm(range(self.num_hash_tables), desc="Querying tables", total=self.num_hash_tables):
             bucket_key = self._hash_signature(signature, table_idx)
             candidates.update(self.tables[table_idx].get(bucket_key, []))
         return candidates
+
+
 
     def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
         """
@@ -251,7 +256,8 @@ class BitSamplingLSHIndex:
             Set[Tuple[int, int]]: 候选文档对集合。
         """
         candidate_pairs = set()
-        for table in self.tables:
+
+        for table in tqdm(self.tables, desc="Processing tables", total=len(self.tables)):
             for bucket in table.values():
                 if len(bucket) > 1:
                     for pair in itertools.combinations(bucket, 2):

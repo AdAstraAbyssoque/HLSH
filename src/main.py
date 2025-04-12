@@ -49,21 +49,7 @@ def main():
 
     # pipeline_log 初始化参数
     pipeline_log = Log_pipeline_info(config)
-    # pipeline_log.add_param("config_path", config_path)
-    # pipeline_log.add_param("log_file", log_file)
-    # pipeline_log.add_param("log_level", log_level)
-    # pipeline_log.add_param("raw_data_path", config["data"]["raw_data_path"])
-    # pipeline_log.add_param("feature_extraction_method",
-    #                        config["feature_extraction"]["method"])
-    # pipeline_log.add_param("fingerprint_method",
-    #                        config["fingerprint"]["method"])
-    # pipeline_log.add_param("lsh_method", config["lsh"]["method"])
-    # pipeline_log.add_param("evaluation_output_path",
-    #                        config["output"]["evaluation_output_path"])
-    # pipeline_log.add_param("results_path", config["output"]["results_path"])
-    # pipeline_log.add_param("fingerprint_output_path",
-    #                        config["output"]["fingerpritnts_path"])
-    # pipeline_log.add_param("runtime_log", {})
+
 
     # 3. 数据加载
     data_loader_time = time.time()
@@ -112,6 +98,8 @@ def main():
 
     # 4. 数据预处理
 
+    raw_data=raw_data[:1000]
+
     preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
     preprocessed_data = [preprocess_text(text) for text in raw_data]
@@ -143,7 +131,7 @@ def main():
         minhash = MinHash(num_hashes=num_hashes, seed=seed)
         signatures = [minhash.compute_signature(
             feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
-        
+
     elif fingerprint_method == "simhash":
         hash_bits = config["fingerprint"]["hash_bits"]
         simhash = SimHash(hash_bits=hash_bits)
@@ -176,6 +164,7 @@ def main():
     except Exception as e:
         logger.error(f"保存签名指纹失败，错误信息：{e}")
         return
+    
 
     # 7. LSH 索引构建
     lsh_index_time = time.time()
@@ -186,9 +175,11 @@ def main():
         rows_per_band = config["lsh"]["rows_per_band"]
         lsh_index = MinHashLSHIndex(
             num_bands=num_bands, rows_per_band=rows_per_band)
+
     elif lsh_method == "simhash":
         radius = config["lsh"]["radius"]
         lsh_index = SimHashLSHIndex(radius=radius)
+
     elif lsh_method == "bitsampling":
         num_hash_tables = config["lsh"]["num_hash_tables"]
         bits_per_table = config["lsh"]["bits_per_table"]
@@ -208,7 +199,7 @@ def main():
 
     # 8. 评估
     evaluation_output_path = config["output"]["evaluation_output_path"]
-    runtime_log=pipeline_log.runtime_log
+    runtime_log = pipeline_log.runtime_log
     evaluator = Evaluator(candidate_pairs, runtime_log, preprocessed_data)
     duplicate_rate = evaluator.compute_near_duplicate_rate(
         similarity_func=cosine_similarity)

@@ -3,17 +3,17 @@
         •	主要类与函数：
         •	Class BitSampling
         •	__init__(self, sample_size): 指定采样的位数或比例。
+        •   vectorize(self, feature_set): 将特征集转换为二进制向量。
         •	compute_signature(self, feature_set): 根据输入特征采样生成二进制签名。
         •	调用：同样在main.py中，根据需要调用BitSampling进行实验与结果对比。
 '''
-
-from typing import List, Set
+from typing import Set, List
 import random
 
 
 class BitSampling:
     """
-    BitSampling 类，用于实现 Bit Sampling 技术。
+    实现 Bit Sampling 技术，用于生成二进制签名。
     """
 
     def __init__(self, sample_size: int, hash_bits: int = 64, seed: int = None):
@@ -43,6 +43,22 @@ class BitSampling:
             random.seed(self.seed)
         return random.sample(range(self.hash_bits), self.sample_size)
 
+    def vectorize(self, feature_set: Set[str]) -> int:
+        """
+        将特征集转换为二进制向量。
+
+        参数:
+            feature_set (Set[str]): 输入特征集合。
+
+        返回:
+            int: 二进制向量表示。
+        """
+        vector = 0
+        for feature in feature_set:
+            hashed = hash(feature) & ((1 << self.hash_bits) - 1)  # 截断为指定位数
+            vector ^= hashed  # 使用 XOR 聚合特征
+        return vector
+
     def compute_signature(self, feature_set: Set[str]) -> int:
         """
         根据输入特征集合生成二进制签名。
@@ -53,42 +69,11 @@ class BitSampling:
         返回:
             int: 采样后的二进制签名。
         """
-        # 计算完整的 SimHash 签名
-        full_signature = self._compute_full_signature(feature_set)
-
-        # 根据采样位生成采样签名
-        sampled_signature = 0
-        for i, bit_index in enumerate(self.sample_indices):
-            if full_signature & (1 << bit_index):
-                sampled_signature |= (1 << i)
-
-        return sampled_signature
-
-    def _compute_full_signature(self, feature_set: Set[str]) -> int:
-        """
-        计算完整的 SimHash 签名（辅助方法）。
-
-        参数:
-            feature_set (Set[str]): 输入特征集合。
-
-        返回:
-            int: 完整的 SimHash 签名。
-        """
-        vector = [0] * self.hash_bits
-
-        for feature in feature_set:
-            hashed = hash(feature) & ((1 << self.hash_bits) - 1)  # 截断为指定位数
-            for i in range(self.hash_bits):
-                if hashed & (1 << i):
-                    vector[i] += 1
-                else:
-                    vector[i] -= 1
-
+        full_vector = self.vectorize(feature_set)
         signature = 0
-        for i in range(self.hash_bits):
-            if vector[i] > 0:
+        for i, bit_index in enumerate(self.sample_indices):
+            if full_vector & (1 << bit_index):
                 signature |= (1 << i)
-
         return signature
 
     def compare_signatures(self, sig1: int, sig2: int) -> float:
@@ -102,7 +87,6 @@ class BitSampling:
         返回:
             float: 相似性度量（0 到 1 之间）。
         """
-        # 计算汉明距离
         hamming_distance = bin(sig1 ^ sig2).count("1")
         return 1 - (hamming_distance / self.sample_size)
 
