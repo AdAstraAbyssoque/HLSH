@@ -5,4 +5,5 @@ src/lsh/__pycache__
 src/utils/__pycache__
 *.csv
 .*
-*.log
+*.ipynb
+*.png
