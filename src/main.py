@@ -24,6 +24,9 @@ from fingerprint.bitsampling import BitSampling
 from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex
 from lsh.evaluation import Evaluator
 from tqdm import tqdm
+from preprocessing import preprocess_text
+from lsh.helper import cosine_similarity, jaccard_similarity, euclidean_distance
+
 
 # 加载配置文件
 
@@ -38,13 +41,15 @@ def main():
     config_path = "config/config.yaml"
     config = load_config(config_path)
 
-    # 2. 初始化日志
+    # 2. 初始化日志和时间记录
     log_file = config["logging"]["log_file"]
     log_level = config["logging"]["log_level"]
     logger = setup_logger(log_file, log_level)
     logger.info("系统启动，加载配置完成。")
+    runtime_log = dict()
 
     # 3. 数据加载
+    data_loader_time = time.time()
     data_loader = DataLoader()
     raw_data_path = config["data"]["raw_data_path"]  # 可以是文件路径或目录路径
     logger.info(f"加载数据路径：{raw_data_path}")
@@ -83,22 +88,34 @@ def main():
         return
 
     logger.info(f"数据加载完成，共加载 {len(raw_data)} 条记录。")
+    data_loader_time = time.time() - data_loader_time
+    runtime_log["data_loading_time"] = data_loader_time
+    logger.info(f"数据加载时间：{data_loader_time:.2f} 秒")
 
     # 4. 数据预处理
-    from preprocessing import preprocess_text  # 假设预处理函数已实现
+
+    preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
     preprocessed_data = [preprocess_text(text) for text in raw_data]
     logger.info("数据预处理完成。")
+    preprocess_data_time = time.time() - preprocess_data_time
+    runtime_log["data_preprocessing_time"] = preprocess_data_time
+    logger.info(f"数据预处理时间：{preprocess_data_time:.2f} 秒")
 
     # 5. 特征提取
+    feature_extraction_time = time.time()
     feature_method = config["feature_extraction"]["method"]
     ngram_size = config["feature_extraction"].get("ngram_size", 3)
     logger.info(f"开始特征提取，方法：{feature_method}")
     extractor = FeatureExtractor(method=feature_method, n=ngram_size)
     features = [extractor.extract_features(text) for text in preprocessed_data]
     logger.info("特征提取完成。")
+    runtime_log["feature_extraction_time"] = time.time() - \
+        feature_extraction_time
+    logger.info(f"特征提取时间：{runtime_log['feature_extraction_time']:.2f} 秒")
 
     # 6. 指纹生成
+    fingerprint_time = time.time()
     fingerprint_method = config["fingerprint"]["method"]
     logger.info(f"开始指纹生成，方法：{fingerprint_method}")
     if fingerprint_method == "minhash":
@@ -125,6 +142,9 @@ def main():
         return
 
     logger.info("指纹生成完成，共生成签名数量：{}".format(len(signatures)))
+    fingerprint_time = time.time() - fingerprint_time
+    runtime_log["fingerprint_generation_time"] = fingerprint_time
+    logger.info(f"指纹生成时间：{fingerprint_time:.2f} 秒")
 
     # 使用 DataLoader 保存签名指纹
     fingerprint_output_path = config["output"]["fingerpritnts_path"]
@@ -137,6 +157,7 @@ def main():
         return
 
     # 7. LSH 索引构建
+    lsh_index_time = time.time()
     lsh_method = config["lsh"]["method"]
     logger.info(f"开始 LSH 索引构建，方法：{lsh_method}")
     if lsh_method == "minhash":
@@ -159,10 +180,16 @@ def main():
     lsh_index.index(signatures)
     candidate_pairs = lsh_index.get_candidate_pairs()
     logger.info(f"LSH 索引构建完成，共生成 {len(candidate_pairs)} 个候选对。")
+    lsh_index_time = time.time() - lsh_index_time
+    runtime_log["lsh_indexing_time"] = lsh_index_time
+    logger.info(f"LSH 索引构建时间：{lsh_index_time:.2f} 秒")
 
     # 8. 评估
-    evaluator = Evaluator(candidate_pairs)
-    duplicate_rate = evaluator.compute_duplicate_rate()
+    evaluation_output_path = config["output"]["evaluation_output_path"]
+    evaluator = Evaluator(candidate_pairs, runtime_log, preprocessed_data)
+    duplicate_rate = evaluator.compute_near_duplicate_rate(
+        similarity_func=cosine_similarity)
+    evaluator.generate_visualizations(output_dir=evaluation_output_path)
     logger.info(f"候选对中的近重复文档比率：{duplicate_rate:.2f}")
 
     # 9. 输出结果
