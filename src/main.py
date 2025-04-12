@@ -15,8 +15,12 @@
 import os
 import yaml
 import time
+<<<<<<< HEAD
 import gc
 from utils.logger import setup_logger
+=======
+from utils.logger import setup_logger, Log_pipeline_info
+>>>>>>> 1374fcf79c3ac579c96a0751b348e98f9e752159
 from utils.data_loader import DataLoader
 from feature_extraction import FeatureExtractor
 from fingerprint.minhash import MinHash
@@ -25,7 +29,13 @@ from fingerprint.bitsampling import BitSampling
 from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex
 from lsh.evaluation import Evaluator
 from tqdm import tqdm
+<<<<<<< HEAD
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+=======
+from preprocessing import preprocess_text
+from lsh.helper import cosine_similarity, jaccard_similarity, euclidean_distance
+
+>>>>>>> 1374fcf79c3ac579c96a0751b348e98f9e752159
 
 # 加载配置文件
 
@@ -40,6 +50,7 @@ def main():
     config_path = "config/config.yaml"
     config = load_config(config_path)
 
+<<<<<<< HEAD
     # 1.1 获取并行配置
     parallel_config = config.get("parallel", {})
     parallel_enabled = parallel_config.get("enabled", False)
@@ -47,12 +58,34 @@ def main():
     process_pool_size = parallel_config.get("process_pool_size", 8)
 
     # 2. 初始化日志
+=======
+    # 2. 初始化日志和时间记录
+>>>>>>> 1374fcf79c3ac579c96a0751b348e98f9e752159
     log_file = config["logging"]["log_file"]
     log_level = config["logging"]["log_level"]
     logger = setup_logger(log_file, log_level)
     logger.info("系统启动，加载配置完成。")
 
+    # pipeline_log 初始化参数
+    pipeline_log = Log_pipeline_info(config)
+    # pipeline_log.add_param("config_path", config_path)
+    # pipeline_log.add_param("log_file", log_file)
+    # pipeline_log.add_param("log_level", log_level)
+    # pipeline_log.add_param("raw_data_path", config["data"]["raw_data_path"])
+    # pipeline_log.add_param("feature_extraction_method",
+    #                        config["feature_extraction"]["method"])
+    # pipeline_log.add_param("fingerprint_method",
+    #                        config["fingerprint"]["method"])
+    # pipeline_log.add_param("lsh_method", config["lsh"]["method"])
+    # pipeline_log.add_param("evaluation_output_path",
+    #                        config["output"]["evaluation_output_path"])
+    # pipeline_log.add_param("results_path", config["output"]["results_path"])
+    # pipeline_log.add_param("fingerprint_output_path",
+    #                        config["output"]["fingerpritnts_path"])
+    # pipeline_log.add_param("runtime_log", {})
+
     # 3. 数据加载
+    data_loader_time = time.time()
     data_loader = DataLoader()
     raw_data_path = config["data"]["raw_data_path"]  # 可以是文件路径或目录路径
     logger.info(f"加载数据路径：{raw_data_path}")
@@ -98,9 +131,14 @@ def main():
         return
 
     logger.info(f"数据加载完成，共加载 {len(raw_data)} 条记录。")
+    pipeline_log.add_result("raw_data_count", len(raw_data))
+    data_loader_time = time.time() - data_loader_time
+    pipeline_log.add_runtime("data_loader_time", data_loader_time)
+    logger.info(f"数据加载时间：{data_loader_time:.2f} 秒")
 
     # 4. 数据预处理
-    from preprocessing import preprocess_text  # 假设预处理函数已实现
+
+    preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
     if parallel_enabled:
         from concurrent.futures import ProcessPoolExecutor
@@ -110,8 +148,12 @@ def main():
     else:
         preprocessed_data = [preprocess_text(text) for text in raw_data]
     logger.info("数据预处理完成。")
+    preprocess_data_time = time.time() - preprocess_data_time
+    pipeline_log.add_runtime("preprocess_data_time", preprocess_data_time)
+    logger.info(f"数据预处理时间：{preprocess_data_time:.2f} 秒")
 
     # 5. 特征提取
+    feature_extraction_time = time.time()
     feature_method = config["feature_extraction"]["method"]
     ngram_size = config["feature_extraction"].get("ngram_size", 3)
     logger.info(f"开始特征提取，方法：{feature_method}")
@@ -125,9 +167,15 @@ def main():
     else:
         features = [extractor.extract_features(text) for text in tqdm(preprocessed_data, desc="特征提取")]
     logger.info("特征提取完成。")
+    feature_extraction_time = time.time() - feature_extraction_time
+    pipeline_log.add_runtime("feature_extraction_time",
+                             feature_extraction_time)
+    logger.info(f"特征提取时间：{feature_extraction_time:.2f} 秒")
 
     # 6. 指纹生成
+    fingerprint_time = time.time()
     fingerprint_method = config["fingerprint"]["method"]
+<<<<<<< HEAD
     batch_size = parallel_config.get("batch_size", 1000)
     use_cache = parallel_config.get("use_memory_cache", True)
     logger.info(f"开始指纹生成，方法：{fingerprint_method}，批处理大小：{batch_size}")
@@ -192,8 +240,38 @@ def main():
             # 如果启用内存缓存，定期清理进程池
             if use_cache and i % (batch_size * 10) == 0:
                 gc.collect()
+=======
+    logger.info(f"开始指纹生成，方法：{fingerprint_method}")
+    if fingerprint_method == "minhash":
+        num_hashes = config["fingerprint"]["num_hashes"]
+        seed = config["fingerprint"].get("seed", None)
+        minhash = MinHash(num_hashes=num_hashes, seed=seed)
+        signatures = [minhash.compute_signature(
+            feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
+        
+    elif fingerprint_method == "simhash":
+        hash_bits = config["fingerprint"]["hash_bits"]
+        simhash = SimHash(hash_bits=hash_bits)
+        signatures = [simhash.compute_signature(
+            feature) for feature in tqdm(features, desc="生成 SimHash 签名")]
+    elif fingerprint_method == "bitsampling":
+        sample_size = config["fingerprint"]["sample_size"]
+        hash_bits = config["fingerprint"]["hash_bits"]
+        seed = config["fingerprint"].get("seed", None)
+        bitsampling = BitSampling(
+            sample_size=sample_size, hash_bits=hash_bits, seed=seed)
+        signatures = [bitsampling.compute_signature(
+            feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
+    else:
+        logger.error(f"未知的指纹生成方法：{fingerprint_method}")
+        return
+>>>>>>> 1374fcf79c3ac579c96a0751b348e98f9e752159
 
     logger.info("指纹生成完成，共生成签名数量：{}".format(len(signatures)))
+    pipeline_log.add_result("signature_count", len(signatures))
+    fingerprint_time = time.time() - fingerprint_time
+    pipeline_log.add_runtime("fingerprint_time", fingerprint_time)
+    logger.info(f"指纹生成时间：{fingerprint_time:.2f} 秒")
 
     # 使用 DataLoader 保存签名指纹
     fingerprint_output_path = config["output"]["fingerpritnts_path"]
@@ -206,6 +284,7 @@ def main():
         return
 
     # 7. LSH 索引构建
+    lsh_index_time = time.time()
     lsh_method = config["lsh"]["method"]
     logger.info(f"开始 LSH 索引构建，方法：{lsh_method}")
     if lsh_method == "minhash":
@@ -228,10 +307,19 @@ def main():
     lsh_index.index(signatures)
     candidate_pairs = lsh_index.get_candidate_pairs()
     logger.info(f"LSH 索引构建完成，共生成 {len(candidate_pairs)} 个候选对。")
+    pipeline_log.add_result("candidate_pairs_count", len(candidate_pairs))
+    lsh_index_time = time.time() - lsh_index_time
+    pipeline_log.add_runtime("lsh_index_time", lsh_index_time)
+    logger.info(f"LSH 索引构建时间：{lsh_index_time:.2f} 秒")
 
     # 8. 评估
-    evaluator = Evaluator(candidate_pairs)
-    duplicate_rate = evaluator.compute_duplicate_rate()
+    evaluation_output_path = config["output"]["evaluation_output_path"]
+    runtime_log=pipeline_log.runtime_log
+    evaluator = Evaluator(candidate_pairs, runtime_log, preprocessed_data)
+    duplicate_rate = evaluator.compute_near_duplicate_rate(
+        similarity_func=cosine_similarity)
+    evaluator.generate_visualizations(output_dir=evaluation_output_path)
+    pipeline_log.add_result("duplicate_rate", duplicate_rate)
     logger.info(f"候选对中的近重复文档比率：{duplicate_rate:.2f}")
 
     # 9. 输出结果
@@ -241,7 +329,8 @@ def main():
         for pair in candidate_pairs:
             file.write(f"{pair[0]},{pair[1]}\n")
     logger.info(f"候选对结果已保存至：{results_path}")
-
+    pipeline_log_output_path = config["output"]["pipeline_output_path"]
+    pipeline_log.save_log(pipeline_log_output_path)
     logger.info("系统运行完成。")
 
 
