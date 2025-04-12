@@ -15,7 +15,7 @@
 import os
 import yaml
 import time
-from utils.logger import setup_logger
+from utils.logger import setup_logger, Log_pipeline_info
 from utils.data_loader import DataLoader
 from feature_extraction import FeatureExtractor
 from fingerprint.minhash import MinHash
@@ -46,7 +46,24 @@ def main():
     log_level = config["logging"]["log_level"]
     logger = setup_logger(log_file, log_level)
     logger.info("系统启动，加载配置完成。")
-    runtime_log = dict()
+
+    # pipeline_log 初始化参数
+    pipeline_log = Log_pipeline_info(config)
+    # pipeline_log.add_param("config_path", config_path)
+    # pipeline_log.add_param("log_file", log_file)
+    # pipeline_log.add_param("log_level", log_level)
+    # pipeline_log.add_param("raw_data_path", config["data"]["raw_data_path"])
+    # pipeline_log.add_param("feature_extraction_method",
+    #                        config["feature_extraction"]["method"])
+    # pipeline_log.add_param("fingerprint_method",
+    #                        config["fingerprint"]["method"])
+    # pipeline_log.add_param("lsh_method", config["lsh"]["method"])
+    # pipeline_log.add_param("evaluation_output_path",
+    #                        config["output"]["evaluation_output_path"])
+    # pipeline_log.add_param("results_path", config["output"]["results_path"])
+    # pipeline_log.add_param("fingerprint_output_path",
+    #                        config["output"]["fingerpritnts_path"])
+    # pipeline_log.add_param("runtime_log", {})
 
     # 3. 数据加载
     data_loader_time = time.time()
@@ -88,8 +105,9 @@ def main():
         return
 
     logger.info(f"数据加载完成，共加载 {len(raw_data)} 条记录。")
+    pipeline_log.add_result("raw_data_count", len(raw_data))
     data_loader_time = time.time() - data_loader_time
-    runtime_log["data_loading_time"] = data_loader_time
+    pipeline_log.add_runtime("data_loader_time", data_loader_time)
     logger.info(f"数据加载时间：{data_loader_time:.2f} 秒")
 
     # 4. 数据预处理
@@ -99,7 +117,7 @@ def main():
     preprocessed_data = [preprocess_text(text) for text in raw_data]
     logger.info("数据预处理完成。")
     preprocess_data_time = time.time() - preprocess_data_time
-    runtime_log["data_preprocessing_time"] = preprocess_data_time
+    pipeline_log.add_runtime("preprocess_data_time", preprocess_data_time)
     logger.info(f"数据预处理时间：{preprocess_data_time:.2f} 秒")
 
     # 5. 特征提取
@@ -110,9 +128,10 @@ def main():
     extractor = FeatureExtractor(method=feature_method, n=ngram_size)
     features = [extractor.extract_features(text) for text in preprocessed_data]
     logger.info("特征提取完成。")
-    runtime_log["feature_extraction_time"] = time.time() - \
-        feature_extraction_time
-    logger.info(f"特征提取时间：{runtime_log['feature_extraction_time']:.2f} 秒")
+    feature_extraction_time = time.time() - feature_extraction_time
+    pipeline_log.add_runtime("feature_extraction_time",
+                             feature_extraction_time)
+    logger.info(f"特征提取时间：{feature_extraction_time:.2f} 秒")
 
     # 6. 指纹生成
     fingerprint_time = time.time()
@@ -124,6 +143,7 @@ def main():
         minhash = MinHash(num_hashes=num_hashes, seed=seed)
         signatures = [minhash.compute_signature(
             feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
+        
     elif fingerprint_method == "simhash":
         hash_bits = config["fingerprint"]["hash_bits"]
         simhash = SimHash(hash_bits=hash_bits)
@@ -142,8 +162,9 @@ def main():
         return
 
     logger.info("指纹生成完成，共生成签名数量：{}".format(len(signatures)))
+    pipeline_log.add_result("signature_count", len(signatures))
     fingerprint_time = time.time() - fingerprint_time
-    runtime_log["fingerprint_generation_time"] = fingerprint_time
+    pipeline_log.add_runtime("fingerprint_time", fingerprint_time)
     logger.info(f"指纹生成时间：{fingerprint_time:.2f} 秒")
 
     # 使用 DataLoader 保存签名指纹
@@ -180,16 +201,19 @@ def main():
     lsh_index.index(signatures)
     candidate_pairs = lsh_index.get_candidate_pairs()
     logger.info(f"LSH 索引构建完成，共生成 {len(candidate_pairs)} 个候选对。")
+    pipeline_log.add_result("candidate_pairs_count", len(candidate_pairs))
     lsh_index_time = time.time() - lsh_index_time
-    runtime_log["lsh_indexing_time"] = lsh_index_time
+    pipeline_log.add_runtime("lsh_index_time", lsh_index_time)
     logger.info(f"LSH 索引构建时间：{lsh_index_time:.2f} 秒")
 
     # 8. 评估
     evaluation_output_path = config["output"]["evaluation_output_path"]
+    runtime_log=pipeline_log.runtime_log
     evaluator = Evaluator(candidate_pairs, runtime_log, preprocessed_data)
     duplicate_rate = evaluator.compute_near_duplicate_rate(
         similarity_func=cosine_similarity)
     evaluator.generate_visualizations(output_dir=evaluation_output_path)
+    pipeline_log.add_result("duplicate_rate", duplicate_rate)
     logger.info(f"候选对中的近重复文档比率：{duplicate_rate:.2f}")
 
     # 9. 输出结果
@@ -199,7 +223,8 @@ def main():
         for pair in candidate_pairs:
             file.write(f"{pair[0]},{pair[1]}\n")
     logger.info(f"候选对结果已保存至：{results_path}")
-
+    pipeline_log_output_path = config["output"]["pipeline_output_path"]
+    pipeline_log.save_log(pipeline_log_output_path)
     logger.info("系统运行完成。")
 
 

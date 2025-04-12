@@ -8,6 +8,8 @@
 import logging
 from logging import Logger
 from logging.handlers import RotatingFileHandler
+import csv
+
 
 def setup_logger(log_file: str, level=logging.INFO) -> Logger:
     """
@@ -43,6 +45,76 @@ def setup_logger(log_file: str, level=logging.INFO) -> Logger:
         logger.addHandler(console_handler)
     
     return logger
+
+class Log_pipeline_info:
+    """
+    记录整个pipeling中的参数和结果
+    参数：
+        runtime_log(dict[str,float])：运行时间
+        params(dict)：参数
+        results(dict)：结果
+    """
+    def __init__(self,params=None):
+        self.runtime_log = {}
+        self.params = params if params else {}
+        self.results = {}
+    
+    def add_runtime(self, stage: str, time: float):
+        """
+        添加运行时间信息。
+        
+        参数:
+            stage (str): 阶段名称。
+            time (float): 运行时间（秒）。
+        """
+        self.runtime_log[stage] = time
+    def add_param(self, param_name: str, param_value):
+        """
+        添加参数信息。
+        """
+        self.params[param_name] = param_value
+        
+    def add_result(self, result_name: str, result_value):
+        """
+        添加结果信息。
+        
+        参数:
+            result_name (str): 结果名称。
+            result_value: 结果值。
+        """
+        self.results[result_name] = result_value
+
+
+    def save_log(self, log_file: str):
+        """
+        保存日志信息到 CSV 文件。
+
+        参数:
+            log_file (str): 日志文件路径。
+        """
+        with open(log_file, mode="w", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+
+            # 写入运行时间
+            writer.writerow(["运行时间"])
+            writer.writerow(["阶段", "时间 (秒)"])
+            for stage, time in self.runtime_log.items():
+                writer.writerow([stage, time])
+
+            # 写入参数
+            writer.writerow([])  # 空行分隔
+            writer.writerow(["参数"])
+            writer.writerow(["参数名称", "参数值"])
+            for param_name, param_value in self.params.items():
+                writer.writerow([param_name, param_value])
+
+            # 写入结果
+            writer.writerow([])  # 空行分隔
+            writer.writerow(["结果"])
+            writer.writerow(["结果名称", "结果值"])
+            for result_name, result_value in self.results.items():
+                writer.writerow([result_name, result_value])
+
 
 # 示例用法
 if __name__ == "__main__":
