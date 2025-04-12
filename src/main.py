@@ -15,12 +15,8 @@
 import os
 import yaml
 import time
-<<<<<<< HEAD
 import gc
-from utils.logger import setup_logger
-=======
 from utils.logger import setup_logger, Log_pipeline_info
->>>>>>> 1374fcf79c3ac579c96a0751b348e98f9e752159
 from utils.data_loader import DataLoader
 from feature_extraction import FeatureExtractor
 from fingerprint.minhash import MinHash
@@ -29,13 +25,10 @@ from fingerprint.bitsampling import BitSampling
 from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex
 from lsh.evaluation import Evaluator
 from tqdm import tqdm
-<<<<<<< HEAD
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
-=======
 from preprocessing import preprocess_text
 from lsh.helper import cosine_similarity, jaccard_similarity, euclidean_distance
 
->>>>>>> 1374fcf79c3ac579c96a0751b348e98f9e752159
 
 # 加载配置文件
 
@@ -50,17 +43,13 @@ def main():
     config_path = "config/config.yaml"
     config = load_config(config_path)
 
-<<<<<<< HEAD
     # 1.1 获取并行配置
     parallel_config = config.get("parallel", {})
     parallel_enabled = parallel_config.get("enabled", False)
     thread_pool_size = parallel_config.get("thread_pool_size", 4)
     process_pool_size = parallel_config.get("process_pool_size", 8)
 
-    # 2. 初始化日志
-=======
     # 2. 初始化日志和时间记录
->>>>>>> 1374fcf79c3ac579c96a0751b348e98f9e752159
     log_file = config["logging"]["log_file"]
     log_level = config["logging"]["log_level"]
     logger = setup_logger(log_file, log_level)
@@ -175,7 +164,6 @@ def main():
     # 6. 指纹生成
     fingerprint_time = time.time()
     fingerprint_method = config["fingerprint"]["method"]
-<<<<<<< HEAD
     batch_size = parallel_config.get("batch_size", 1000)
     use_cache = parallel_config.get("use_memory_cache", True)
     logger.info(f"开始指纹生成，方法：{fingerprint_method}，批处理大小：{batch_size}")
@@ -240,32 +228,6 @@ def main():
             # 如果启用内存缓存，定期清理进程池
             if use_cache and i % (batch_size * 10) == 0:
                 gc.collect()
-=======
-    logger.info(f"开始指纹生成，方法：{fingerprint_method}")
-    if fingerprint_method == "minhash":
-        num_hashes = config["fingerprint"]["num_hashes"]
-        seed = config["fingerprint"].get("seed", None)
-        minhash = MinHash(num_hashes=num_hashes, seed=seed)
-        signatures = [minhash.compute_signature(
-            feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
-        
-    elif fingerprint_method == "simhash":
-        hash_bits = config["fingerprint"]["hash_bits"]
-        simhash = SimHash(hash_bits=hash_bits)
-        signatures = [simhash.compute_signature(
-            feature) for feature in tqdm(features, desc="生成 SimHash 签名")]
-    elif fingerprint_method == "bitsampling":
-        sample_size = config["fingerprint"]["sample_size"]
-        hash_bits = config["fingerprint"]["hash_bits"]
-        seed = config["fingerprint"].get("seed", None)
-        bitsampling = BitSampling(
-            sample_size=sample_size, hash_bits=hash_bits, seed=seed)
-        signatures = [bitsampling.compute_signature(
-            feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
-    else:
-        logger.error(f"未知的指纹生成方法：{fingerprint_method}")
-        return
->>>>>>> 1374fcf79c3ac579c96a0751b348e98f9e752159
 
     logger.info("指纹生成完成，共生成签名数量：{}".format(len(signatures)))
     pipeline_log.add_result("signature_count", len(signatures))
