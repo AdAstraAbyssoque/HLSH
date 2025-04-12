@@ -6,6 +6,7 @@ logging:
 
 # 数据配置
 data:
+  # raw_data_path: data/raw/test/0000.parquet  # 原始数据文件路径
   raw_data_path: data/raw/sample_test.parquet  # 原始数据文件路径
 
 # 特征提取配置
@@ -32,9 +33,10 @@ lsh:
 
 # 评估配置
 evaluation:
-  ground_truth_path: data/ground_truth/ground_truth.csv  # 真实标签文件路径
+  # ground_truth_path: data/ground_truth/ground_truth.csv  # 真实标签文件路径
 
 # 输出配置
 output:
   fingerpritnts_path: data/processed/fingerprints.csv  # 指纹输出路径
+  evaluation_figure_path: data/processed  # 评估结果图保存路径
   results_path: data/results/candidate_pairs.csv  # 候选对结果保存路径

@@ -161,25 +161,9 @@ def main():
     logger.info(f"LSH 索引构建完成，共生成 {len(candidate_pairs)} 个候选对。")
 
     # 8. 评估
-    ground_truth_path = config["evaluation"]["ground_truth_path"]
-    if os.path.exists(ground_truth_path):
-        logger.info(f"加载真实标签数据：{ground_truth_path}")
-        with open(ground_truth_path, "r") as file:
-            ground_truth = set(tuple(map(int, line.strip().split(",")))
-                               for line in file)
-    else:
-        logger.warning("未提供真实标签数据，跳过性能评估。")
-        ground_truth = None
-
-    evaluator = Evaluator(candidate_pairs, ground_truth)
-    if ground_truth:
-        start_time = time.time()
-        metrics = evaluator.compute_performance_metrics()
-        runtime = time.time() - start_time
-        evaluator.generate_report(metrics, runtime)
-    else:
-        duplicate_rate = evaluator.compute_duplicate_rate()
-        logger.info(f"候选对中的近重复文档比率：{duplicate_rate:.2f}")
+    evaluator = Evaluator(candidate_pairs)
+    duplicate_rate = evaluator.compute_duplicate_rate()
+    logger.info(f"候选对中的近重复文档比率：{duplicate_rate:.2f}")
 
     # 9. 输出结果
     results_path = config["output"]["results_path"]
