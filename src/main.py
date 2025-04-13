@@ -23,7 +23,7 @@ from feature_extraction import FeatureExtractor
 from fingerprint.minhash import MinHash
 from fingerprint.simhash import SimHash
 from fingerprint.bitsampling import BitSampling
-from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex
+from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex, HybridLSHIndex
 from lsh.evaluation import Evaluator
 from tqdm import tqdm
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
@@ -85,7 +85,7 @@ def main():
             return
 
         if parallel_enabled:
-            logger.info(f"使用线程池并行加载文件，线程数：{thread_pool_size}")
+            logger.info(f"并行已启用，线程数：{thread_pool_size}")
             with ThreadPoolExecutor(max_workers=thread_pool_size) as executor:
                 results = list(executor.map(
                     data_loader.load_data, parquet_files))
@@ -115,11 +115,10 @@ def main():
     # 4. 数据预处理
 
     # raw_data = raw_data[:1000]
-
     preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
     if parallel_enabled:
-        logger.info(f"使用joblib并行预处理，进程数：{process_pool_size}")
+        logger.info(f"并行已启用，进程数：{process_pool_size}")
         from joblib import Parallel, delayed
         preprocessed_data = Parallel(n_jobs=process_pool_size, prefer="processes")(
             delayed(preprocess_text)(text)
@@ -140,7 +139,7 @@ def main():
     logger.info(f"开始特征提取，方法：{feature_method}")
     extractor = FeatureExtractor(method=feature_method, n=ngram_size)
     if parallel_enabled:
-        logger.info(f"使用joblib并行特征提取，进程数：{process_pool_size}")
+        logger.info(f"并行已启用，进程数：{process_pool_size}")
         from joblib import Parallel, delayed
         features = Parallel(n_jobs=process_pool_size, prefer="processes")(
             delayed(extractor.extract_features)(text)
@@ -158,7 +157,6 @@ def main():
     # 6. 指纹生成
     fingerprint_time = time.time()
     fingerprint_method = config["fingerprint"]["method"]
-    batch_size = parallel_config.get("batch_size", 1000)
     use_cache = parallel_config.get("use_memory_cache", True)
     logger.info(f"开始指纹生成，方法：{fingerprint_method}，批处理大小：{batch_size}")
 
@@ -186,43 +184,89 @@ def main():
         else:
             logger.error(f"未知的指纹生成方法：{fingerprint_method}")
             return
+    logger.info(f"开始指纹生成，方法：{fingerprint_method}")
 
-    if parallel_enabled == True:
-        logger.info(f"使用进程池并行生成指纹，进程数：{process_pool_size}")
-        if fingerprint_method == "minhash":
-            num_hashes = config["fingerprint"]["num_hashes"]
-            seed = config["fingerprint"].get("seed", None)
-            minhash = MinHash(num_hashes=num_hashes, seed=seed)
-        elif fingerprint_method == "simhash":
-            hash_bits = config["fingerprint"]["hash_bits"]
-            simhash = SimHash(hash_bits=hash_bits)
-        elif fingerprint_method == "bitsampling":
-            sample_size = config["fingerprint"]["sample_size"]
-            hash_bits = config["fingerprint"]["hash_bits"]
-            seed = config["fingerprint"].get("seed", None)
-            bitsampling = BitSampling(
-                sample_size=sample_size, hash_bits=hash_bits, seed=seed)
+    if fingerprint_method == "hybrid":
+        # 混合方法需要同时生成minhash和simhash签名
+        num_hashes = config["fingerprint"]["num_hashes"]
+        hash_bits = config["fingerprint"]["hash_bits"]
+        seed = config["fingerprint"].get("seed", None)
+        
+        minhash = MinHash(num_hashes=num_hashes, seed=seed)
+        simhash = SimHash(hash_bits=hash_bits)
+        
+        if parallel_enabled:
+            logger.info(f"并行已启用，进程数：{process_pool_size}")
+            with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
+                minhash_sigs = list(tqdm(executor.map(minhash.compute_signature, features),
+                                total=len(features), desc="并行生成 MinHash 签名"))
+                simhash_sigs = list(tqdm(executor.map(simhash.compute_signature, features),
+                                total=len(features), desc="并行生成 SimHash 签名"))
+                signatures = list(zip(minhash_sigs, simhash_sigs))
         else:
-            logger.error(f"未知的指纹生成方法：{fingerprint_method}")
-            return
+            minhash_sigs = [minhash.compute_signature(feature) 
+                          for feature in tqdm(features, desc="生成 MinHash 签名")]
+            simhash_sigs = [simhash.compute_signature(feature) 
+                          for feature in tqdm(features, desc="生成 SimHash 签名")]
+            signatures = list(zip(minhash_sigs, simhash_sigs))
+    else:
+        if parallel_enabled == False:
+            if fingerprint_method == "minhash":
+                num_hashes = config["fingerprint"]["num_hashes"]
+                seed = config["fingerprint"].get("seed", None)
+                minhash = MinHash(num_hashes=num_hashes, seed=seed)
+                signatures = [minhash.compute_signature(
+                    feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
+            elif fingerprint_method == "simhash":
+                hash_bits = config["fingerprint"]["hash_bits"]
+                simhash = SimHash(hash_bits=hash_bits)
+                signatures = [simhash.compute_signature(
+                    feature) for feature in tqdm(features, desc="生成 SimHash 签名")]
+            elif fingerprint_method == "bitsampling":
+                sample_size = config["fingerprint"]["sample_size"]
+                hash_bits = config["fingerprint"]["hash_bits"]
+                seed = config["fingerprint"].get("seed", None)
+                bitsampling = BitSampling(
+                    sample_size=sample_size, hash_bits=hash_bits, seed=seed)
+                signatures = [bitsampling.compute_signature(
+                    feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
+            else:
+                logger.error(f"未知的指纹生成方法：{fingerprint_method}")
+                return
 
-        # 分批处理特征数据
-        def process_batch(batch_features):
+        if parallel_enabled == True:
+            logger.info(f"并行已启用，进程数：{process_pool_size}")
+            if fingerprint_method == "minhash":
+                num_hashes = config["fingerprint"]["num_hashes"]
+                seed = config["fingerprint"].get("seed", None)
+                minhash = MinHash(num_hashes=num_hashes, seed=seed)
+            elif fingerprint_method == "simhash":
+                hash_bits = config["fingerprint"]["hash_bits"]
+                simhash = SimHash(hash_bits=hash_bits)
+            elif fingerprint_method == "bitsampling":
+                sample_size = config["fingerprint"]["sample_size"]
+                hash_bits = config["fingerprint"]["hash_bits"]
+                seed = config["fingerprint"].get("seed", None)
+                bitsampling = BitSampling(
+                    sample_size=sample_size, hash_bits=hash_bits, seed=seed)
+            else:
+                logger.error(f"未知的指纹生成方法：{fingerprint_method}")
+                return
+
+            # 并行处理所有特征
             with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
                 if fingerprint_method == "minhash":
-                    return list(executor.map(minhash.compute_signature, batch_features))
+                    signatures = list(tqdm(executor.map(minhash.compute_signature, features),
+                                    total=len(features), desc="并行生成 MinHash 签名"))
                 elif fingerprint_method == "simhash":
-                    return list(executor.map(simhash.compute_signature, batch_features))
+                    signatures = list(tqdm(executor.map(simhash.compute_signature, features),
+                                    total=len(features), desc="并行生成 SimHash 签名"))
                 elif fingerprint_method == "bitsampling":
-                    return list(executor.map(bitsampling.compute_signature, batch_features))
+                    signatures = list(tqdm(executor.map(bitsampling.compute_signature, features),
+                                    total=len(features), desc="并行生成 BitSampling 签名"))
 
-        signatures = []
-        for i in tqdm(range(0, len(features), batch_size), desc="批处理指纹生成"):
-            batch = features[i:i + batch_size]
-            signatures.extend(process_batch(batch))
-
-            # 如果启用内存缓存，定期清理进程池
-            if use_cache and i % (batch_size * 10) == 0:
+            # 如果启用内存缓存，清理进程池
+            if use_cache:
                 gc.collect()
 
     logger.info("指纹生成完成，共生成签名数量：{}".format(len(signatures)))
@@ -245,6 +289,7 @@ def main():
     lsh_index_time = time.time()
     lsh_method = config["lsh"]["method"]
     logger.info(f"开始 LSH 索引构建，方法：{lsh_method}")
+
     if lsh_method == "minhash":
         num_bands = config["lsh"]["num_bands"]
         rows_per_band = config["lsh"]["rows_per_band"]
@@ -261,6 +306,20 @@ def main():
         bits_per_table = config["lsh"]["bits_per_table"]
         lsh_index = BitSamplingLSHIndex(
             num_hash_tables=num_hash_tables, bits_per_table=bits_per_table)
+    
+    elif lsh_method == "hybrid":
+        minhash_params = {
+            "num_bands": config["lsh"]["minhash_num_bands"],
+            "rows_per_band": config["lsh"]["minhash_rows_per_band"]
+        }
+        simhash_params = {
+            "radius": config["lsh"]["simhash_radius"],
+            "hush_bits": config["fingerprint"]["hash_bits"]
+        }
+        merge_strategy = config["lsh"].get("merge_strategy")
+        weights = config["lsh"].get("weights")
+        lsh_index = HybridLSHIndex(minhash_params, simhash_params, merge_strategy, weights)
+
     else:
         logger.error(f"未知的 LSH 方法：{lsh_method}")
         return
