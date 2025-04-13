@@ -28,6 +28,7 @@
 import time
 from typing import List, Dict, Tuple
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 
 
@@ -74,7 +75,7 @@ class Evaluator:
             float: 近重复文档比率。
         """
         total_near_duplicates = 0
-        for doc1_idx, doc2_idx in self.candidate_pairs:
+        for doc1_idx, doc2_idx in tqdm(self.candidate_pairs, desc="Calculating near-duplicate rate"):
             similarity = similarity_func(
                 self.data[doc1_idx], self.data[doc2_idx])
             total_near_duplicates += similarity
