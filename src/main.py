@@ -84,7 +84,7 @@ def main():
             return
 
         if parallel_enabled:
-            logger.info(f"使用线程池并行加载文件，线程数：{thread_pool_size}")
+            logger.info(f"并行已启用，线程数：{thread_pool_size}")
             with ThreadPoolExecutor(max_workers=thread_pool_size) as executor:
                 results = list(executor.map(
                     data_loader.load_data, parquet_files))
@@ -118,7 +118,7 @@ def main():
     preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
     if parallel_enabled:
-        logger.info(f"使用joblib并行预处理，进程数：{process_pool_size}")
+        logger.info(f"并行已启用，进程数：{process_pool_size}")
         from joblib import Parallel, delayed
         preprocessed_data = Parallel(n_jobs=process_pool_size, prefer="processes")(
             delayed(preprocess_text)(text)
@@ -139,7 +139,7 @@ def main():
     logger.info(f"开始特征提取，方法：{feature_method}")
     extractor = FeatureExtractor(method=feature_method, n=ngram_size)
     if parallel_enabled:
-        logger.info(f"使用joblib并行特征提取，进程数：{process_pool_size}")
+        logger.info(f"并行已启用，进程数：{process_pool_size}")
         from joblib import Parallel, delayed
         features = Parallel(n_jobs=process_pool_size, prefer="processes")(
             delayed(extractor.extract_features)(text)
@@ -157,9 +157,8 @@ def main():
     # 6. 指纹生成
     fingerprint_time = time.time()
     fingerprint_method = config["fingerprint"]["method"]
-    batch_size = parallel_config.get("batch_size", 1000)
     use_cache = parallel_config.get("use_memory_cache", True)
-    logger.info(f"开始指纹生成，方法：{fingerprint_method}，批处理大小：{batch_size}")
+    logger.info(f"开始指纹生成，方法：{fingerprint_method}")
 
     if parallel_enabled == False:
         if fingerprint_method == "minhash":
@@ -186,7 +185,7 @@ def main():
             return
 
     if parallel_enabled == True:
-        logger.info(f"使用进程池并行生成指纹，进程数：{process_pool_size}")
+        logger.info(f"并行已启用，进程数：{process_pool_size}")
         if fingerprint_method == "minhash":
             num_hashes = config["fingerprint"]["num_hashes"]
             seed = config["fingerprint"].get("seed", None)
@@ -204,24 +203,21 @@ def main():
             logger.error(f"未知的指纹生成方法：{fingerprint_method}")
             return
 
-        # 分批处理特征数据
-        def process_batch(batch_features):
-            with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
-                if fingerprint_method == "minhash":
-                    return list(executor.map(minhash.compute_signature, batch_features))
-                elif fingerprint_method == "simhash":
-                    return list(executor.map(simhash.compute_signature, batch_features))
-                elif fingerprint_method == "bitsampling":
-                    return list(executor.map(bitsampling.compute_signature, batch_features))
+        # 并行处理所有特征
+        with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
+            if fingerprint_method == "minhash":
+                signatures = list(tqdm(executor.map(minhash.compute_signature, features),
+                                total=len(features), desc="并行生成 MinHash 签名"))
+            elif fingerprint_method == "simhash":
+                signatures = list(tqdm(executor.map(simhash.compute_signature, features),
+                                total=len(features), desc="并行生成 SimHash 签名"))
+            elif fingerprint_method == "bitsampling":
+                signatures = list(tqdm(executor.map(bitsampling.compute_signature, features),
+                                total=len(features), desc="并行生成 BitSampling 签名"))
 
-        signatures = []
-        for i in tqdm(range(0, len(features), batch_size), desc="批处理指纹生成"):
-            batch = features[i:i + batch_size]
-            signatures.extend(process_batch(batch))
-
-            # 如果启用内存缓存，定期清理进程池
-            if use_cache and i % (batch_size * 10) == 0:
-                gc.collect()
+        # 如果启用内存缓存，清理进程池
+        if use_cache:
+            gc.collect()
 
     logger.info("指纹生成完成，共生成签名数量：{}".format(len(signatures)))
     pipeline_log.add_result("signature_count", len(signatures))
