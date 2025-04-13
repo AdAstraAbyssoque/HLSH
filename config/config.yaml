@@ -27,8 +27,8 @@ lsh:
   method: simhash  # 可选值: minhash, simhash, bitsampling
   num_bands: 20  # MinHash 的 band 数量
   rows_per_band: 5  # 每个 band 的行数
-  radius: 200  # SimHash 的 Hamming 距离半径
-  num_hash_tables: 10  # BitSampling 的哈希表数量
+  radius: 1  # SimHash 的 Hamming 距离半径
+  num_hash_tables: 2  # BitSampling 的哈希表数量
   bits_per_table: 32  # 每个哈希表的采样位数
 
 # 评估配置
@@ -37,7 +37,7 @@ evaluation:
 
 # 并行处理配置
 parallel:
-  enabled: true  # 是否启用并行处理
+  enabled: false  # 是否启用并行处理
   thread_pool_size: 4  # I/O密集型任务线程数
   process_pool_size: 8  # CPU密集型任务进程数
   batch_size: 1000  # 指纹生成的批处理大小

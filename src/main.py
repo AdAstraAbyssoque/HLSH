@@ -58,7 +58,6 @@ def main():
     # pipeline_log 初始化参数
     pipeline_log = Log_pipeline_info(config)
 
-
     # 3. 数据加载
     data_loader_time = time.time()
     data_loader = DataLoader()
@@ -87,7 +86,8 @@ def main():
         if parallel_enabled:
             logger.info(f"使用线程池并行加载文件，线程数：{thread_pool_size}")
             with ThreadPoolExecutor(max_workers=thread_pool_size) as executor:
-                results = list(executor.map(data_loader.load_data, parquet_files))
+                results = list(executor.map(
+                    data_loader.load_data, parquet_files))
                 for result in results:
                     raw_data.extend(result)
         else:
@@ -113,7 +113,7 @@ def main():
 
     # 4. 数据预处理
 
-    raw_data=raw_data[:1000]
+    # raw_data = raw_data[:1000]
 
     preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
@@ -125,7 +125,8 @@ def main():
             for text in tqdm(raw_data, desc="并行预处理")
         )
     else:
-        preprocessed_data = [preprocess_text(text) for text in tqdm(raw_data, desc="预处理")]
+        preprocessed_data = [preprocess_text(
+            text) for text in tqdm(raw_data, desc="预处理")]
     logger.info("数据预处理完成。")
     preprocess_data_time = time.time() - preprocess_data_time
     pipeline_log.add_runtime("preprocess_data_time", preprocess_data_time)
@@ -141,11 +142,12 @@ def main():
         logger.info(f"使用joblib并行特征提取，进程数：{process_pool_size}")
         from joblib import Parallel, delayed
         features = Parallel(n_jobs=process_pool_size, prefer="processes")(
-            delayed(extractor.extract_features)(text) 
+            delayed(extractor.extract_features)(text)
             for text in tqdm(preprocessed_data, desc="并行特征提取")
         )
     else:
-        features = [extractor.extract_features(text) for text in tqdm(preprocessed_data, desc="特征提取")]
+        features = [extractor.extract_features(
+            text) for text in tqdm(preprocessed_data, desc="特征提取")]
     logger.info("特征提取完成。")
     feature_extraction_time = time.time() - feature_extraction_time
     pipeline_log.add_runtime("feature_extraction_time",
@@ -165,7 +167,7 @@ def main():
             seed = config["fingerprint"].get("seed", None)
             minhash = MinHash(num_hashes=num_hashes, seed=seed)
             signatures = [minhash.compute_signature(
-                    feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
+                feature) for feature in tqdm(features, desc="生成 MinHash 签名")]
         elif fingerprint_method == "simhash":
             hash_bits = config["fingerprint"]["hash_bits"]
             simhash = SimHash(hash_bits=hash_bits)
@@ -182,7 +184,7 @@ def main():
         else:
             logger.error(f"未知的指纹生成方法：{fingerprint_method}")
             return
-        
+
     if parallel_enabled == True:
         logger.info(f"使用进程池并行生成指纹，进程数：{process_pool_size}")
         if fingerprint_method == "minhash":
@@ -196,11 +198,12 @@ def main():
             sample_size = config["fingerprint"]["sample_size"]
             hash_bits = config["fingerprint"]["hash_bits"]
             seed = config["fingerprint"].get("seed", None)
-            bitsampling = BitSampling(sample_size=sample_size, hash_bits=hash_bits, seed=seed)
+            bitsampling = BitSampling(
+                sample_size=sample_size, hash_bits=hash_bits, seed=seed)
         else:
             logger.error(f"未知的指纹生成方法：{fingerprint_method}")
             return
-        
+
         # 分批处理特征数据
         def process_batch(batch_features):
             with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
@@ -210,12 +213,12 @@ def main():
                     return list(executor.map(simhash.compute_signature, batch_features))
                 elif fingerprint_method == "bitsampling":
                     return list(executor.map(bitsampling.compute_signature, batch_features))
-                
+
         signatures = []
         for i in tqdm(range(0, len(features), batch_size), desc="批处理指纹生成"):
             batch = features[i:i + batch_size]
             signatures.extend(process_batch(batch))
-                
+
             # 如果启用内存缓存，定期清理进程池
             if use_cache and i % (batch_size * 10) == 0:
                 gc.collect()
@@ -235,7 +238,6 @@ def main():
     except Exception as e:
         logger.error(f"保存签名指纹失败，错误信息：{e}")
         return
-    
 
     # 7. LSH 索引构建
     lsh_index_time = time.time()
@@ -249,7 +251,8 @@ def main():
 
     elif lsh_method == "simhash":
         radius = config["lsh"]["radius"]
-        lsh_index = SimHashLSHIndex(radius=radius)
+        hash_bits = config["fingerprint"]["hash_bits"]
+        lsh_index = SimHashLSHIndex(radius=radius, hush_bits=hash_bits)
 
     elif lsh_method == "bitsampling":
         num_hash_tables = config["lsh"]["num_hash_tables"]

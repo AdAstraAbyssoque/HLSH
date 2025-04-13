@@ -26,6 +26,7 @@ from collections import defaultdict
 import random
 import itertools
 from tqdm import tqdm
+from multiprocessing import Pool
 
 
 class MinHashLSHIndex:
@@ -102,43 +103,48 @@ class MinHashLSHIndex:
         return candidate_pairs
 
 
+
 class SimHashLSHIndex:
     """
     基于 SimHash 签名的 LSH 索引，适用于 Hamming 距离。
     """
-
-    def __init__(self, radius: int):
-        """
-        初始化 SimHash LSH 索引。
-        参数:
-            radius (int): 允许的 Hamming 距离误差半径。
-        """
+    def __init__(self, radius: int, hush_bits: int = 64, parallel_enabled: bool = False, process_pool_size: int = 4):
         self.radius = radius
         self.buckets = defaultdict(list)
-        # 增加邻居缓存，减少重复生成
         self.neighbor_cache = {}
+        # 使用实际签名位数，建议与指纹生成时保持一致
+        self.bits = hush_bits  
+        self.parallel_enabled = parallel_enabled
+        self.process_pool_size = process_pool_size
+
+    def _generate_neighbors_for_flip(self, args):
+        signature, bits_to_flip = args
+        neighbor = signature
+        for bit in bits_to_flip:
+            neighbor ^= (1 << bit)
+        return neighbor
 
     def _generate_neighbors(self, signature: int) -> List[int]:
         """
-        生成签名的所有可能近邻（通过 bit 翻转），只保留 Hamming 距离不超过 radius 的邻居。
-        参数:
-            signature (int): 输入签名。
-        返回:
-            List[int]: 近邻签名列表。
+        生成签名所有可能的近邻，保留 Hamming 距离不超过 radius 的邻居。
         """
-        # 如果缓存存在则直接返回缓存结果
-        
         if signature in self.neighbor_cache:
             return self.neighbor_cache[signature]
 
         neighbors = {signature}
-        bits = 32  # 假设签名为 64 位
-        # 对于距离 d = 1, 2, ..., self.radius 生成邻居
-        for d in range(1, self.radius + 1):
-            for bits_to_flip in itertools.combinations(range(bits), d):
-                neighbor = signature
-                for bit in bits_to_flip:
-                    neighbor ^= (1 << bit)
+        max_d = min(self.radius, 2)  # 限制 radius 以防止任务数量爆炸
+        tasks = []
+        for d in range(1, max_d + 1):
+            for bits_to_flip in itertools.combinations(range(self.bits), d):
+                tasks.append((signature, bits_to_flip))
+
+        if tasks:
+            if self.parallel_enabled:
+                with Pool(processes=self.process_pool_size) as pool:
+                    results = pool.map(self._generate_neighbors_for_flip, tasks)
+            else:
+                results = list(map(self._generate_neighbors_for_flip, tasks))
+            for neighbor in results:
                 neighbors.add(neighbor)
         neighbor_list = list(neighbors)
         self.neighbor_cache[signature] = neighbor_list
@@ -147,40 +153,24 @@ class SimHashLSHIndex:
     def index(self, signatures: List[int]):
         """
         将签名存入哈希桶。
-        参数:
-            signatures (List[int]): SimHash 签名列表。
         """
-        # 修改部分：为每个签名，不仅存储其自身键，还存储所有在允许半径内的邻居签名
         for doc_id, signature in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
             neighbor_signatures = self._generate_neighbors(signature)
             for neighbor in neighbor_signatures:
                 self.buckets[neighbor].append(doc_id)
 
     def query(self, signature: int) -> Set[int]:
-        """
-        查询可能相似的文档。
-        参数:
-            signature (int): 查询的 SimHash 签名。
-        返回:
-            Set[int]: 可能相似的文档 ID 集合。
-        """
-        # 如果需要查找与某个签名近似的文档，也可以直接生成邻居再查询，
-        # 但此处由于 index 时已经将所有邻居都存入桶中，可以直接使用查询键
         return set(self.buckets.get(signature, []))
 
     def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
-        """
-        返回所有候选文档对。
-        返回:
-            Set[Tuple[int, int]]: 候选文档对集合。
-        """
         candidate_pairs = set()
         for bucket in tqdm(self.buckets.values(), desc="Processing buckets", total=len(self.buckets)):
             if len(bucket) > 1:
-            # 桶中可能包含重复加入的同一个文档，这里可以利用 set 去重
+                # 使用 set() 移除重复文档 id，然后求组合
                 for pair in itertools.combinations(set(bucket), 2):
                     candidate_pairs.add(tuple(sorted(pair)))
         return candidate_pairs
+    
 
 class BitSamplingLSHIndex:
     """
