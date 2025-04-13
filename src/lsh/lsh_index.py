@@ -19,6 +19,12 @@
 		•	index(self, signatures)：对每个文档签名执行多组位采样，将结果放入相应桶中。
 		•	query(self, signature)：对给定签名按采样规则进行哈希，返回匹配桶中文档。
 		•	get_candidate_pairs(self)：统计所有哈希表中桶的内容，生成候选文档对。
+	•	Class HybridLSHIndex
+		•	功能：基于 MinHash 和 SimHash 混合签名的 LSH 索引，支持多种合并策略。
+		•	__init__(self, minhash_params, simhash_params, merge_strategy, weights)：初始化混合索引参数。
+		•	index(self, signatures)：索引包含两种签名的文档数据。
+		•	query(self, signature)：查询可能相似的文档。
+		•	get_candidate_pairs(self)：根据合并策略获取候选文档对。
 	•	调用：main.py在得到所有文档签名后，调用LSHIndex进行索引建立和候选对检索。
 '''
 from typing import List, Tuple, Set
@@ -170,15 +176,108 @@ class SimHashLSHIndex:
                 for pair in itertools.combinations(set(bucket), 2):
                     candidate_pairs.add(tuple(sorted(pair)))
         return candidate_pairs
-    
+
+class BitSamplingLSHIndex:
+    """
+    基于 BitSampling 签名的 LSH 索引，适用于 Hamming 相似度。
+    """
+
+    def __init__(self, num_hash_tables: int, bits_per_table: int):
+        """
+        初始化 BitSampling LSH 索引。
+
+        参数:
+            num_hash_tables (int): 哈希表数量。
+            bits_per_table (int): 每个哈希表使用的采样位数。
+        """
+        self.num_hash_tables = num_hash_tables
+        self.bits_per_table = bits_per_table
+        self.tables = [defaultdict(list) for _ in range(num_hash_tables)]
+        # 预先采样每个哈希表需要的 bit 位
+        self.sampled_bits = []
+        for table_idx in range(num_hash_tables):
+            # 保证每个表的采样一致，可以指定随机种子
+            rnd = random.Random(table_idx)
+            sampled = rnd.sample(range(64), bits_per_table)
+            self.sampled_bits.append(sampled)
+
+    def _hash_signature(self, signature: int, table_idx: int) -> int:
+        """
+        对签名进行采样哈希，利用预采样的 bit 位。
+        参数:
+            signature (int): 输入签名。
+            table_idx (int): 哈希表索引。
+        返回:
+            int: 哈希值。
+        """
+        sampled_bits = self.sampled_bits[table_idx]
+        hash_value = 0
+        for i, bit in enumerate(sampled_bits):
+            if signature & (1 << bit):
+                hash_value |= (1 << i)
+        return hash_value
+
+    def index(self, signatures: List[int]):
+        """
+        将签名存入多个采样哈希表。
+        参数:
+            signatures (List[int]): BitSampling 签名列表。
+        """
+        for doc_id, signature in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
+            for table_idx in range(self.num_hash_tables):
+                bucket_key = self._hash_signature(signature, table_idx)
+                self.tables[table_idx][bucket_key].append(doc_id)
+
+    def query(self, signature: int) -> Set[int]:
+        """
+        查询可能相似的文档。
+        参数:
+            signature (int): 查询的 BitSampling 签名。
+        返回:
+            Set[int]: 可能相似的文档 ID 集合。
+        """
+        candidates = set()
+        for table_idx in tqdm(range(self.num_hash_tables), desc="Querying tables", total=self.num_hash_tables):
+            bucket_key = self._hash_signature(signature, table_idx)
+            candidates.update(self.tables[table_idx].get(bucket_key, []))
+        return candidates
+
+
+
+    def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
+        """
+        返回所有候选文档对。
+        返回:
+            Set[Tuple[int, int]]: 候选文档对集合。
+        """
+        candidate_pairs = set()
+
+        for table in tqdm(self.tables, desc="Processing tables", total=len(self.tables)):
+            for bucket in table.values():
+                if len(bucket) > 1:
+                    for pair in itertools.combinations(bucket, 2):
+                        candidate_pairs.add(tuple(sorted(pair)))
+        return candidate_pairs
 
 class HybridLSHIndex:
     """
-    混合使用 MinHash 和 SimHash 的 LSH 索引。
-    支持三种合并策略：
-    - union: 取两种方法的并集（默认）
-    - intersection: 取两种方法的交集（更严格）
-    - two-stage: 先用minhash粗筛，再用simhash精筛
+    基于 MinHash 和 SimHash 混合签名的 LSH 索引，支持多种合并策略。
+    
+    参数:
+        minhash_params (dict): MinHash 参数，包含:
+            num_bands (int): band 数量
+            rows_per_band (int): 每个 band 的哈希行数
+        simhash_params (dict): SimHash 参数，包含:
+            radius (int): 允许的 Hamming 距离误差半径
+            hush_bits (int): 签名位数(默认64)
+        merge_strategy (str): 合并策略，可选:
+            "union": 取两种方法的并集(默认)
+            "intersection": 取两种方法的交集
+            "two-stage": 先用minhash粗筛，再用simhash精筛
+            "weighted": 加权合并
+        weights (dict): 权重参数(仅weighted策略使用)，包含:
+            "minhash" (float): MinHash权重
+            "simhash" (float): SimHash权重
     """
     def __init__(self, minhash_params: dict, simhash_params: dict, merge_strategy: str = "union", weights: dict = None):
         """
@@ -193,6 +292,7 @@ class HybridLSHIndex:
             self.weights = {"minhash": 0.5, "simhash": 0.5}
         else:
             self.weights = weights
+
         self.minhash_lsh = MinHashLSHIndex(
             num_bands=minhash_params["num_bands"],
             rows_per_band=minhash_params["rows_per_band"]
@@ -289,90 +389,6 @@ class HybridLSHIndex:
             return weighted_pairs
         else:
             raise ValueError(f"未知的合并策略: {self.merge_strategy}")
-
-
-class BitSamplingLSHIndex:
-    """
-    基于 BitSampling 签名的 LSH 索引，适用于 Hamming 相似度。
-    """
-
-    def __init__(self, num_hash_tables: int, bits_per_table: int):
-        """
-        初始化 BitSampling LSH 索引。
-
-        参数:
-            num_hash_tables (int): 哈希表数量。
-            bits_per_table (int): 每个哈希表使用的采样位数。
-        """
-        self.num_hash_tables = num_hash_tables
-        self.bits_per_table = bits_per_table
-        self.tables = [defaultdict(list) for _ in range(num_hash_tables)]
-        # 预先采样每个哈希表需要的 bit 位
-        self.sampled_bits = []
-        for table_idx in range(num_hash_tables):
-            # 保证每个表的采样一致，可以指定随机种子
-            rnd = random.Random(table_idx)
-            sampled = rnd.sample(range(64), bits_per_table)
-            self.sampled_bits.append(sampled)
-
-    def _hash_signature(self, signature: int, table_idx: int) -> int:
-        """
-        对签名进行采样哈希，利用预采样的 bit 位。
-        参数:
-            signature (int): 输入签名。
-            table_idx (int): 哈希表索引。
-        返回:
-            int: 哈希值。
-        """
-        sampled_bits = self.sampled_bits[table_idx]
-        hash_value = 0
-        for i, bit in enumerate(sampled_bits):
-            if signature & (1 << bit):
-                hash_value |= (1 << i)
-        return hash_value
-
-    def index(self, signatures: List[int]):
-        """
-        将签名存入多个采样哈希表。
-        参数:
-            signatures (List[int]): BitSampling 签名列表。
-        """
-        for doc_id, signature in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
-            for table_idx in range(self.num_hash_tables):
-                bucket_key = self._hash_signature(signature, table_idx)
-                self.tables[table_idx][bucket_key].append(doc_id)
-
-    def query(self, signature: int) -> Set[int]:
-        """
-        查询可能相似的文档。
-        参数:
-            signature (int): 查询的 BitSampling 签名。
-        返回:
-            Set[int]: 可能相似的文档 ID 集合。
-        """
-        candidates = set()
-        for table_idx in tqdm(range(self.num_hash_tables), desc="Querying tables", total=self.num_hash_tables):
-            bucket_key = self._hash_signature(signature, table_idx)
-            candidates.update(self.tables[table_idx].get(bucket_key, []))
-        return candidates
-
-
-
-    def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
-        """
-        返回所有候选文档对。
-        返回:
-            Set[Tuple[int, int]]: 候选文档对集合。
-        """
-        candidate_pairs = set()
-
-        for table in tqdm(self.tables, desc="Processing tables", total=len(self.tables)):
-            for bucket in table.values():
-                if len(bucket) > 1:
-                    for pair in itertools.combinations(bucket, 2):
-                        candidate_pairs.add(tuple(sorted(pair)))
-        return candidate_pairs
-
 
 # 示例用法
 if __name__ == "__main__":
