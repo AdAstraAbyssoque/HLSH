@@ -172,6 +172,125 @@ class SimHashLSHIndex:
         return candidate_pairs
     
 
+class HybridLSHIndex:
+    """
+    混合使用 MinHash 和 SimHash 的 LSH 索引。
+    支持三种合并策略：
+    - union: 取两种方法的并集（默认）
+    - intersection: 取两种方法的交集（更严格）
+    - two-stage: 先用minhash粗筛，再用simhash精筛
+    """
+    def __init__(self, minhash_params: dict, simhash_params: dict, merge_strategy: str = "union", weights: dict = None):
+        """
+        初始化混合 LSH 索引。
+        参数:
+            minhash_params (dict): MinHash 参数 {num_bands, rows_per_band}
+            simhash_params (dict): SimHash 参数 {radius, hush_bits}
+            merge_strategy (str): 合并策略，可选"union"/"intersection"/"two-stage"/"weighted"
+            weights (dict): 权重参数 {"minhash": float, "simhash": float}，仅weighted策略使用
+        """
+        if weights is None:
+            self.weights = {"minhash": 0.5, "simhash": 0.5}
+        else:
+            self.weights = weights
+        self.minhash_lsh = MinHashLSHIndex(
+            num_bands=minhash_params["num_bands"],
+            rows_per_band=minhash_params["rows_per_band"]
+        )
+        self.simhash_lsh = SimHashLSHIndex(
+            radius=simhash_params["radius"],
+            hush_bits=simhash_params["hush_bits"]
+        )
+        self.minhash_signatures = []
+        self.simhash_signatures = []
+        self.merge_strategy = merge_strategy
+
+    def index(self, signatures: List[List[int]]):
+        """
+        索引签名数据。
+        参数:
+            signatures (List[List[int]]): 包含[minhash_signature, simhash_signature]的列表
+        """
+        self.minhash_signatures = [sig[0] for sig in signatures]
+        self.simhash_signatures = [sig[1] for sig in signatures]
+        self.minhash_lsh.index(self.minhash_signatures)
+        self.simhash_lsh.index(self.simhash_signatures)
+
+    def query(self, signature: List[int]) -> Set[int]:
+        """
+        查询可能相似的文档。
+        参数:
+            signature (List[int]): [minhash_signature, simhash_signature]
+        返回:
+            Set[int]: 可能相似的文档 ID 集合
+        """
+        minhash_results = self.minhash_lsh.query(signature[0])
+        simhash_results = self.simhash_lsh.query(signature[1])
+        return minhash_results.union(simhash_results)
+
+    def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
+        """
+        获取混合方法的候选对。
+        返回:
+            Set[Tuple[int, int]]: 候选文档对集合
+        """
+        minhash_pairs = self.minhash_lsh.get_candidate_pairs()
+        simhash_pairs = self.simhash_lsh.get_candidate_pairs()
+        
+        if self.merge_strategy == "union":
+            return minhash_pairs.union(simhash_pairs)
+        elif self.merge_strategy == "intersection":
+            return minhash_pairs.intersection(simhash_pairs)
+        elif self.merge_strategy == "two-stage":
+            # 先用simhash粗筛，再用minhash精筛
+            refined_pairs = set()
+            for pair in simhash_pairs:
+                doc1, doc2 = pair
+                # 计算minhash相似度
+                sig1 = self.minhash_signatures[doc1]
+                sig2 = self.minhash_signatures[doc2]
+                # 计算Jaccard相似度估计
+                matching = sum(1 for a, b in zip(sig1, sig2) if a == b)
+                jaccard_est = matching / len(sig1)
+                # 如果Jaccard相似度高于阈值(使用rows_per_band作为参考)
+                if jaccard_est >= (1.0 / self.minhash_lsh.rows_per_band):
+                    refined_pairs.add(pair)
+            return refined_pairs
+        elif self.merge_strategy == "weighted":
+            # 加权合并策略
+            weighted_pairs = set()
+            minhash_weight = self.weights["minhash"]
+            simhash_weight = self.weights["simhash"]
+            
+            # 合并所有候选对
+            all_pairs = minhash_pairs.union(simhash_pairs)
+            
+            for pair in all_pairs:
+                doc1, doc2 = pair
+                # 计算minhash相似度得分
+                sig1 = self.minhash_signatures[doc1]
+                sig2 = self.minhash_signatures[doc2]
+                minhash_score = sum(1 for a, b in zip(sig1, sig2) if a == b) / len(sig1)
+                
+                # 计算simhash相似度得分
+                sig1 = self.simhash_signatures[doc1]
+                sig2 = self.simhash_signatures[doc2]
+                hamming_dist = bin(sig1 ^ sig2).count('1')
+                simhash_score = 1 - (hamming_dist / self.simhash_lsh.bits)
+                
+                # 计算加权得分
+                weighted_score = (minhash_score * minhash_weight + 
+                                 simhash_score * simhash_weight)
+                
+                # 如果加权得分超过阈值(0.5)
+                if weighted_score >= 0.5:
+                    weighted_pairs.add(pair)
+            
+            return weighted_pairs
+        else:
+            raise ValueError(f"未知的合并策略: {self.merge_strategy}")
+
+
 class BitSamplingLSHIndex:
     """
     基于 BitSampling 签名的 LSH 索引，适用于 Hamming 相似度。
