@@ -273,7 +273,7 @@ class HybridLSHIndex:
         merge_strategy (str): 合并策略，可选:
             "union": 取两种方法的并集(默认)
             "intersection": 取两种方法的交集
-            "two-stage": 先用minhash粗筛，再用simhash精筛
+            "two-stage": 先用simhash粗筛，再用minhash精筛
             "weighted": 加权合并
         weights (dict): 权重参数(仅weighted策略使用)，包含:
             "minhash" (float): MinHash权重
