@@ -16,6 +16,7 @@ import os
 import yaml
 import time
 import gc
+from sklearn.feature_extraction.text import TfidfVectorizer
 from utils.logger import setup_logger, Log_pipeline_info
 from utils.data_loader import DataLoader
 from feature_extraction import FeatureExtractor
@@ -173,14 +174,15 @@ def main():
             simhash = SimHash(hash_bits=hash_bits)
             signatures = [simhash.compute_signature(
                 feature) for feature in tqdm(features, desc="生成 SimHash 签名")]
+        
         elif fingerprint_method == "bitsampling":
+            vectorizer=TfidfVectorizer()
+            vectorizer.fit(preprocessed_data)
             sample_size = config["fingerprint"]["sample_size"]
             hash_bits = config["fingerprint"]["hash_bits"]
             seed = config["fingerprint"].get("seed", None)
-            bitsampling = BitSampling(
-                sample_size=sample_size, hash_bits=hash_bits, seed=seed)
-            signatures = [bitsampling.compute_signature(
-                feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
+            bitsampling = BitSampling(sample_size=sample_size, hash_bits=hash_bits, seed=seed, vectorizer=vectorizer)
+            signatures = [bitsampling.compute_signature(feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
         else:
             logger.error(f"未知的指纹生成方法：{fingerprint_method}")
             return
@@ -276,7 +278,7 @@ def main():
     runtime_log = pipeline_log.runtime_log
     evaluator = Evaluator(candidate_pairs, runtime_log, preprocessed_data)
     duplicate_rate = evaluator.compute_near_duplicate_rate(
-        similarity_func=cosine_similarity)
+        similarity_func=euclidean_distance)
     evaluator.generate_visualizations(output_dir=evaluation_output_path)
     pipeline_log.add_result("duplicate_rate", duplicate_rate)
     logger.info(f"候选对中的近重复文档比率：{duplicate_rate:.2f}")
