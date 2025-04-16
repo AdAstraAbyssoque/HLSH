@@ -31,6 +31,7 @@ from typing import List, Tuple, Set
 from collections import defaultdict
 import random
 import itertools
+import math
 from tqdm import tqdm
 from multiprocessing import Pool
 
@@ -364,7 +365,6 @@ class HybridLSHIndex:
             
             # 合并所有候选对
             all_pairs = minhash_pairs.union(simhash_pairs)
-            
             for pair in all_pairs:
                 doc1, doc2 = pair
                 # 计算minhash相似度得分
@@ -379,11 +379,10 @@ class HybridLSHIndex:
                 simhash_score = 1 - (hamming_dist / self.simhash_lsh.bits)
                 
                 # 计算加权得分
-                weighted_score = (minhash_score * minhash_weight + 
-                                 simhash_score * simhash_weight)
-                
-                # 如果加权得分超过阈值(0.5)
-                if weighted_score >= 0.5:
+                weighted_score = math.sqrt(minhash_score * minhash_weight + simhash_score * simhash_weight)
+
+                # 阈值
+                if weighted_score >= 0.65 and minhash_score >= 0.3:
                     weighted_pairs.add(pair)
             
             return weighted_pairs

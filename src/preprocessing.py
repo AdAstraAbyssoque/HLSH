@@ -14,28 +14,7 @@
 
 import re
 from typing import List
-
-
-def preprocess_text(text: str) -> str:
-    """
-    对输入文本进行基础清洗。
-
-    参数:
-        text (str): 原始文本。
-
-    返回:
-        str: 清洗后的文本。
-    """
-    # 去除HTML标签
-    text = re.sub(r"<[^>]+>", "", text)
-    # 去除多余的空格
-    text = re.sub(r"\s+", " ", text).strip()
-    # 去除标点符号
-    text = re.sub(r"[^\w\s]", "", text)
-    # 转换为小写
-    text = text.lower()
-    return text
-
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
 class Preprocessor:
     """
@@ -49,17 +28,28 @@ class Preprocessor:
 
         参数:
             config (dict): 配置字典，包含预处理参数。
-                - remove_punctuation (bool): 是否去除标点符号。
-                - lowercase (bool): 是否将文本转换为小写。
-                - stopwords (set): 停用词列表。
+                - remove_punctuation (bool): 是否去除标点符号，默认为True。
+                - lowercase (bool): 是否将文本转换为小写，默认为True。
+                - stopwords (set): 完全覆盖默认停用词列表，如果提供。
+                - extra_stopwords (set): 在默认停用词基础上额外添加的停用词。
         """
         self.remove_punctuation = config.get("remove_punctuation", True)
         self.lowercase = config.get("lowercase", True)
-        self.stopwords = config.get("stopwords", set())
+        
+        # 处理停用词配置
+        if "stopwords" in config:
+            # 如果配置了stopwords，完全覆盖默认停用词
+            self.stopwords = set(config["stopwords"])
+        else:
+            # 否则使用默认英语停用词
+            self.stopwords = set(ENGLISH_STOP_WORDS)
+            # 添加额外停用词
+            if "extra_stopwords" in config:
+                self.stopwords.update(config["extra_stopwords"])
 
     def clean_text(self, text: str) -> str:
         """
-        对输入文本进行基础清洗。
+        对输入文本进行基础清洗和停用词过滤。
 
         参数:
             text (str): 原始文本。
@@ -77,6 +67,14 @@ class Preprocessor:
         # 转换为小写
         if self.lowercase:
             text = text.lower()
+        # 过滤停用词
+        if self.stopwords:
+            tokens = text.split()
+            filtered_tokens = [token for token in tokens if token not in self.stopwords]
+            text = " ".join(filtered_tokens)
+        # 处理过短的句子
+        if len(text.split()) < 3:
+            text = text + " This is A Filling text"
         return text
 
     def tokenize(self, text: str) -> List[str]:

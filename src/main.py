@@ -16,6 +16,7 @@ import os
 import yaml
 import time
 import gc
+import pandas as pd
 from utils.logger import setup_logger, Log_pipeline_info
 from utils.data_loader import DataLoader
 from feature_extraction import FeatureExtractor
@@ -26,7 +27,8 @@ from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex,
 from lsh.evaluation import Evaluator
 from tqdm import tqdm
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
-from preprocessing import preprocess_text
+from joblib import Parallel, delayed
+from preprocessing import Preprocessor
 from lsh.helper import cosine_similarity, jaccard_similarity, euclidean_distance
 
 
@@ -116,17 +118,27 @@ def main():
     # raw_data = raw_data[:1000]
     preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
+    
+    # 初始化预处理器
+    preprocessor = Preprocessor(config.get("preprocessing", {}))
+    
     if parallel_enabled:
         logger.info(f"并行已启用，进程数：{process_pool_size}")
-        from joblib import Parallel, delayed
         preprocessed_data = Parallel(n_jobs=process_pool_size, prefer="processes")(
-            delayed(preprocess_text)(text)
+            delayed(preprocessor.clean_text)(text)
             for text in tqdm(raw_data, desc="并行预处理")
         )
     else:
-        preprocessed_data = [preprocess_text(
+        preprocessed_data = [preprocessor.clean_text(
             text) for text in tqdm(raw_data, desc="预处理")]
     logger.info("数据预处理完成。")
+    
+    # 保存预处理数据为CSV
+    preprocessed_csv_path = os.path.join("data", "processed", "preprocessed_data.csv")
+    os.makedirs(os.path.dirname(preprocessed_csv_path), exist_ok=True)
+    pd.DataFrame({"text": preprocessed_data}).to_csv(preprocessed_csv_path, index=False)
+    logger.info(f"预处理数据已保存为CSV文件：{preprocessed_csv_path}")
+    
     preprocess_data_time = time.time() - preprocess_data_time
     pipeline_log.add_runtime("preprocess_data_time", preprocess_data_time)
     logger.info(f"数据预处理时间：{preprocess_data_time:.2f} 秒")
@@ -139,7 +151,6 @@ def main():
     extractor = FeatureExtractor(method=feature_method, n=ngram_size)
     if parallel_enabled:
         logger.info(f"并行已启用，进程数：{process_pool_size}")
-        from joblib import Parallel, delayed
         features = Parallel(n_jobs=process_pool_size, prefer="processes")(
             delayed(extractor.extract_features)(text)
             for text in tqdm(preprocessed_data, desc="并行特征提取")
