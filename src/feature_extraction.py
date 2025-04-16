@@ -4,12 +4,11 @@
         •	Class FeatureExtractor
         •	__init__(self, method="ngram", **kwargs): 根据方法和参数决定采用哪种特征提取策略。
         •	extract_features(self, text): 从单个文本中提取特征（返回n-gram集合或token集合）。
-        •	vectorize(self, documents): 可选，用于批量将文档转换为稀疏/密集向量，支持如CountVectorizer或TfidfVectorizer的调用。
         •	调用：main.py在预处理后调用此模块为后续指纹计算准备输入。
 '''
 from typing import List, Set, Union
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-
+from sklearn.feature_extraction.text import  TfidfVectorizer
+from collections import Counter
 class FeatureExtractor:
     """
     特征提取器类，用于将文本转换为适合指纹计算的特征格式。
@@ -23,7 +22,7 @@ class FeatureExtractor:
             参数:
                 method (str): 特征提取方法，支持 "ngram"、"token" 和 "vectorize"。
                 n (int): n-gram 的 n 值（仅在 method="ngram" 时有效）。
-                **kwargs: 向量化方法的参数，可传入 vectorizer 或 CountVectorizer/TfidfVectorizer 的参数。
+                **kwargs: 向量化方法的参数，可传入 vectorizer  的参数。
             """
         self.method = method
         self.n = n
@@ -80,51 +79,75 @@ class FeatureExtractor:
         返回:
             Set[str]: token 集合。
         """
-        return set(text.split())  # 简单分词后去重
-
-    def _extract_vectorized_features(self, text: str) -> Set[str]:
+        return set(text.split())
+        
+    def _extract_frequency(self, text: str) -> Set[str]:
         """
-        利用 vectorizer 将文本转换为特征集合。
-        基于 vectorizer 的非零（或重要）特征构造集合，
-        注意：需要先对语料进行拟合，这里简单实现为对单个文档进行转换。
+        Extracts the frequency of words from the given text.
+
+        This method splits the input text into words and calculates the frequency
+        of each word using a Counter.
+
+        Args:
+            text (str): The input text from which to extract word frequencies.
+
+        Returns:
+            Set[str]: A set of unique words from the text with their frequencies.
+        """
+        return Counter(text.split())
+    
+    def _extract_tfidf(self, corpus: list[str]):
+        """
+        计算文本语料库中每个词的逆文档频率（IDF）。
 
         参数:
-            text (str): 输入文本。
+            corpus (list[str]): 文本语料库，包含多个文档。
 
         返回:
-            Set[str]: 特征集合，来自 vectorizer 的特征名称。
+            tfidf_matrix (sparse matrix): 稀疏矩阵，表示每个文档中每个词的 TF-IDF 值。
+            words (list): 词汇表，包含语料库中所有唯一的词。
         """
-        # 如果 vectorizer 未拟合，则先拟合单个文档
-        # 实际使用中建议先调用 fit 方法拟合语料库
+        vectorizer = TfidfVectorizer()
+        tfidf_matrix = vectorizer.fit_transform(corpus)
+        words = vectorizer.get_feature_names_out()
+        return tfidf_matrix, words
+
+        
+
+    def _extract_vectorized_features(self, documents: Union[str, List[str]]):
+        """
+        利用预先拟合或当前初始化的 TfidfVectorizer，
+        将输入文档转换为 TF-IDF 矩阵表示。
+        
+        参数:
+            documents (str 或 List[str]): 输入单个文档或文档列表。
+        
+        返回:
+            tfidf_matrix (sparse matrix): 表示文档中每个词 TF-IDF 值的稀疏矩阵。
+        """
+        # 若传入单个文档，则构造单元素列表
+        if isinstance(documents, str):
+            documents = [documents]
         try:
-            # 尝试直接转换
-            sparse = self.vectorizer.transform([text])
+            # 尝试直接转换（假设 vectorizer 已经拟合）
+            tfidf_matrix = self.vectorizer.transform(documents)
         except Exception:
             # 若未拟合，则先拟合后转换
-            self.vectorizer.fit([text])
-            sparse = self.vectorizer.transform([text])
-        feature_names = self.vectorizer.get_feature_names_out()
-        indices = sparse.nonzero()[1]
-        return {feature_names[i] for i in indices}
+            tfidf_matrix = self.vectorizer.fit_transform(documents)
+        words = self.vectorizer.get_feature_names_out()
+        return tfidf_matrix, words
 
-    def vectorize(self, documents: List[str]):
-        """
-        将文档批量转换为稀疏/密集矩阵（直接调用 vectorizer）。
 
-        参数:
-            documents (List[str]): 文档列表。
-
-        返回:
-            稀疏矩阵或密集矩阵（取决于 vectorizer 的配置）。
-        """
-        if self.method != "vectorize" or not self.vectorizer:
-            raise ValueError(
-                "当前配置不支持向量化操作，请确保 method='vectorize' 且已初始化 vectorizer。")
-        return self.vectorizer.fit_transform(documents)
 
 
 # 示例用法
 if __name__ == "__main__":
+    corpus=["this is a test", 
+            "this is another test",
+            "this is a simple example for feature extraction",
+            "this is another example for feature extraction",
+            "this is a test for feature extraction"
+            ]
     text = "this is a simple example for feature extraction"
     
     # 示例 1: 使用 ngram 特征
@@ -139,5 +162,6 @@ if __name__ == "__main__":
 
     # 示例 3: 使用 vectorize 特征（转换为 TF-IDF 非零项特征集合）
     extractor_vectorize = FeatureExtractor(method="vectorize", vectorizer=TfidfVectorizer())
-    vectorized_features = extractor_vectorize.extract_features(text)
-    print("vectorize 特征:", vectorized_features)
+    vectorized_features,words = extractor_vectorize.extract_features(text)
+    print("vectorized 特征:", vectorized_features)
+    print("词汇表:", words)
