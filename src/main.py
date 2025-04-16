@@ -17,6 +17,7 @@ import yaml
 import time
 import gc
 import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
 from utils.logger import setup_logger, Log_pipeline_info
 from utils.data_loader import DataLoader
 from feature_extraction import FeatureExtractor
@@ -207,13 +208,13 @@ def main():
                 signatures = [simhash.compute_signature(
                     feature) for feature in tqdm(features, desc="生成 SimHash 签名")]
             elif fingerprint_method == "bitsampling":
+                vectorizer=TfidfVectorizer()
+                vectorizer.fit(preprocessed_data)
                 sample_size = config["fingerprint"]["sample_size"]
                 hash_bits = config["fingerprint"]["hash_bits"]
                 seed = config["fingerprint"].get("seed", None)
-                bitsampling = BitSampling(
-                    sample_size=sample_size, hash_bits=hash_bits, seed=seed)
-                signatures = [bitsampling.compute_signature(
-                    feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
+                bitsampling = BitSampling(sample_size=sample_size, hash_bits=hash_bits, seed=seed, vectorizer=vectorizer)
+                signatures = [bitsampling.compute_signature(feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
             else:
                 logger.error(f"未知的指纹生成方法：{fingerprint_method}")
                 return
