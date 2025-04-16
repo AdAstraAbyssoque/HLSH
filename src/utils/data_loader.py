@@ -16,6 +16,40 @@ class DataLoader:
     提供从文件加载数据和将数据保存到文件的功能。
     """
 
+    def save_preprocessed_data(self, data: list[str], output_path: str):
+        """
+        将预处理后的数据保存到指定路径。
+
+        参数:
+            data (list[str]): 预处理后的文本数据列表。
+            output_path (str): 保存文件的路径（支持 Parquet 和 CSV 格式）。
+
+        返回:
+            None
+        """
+        if not data:
+            raise ValueError("数据为空，无法保存。")
+
+        _, file_extension = os.path.splitext(output_path)
+
+        # 将数据转换为 DataFrame
+        df = pd.DataFrame(data, columns=["text"])
+
+        if file_extension == ".parquet":
+            try:
+                df.to_parquet(output_path, index=False)
+                print(f"预处理数据已成功保存为 Parquet 文件: {output_path}")
+            except Exception as e:
+                raise ValueError(f"无法保存为 Parquet 文件: {e}")
+        elif file_extension == ".csv":
+            try:
+                df.to_csv(output_path, index=False)
+                print(f"预处理数据已成功保存为 CSV 文件: {output_path}")
+            except Exception as e:
+                raise ValueError(f"无法保存为 CSV 文件: {e}")
+        else:
+            raise ValueError(f"不支持的文件类型: {file_extension}")
+
     def load_data(self, file_path: str) -> list[str]:
         """
         从指定路径加载原始数据。
@@ -108,7 +142,8 @@ if __name__ == "__main__":
 
     # 保存签名指纹
     try:
-        data_loader.save_signatures(signatures, "data/processed/signatures.parquet")
+        data_loader.save_signatures(
+            signatures, "data/processed/signatures.parquet")
         print("签名指纹已保存。")
     except Exception as e:
         print(e)
