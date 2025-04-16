@@ -31,7 +31,6 @@ from lsh.helper import cosine_similarity, jaccard_similarity, euclidean_distance
 from preprocessing import preprocess_text, parallel_preprocess_texts
 
 
-
 # 加载配置文件
 
 
@@ -55,6 +54,7 @@ def main():
     log_file = config["logging"]["log_file"]
     log_level = config["logging"]["log_level"]
     logger = setup_logger(log_file, log_level)
+    logger.info("-------------------------------------------------------")
     logger.info("系统启动，加载配置完成。")
 
     # pipeline_log 初始化参数
@@ -67,7 +67,9 @@ def main():
     logger.info(f"加载数据路径：{raw_data_path}")
 
     raw_data = []
-    raw_data = data_loader.load_data(raw_data_path, parallel_enabled, thread_pool_size=thread_pool_size)
+    data_loader_parallel = parallel_config.get("data_loader_parallel", False)
+    raw_data = data_loader.load_data(
+        raw_data_path, parallel_enabled=data_loader_parallel, thread_pool_size=thread_pool_size)
 
     logger.info(f"数据加载完成，共加载 {len(raw_data)} 条记录。")
     pipeline_log.add_result("raw_data_count", len(raw_data))
@@ -76,14 +78,12 @@ def main():
     logger.info(f"数据加载时间：{data_loader_time:.2f} 秒")
 
     # 4. 数据预处理
-
-
-    # 4. 数据预处理
     preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
 
+    preprocess_parallel = parallel_config.get("preprocess_parallel", True)
     preprocessed_data = parallel_preprocess_texts(
-        raw_data, process_pool_size=process_pool_size, parallel_enabled=parallel_enabled
+        raw_data, process_pool_size=process_pool_size, parallel_enabled=preprocess_parallel
     )
 
     logger.info("数据预处理完成。")
@@ -95,23 +95,23 @@ def main():
     feature_extraction_time = time.time()
     feature_method = config["feature_extraction"]["method"]
     ngram_size = config["feature_extraction"].get("ngram_size", 3)
+
     logger.info(f"开始特征提取，方法：{feature_method}")
     extractor = FeatureExtractor(method=feature_method, n=ngram_size)
-    if parallel_enabled:
-        logger.info(f"并行已启用，进程数：{process_pool_size}")
-        from joblib import Parallel, delayed
-        features = Parallel(n_jobs=process_pool_size, prefer="processes")(
-            delayed(extractor.extract_features)(text)
-            for text in tqdm(preprocessed_data, desc="并行特征提取")
-        )
-    else:
-        features = [extractor.extract_features(
-            text) for text in tqdm(preprocessed_data, desc="特征提取")]
+    feature_extraction_parallel = parallel_config.get("feature_extraction_parallel", True)
+    logger.info("开启并行" if feature_extraction_parallel else "关闭并行")
+    
+    # 调用 FeatureExtractor 的并行特征提取方法
+    features = extractor.parallel_extract_features(
+        preprocessed_data, process_pool_size=process_pool_size, parallel_enabled=feature_extraction_parallel
+    )
+
     logger.info("特征提取完成。")
     feature_extraction_time = time.time() - feature_extraction_time
-    pipeline_log.add_runtime("feature_extraction_time",
-                             feature_extraction_time)
+    pipeline_log.add_runtime("feature_extraction_time",feature_extraction_time)
     logger.info(f"特征提取时间：{feature_extraction_time:.2f} 秒")
+
+    return
 
     # 6. 指纹生成
     fingerprint_time = time.time()

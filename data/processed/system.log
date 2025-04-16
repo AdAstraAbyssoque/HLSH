@@ -1036,3 +1036,123 @@
 2025-04-13 17:40:18,020 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：bitsampling
 2025-04-13 17:41:29,284 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 8997750 个候选对。
 2025-04-13 17:41:29,285 - data/processed/system.log - INFO - LSH 索引构建时间：71.27 秒
+2025-04-16 23:10:29,547 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:10:29,548 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:10:29,979 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:10:29,979 - data/processed/system.log - INFO - 数据加载时间：0.43 秒
+2025-04-16 23:10:59,530 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:10:59,530 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:11:00,151 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:11:00,151 - data/processed/system.log - INFO - 数据加载时间：0.62 秒
+2025-04-16 23:11:10,107 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:11:10,107 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:11:10,528 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:11:10,528 - data/processed/system.log - INFO - 数据加载时间：0.42 秒
+2025-04-16 23:34:08,186 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:34:08,186 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:34:08,737 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:34:08,737 - data/processed/system.log - INFO - 数据加载时间：0.55 秒
+2025-04-16 23:34:08,737 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-16 23:34:24,064 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-16 23:34:24,064 - data/processed/system.log - INFO - 数据预处理时间：15.33 秒
+2025-04-16 23:36:55,057 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:36:55,057 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:36:55,455 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:36:55,455 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-16 23:36:55,455 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-16 23:36:59,907 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-16 23:36:59,907 - data/processed/system.log - INFO - 数据预处理时间：4.45 秒
+2025-04-16 23:58:08,488 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:58:08,489 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:58:08,942 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:58:08,942 - data/processed/system.log - INFO - 数据加载时间：0.45 秒
+2025-04-16 23:58:08,942 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-16 23:58:13,364 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-16 23:58:13,365 - data/processed/system.log - INFO - 数据预处理时间：4.42 秒
+2025-04-16 23:58:13,365 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-16 23:58:13,365 - data/processed/system.log - INFO - 关闭并行
+2025-04-16 23:58:34,816 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-16 23:58:34,818 - data/processed/system.log - INFO - 特征提取时间：21.45 秒
+2025-04-16 23:59:05,667 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:59:05,667 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:59:06,035 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:59:06,035 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-16 23:59:06,035 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-16 23:59:10,182 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-16 23:59:10,182 - data/processed/system.log - INFO - 数据预处理时间：4.15 秒
+2025-04-16 23:59:10,182 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-16 23:59:10,183 - data/processed/system.log - INFO - 开启并行
+2025-04-16 23:59:27,175 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-16 23:59:27,176 - data/processed/system.log - INFO - 特征提取时间：16.99 秒
+2025-04-17 00:02:10,964 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:02:10,964 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:02:10,964 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:02:11,340 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:02:11,340 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 00:02:11,340 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:02:15,482 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:02:15,482 - data/processed/system.log - INFO - 数据预处理时间：4.14 秒
+2025-04-17 00:02:15,482 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:02:15,482 - data/processed/system.log - INFO - 关闭并行
+2025-04-17 00:02:21,935 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:02:21,935 - data/processed/system.log - INFO - 特征提取时间：6.45 秒
+2025-04-17 00:02:30,507 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:02:30,507 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:02:30,507 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:02:30,874 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:02:30,875 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 00:02:30,875 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:02:35,076 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:02:35,076 - data/processed/system.log - INFO - 数据预处理时间：4.20 秒
+2025-04-17 00:02:35,076 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:02:35,076 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:02:40,174 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:02:40,175 - data/processed/system.log - INFO - 特征提取时间：5.10 秒
+2025-04-17 00:03:01,964 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:03:01,964 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:03:01,964 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:03:02,305 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:03:02,305 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 00:03:02,305 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:03:06,514 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:03:06,514 - data/processed/system.log - INFO - 数据预处理时间：4.21 秒
+2025-04-17 00:03:06,514 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-17 00:03:06,514 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:03:12,182 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:03:12,183 - data/processed/system.log - INFO - 特征提取时间：5.67 秒
+2025-04-17 00:03:20,776 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:03:20,776 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:03:20,776 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:03:21,131 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:03:21,131 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 00:03:21,131 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:03:25,338 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:03:25,338 - data/processed/system.log - INFO - 数据预处理时间：4.21 秒
+2025-04-17 00:03:25,338 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-17 00:03:25,338 - data/processed/system.log - INFO - 关闭并行
+2025-04-17 00:03:32,047 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:03:32,047 - data/processed/system.log - INFO - 特征提取时间：6.71 秒
+2025-04-17 00:12:13,467 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:12:13,467 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:12:13,467 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:12:13,849 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:12:13,849 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 00:12:13,849 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:12:18,081 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:12:18,082 - data/processed/system.log - INFO - 数据预处理时间：4.23 秒
+2025-04-17 00:12:18,082 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 00:12:18,082 - data/processed/system.log - INFO - 关闭并行
+2025-04-17 00:12:47,329 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:12:47,330 - data/processed/system.log - INFO - 特征提取时间：29.25 秒
+2025-04-17 00:12:51,562 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:12:51,562 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:12:51,562 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:12:51,943 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:12:51,943 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 00:12:51,943 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:12:56,101 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:12:56,101 - data/processed/system.log - INFO - 数据预处理时间：4.16 秒
+2025-04-17 00:12:56,101 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 00:12:56,101 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:13:04,072 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:13:04,072 - data/processed/system.log - INFO - 特征提取时间：7.97 秒

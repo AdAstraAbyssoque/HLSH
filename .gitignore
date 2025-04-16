@@ -7,3 +7,4 @@ src/utils/__pycache__
 .*
 *.ipynb
 *.png
+data/processed/system.log

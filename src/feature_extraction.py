@@ -7,8 +7,12 @@
         •	调用：main.py在预处理后调用此模块为后续指纹计算准备输入。
 '''
 from typing import List, Set, Union
-from sklearn.feature_extraction.text import  TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from collections import Counter
+from joblib import Parallel, delayed
+from tqdm import tqdm
+
+
 class FeatureExtractor:
     """
     特征提取器类，用于将文本转换为适合指纹计算的特征格式。
@@ -20,7 +24,7 @@ class FeatureExtractor:
             初始化特征提取器。
 
             参数:
-                method (str): 特征提取方法，支持 "ngram"、"token" 和 "vectorize"。
+                method (str): 特征提取方法，支持 "ngram"、"token"、"frequency" 和 "vectorize"。
                 n (int): n-gram 的 n 值（仅在 method="ngram" 时有效）。
                 **kwargs: 向量化方法的参数，可传入 vectorizer  的参数。
             """
@@ -49,8 +53,32 @@ class FeatureExtractor:
             return self._extract_tokens(text)
         elif self.method == "vectorize":
             return self._extract_vectorized_features(text)
+        elif self.method == "frequency":
+            return self._extract_frequency(text)
         else:
             raise ValueError(f"不支持的特征提取方法: {self.method}")
+
+    def parallel_extract_features(self, texts: list[str], process_pool_size: int, parallel_enabled: bool) -> list[Set[str]]:
+        """
+        并行或串行提取文本特征。
+
+        参数:
+            texts (list[str]): 输入文本列表。
+            process_pool_size (int): 并行处理的进程数。
+            parallel_enabled (bool): 是否启用并行处理。
+
+        返回:
+            list[Set[str]]: 提取的特征集合列表。
+        """
+        if parallel_enabled:
+            print(f"并行特征提取已启用，进程数：{process_pool_size}")
+            features = Parallel(n_jobs=process_pool_size, prefer="processes")(
+                delayed(self.extract_features)(text) for text in tqdm(texts, desc="并行特征提取")
+            )
+        else:
+            features = [self.extract_features(text)
+                        for text in tqdm(texts, desc="特征提取")]
+        return features
 
     def _extract_ngrams(self, text: str) -> Set[str]:
         """
@@ -80,7 +108,7 @@ class FeatureExtractor:
             Set[str]: token 集合。
         """
         return set(text.split())
-        
+
     def _extract_frequency(self, text: str) -> Set[str]:
         """
         Extracts the frequency of words from the given text.
@@ -95,33 +123,15 @@ class FeatureExtractor:
             Set[str]: A set of unique words from the text with their frequencies.
         """
         return Counter(text.split())
-    
-    def _extract_tfidf(self, corpus: list[str]):
-        """
-        计算文本语料库中每个词的逆文档频率（IDF）。
-
-        参数:
-            corpus (list[str]): 文本语料库，包含多个文档。
-
-        返回:
-            tfidf_matrix (sparse matrix): 稀疏矩阵，表示每个文档中每个词的 TF-IDF 值。
-            words (list): 词汇表，包含语料库中所有唯一的词。
-        """
-        vectorizer = TfidfVectorizer()
-        tfidf_matrix = vectorizer.fit_transform(corpus)
-        words = vectorizer.get_feature_names_out()
-        return tfidf_matrix, words
-
-        
 
     def _extract_vectorized_features(self, documents: Union[str, List[str]]):
         """
         利用预先拟合或当前初始化的 TfidfVectorizer，
         将输入文档转换为 TF-IDF 矩阵表示。
-        
+
         参数:
             documents (str 或 List[str]): 输入单个文档或文档列表。
-        
+
         返回:
             tfidf_matrix (sparse matrix): 表示文档中每个词 TF-IDF 值的稀疏矩阵。
         """
@@ -134,22 +144,19 @@ class FeatureExtractor:
         except Exception:
             # 若未拟合，则先拟合后转换
             tfidf_matrix = self.vectorizer.fit_transform(documents)
-        words = self.vectorizer.get_feature_names_out()
-        return tfidf_matrix, words
-
-
+        return tfidf_matrix
 
 
 # 示例用法
 if __name__ == "__main__":
-    corpus=["this is a test", 
-            "this is another test",
-            "this is a simple example for feature extraction",
-            "this is another example for feature extraction",
-            "this is a test for feature extraction"
-            ]
+    corpus = ["this is a test",
+              "this is another test",
+              "this is a simple example for feature extraction",
+              "this is another example for feature extraction",
+              "this is a test for feature extraction"
+              ]
     text = "this is a simple example for feature extraction"
-    
+
     # 示例 1: 使用 ngram 特征
     extractor_ngram = FeatureExtractor(method="ngram", n=2)
     ngram_features = extractor_ngram.extract_features(text)
@@ -161,7 +168,7 @@ if __name__ == "__main__":
     print("token 特征:", token_features)
 
     # 示例 3: 使用 vectorize 特征（转换为 TF-IDF 非零项特征集合）
-    extractor_vectorize = FeatureExtractor(method="vectorize", vectorizer=TfidfVectorizer())
-    vectorized_features,words = extractor_vectorize.extract_features(text)
+    extractor_vectorize = FeatureExtractor(
+        method="vectorize", vectorizer=TfidfVectorizer())
+    vectorized_features = extractor_vectorize.extract_features(text)
     print("vectorized 特征:", vectorized_features)
-    print("词汇表:", words)
