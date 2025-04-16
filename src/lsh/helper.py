@@ -60,27 +60,29 @@ def jaccard_similarity(s1: str, s2: str) -> float:
 
 
 def euclidean_distance(s1: str, s2: str) -> float:
-    """
-    计算两个字符串的欧氏距离，基于词袋模型表示。
-    注意：较大的距离值表示字符串之间差异较大。
+  """
+  计算两个字符串的欧氏相似度，基于词袋模型表示。
+  注意：较大的相似度值表示字符串之间更相似。
 
-    参数：
-      s1: 第一个字符串
-      s2: 第二个字符串
+  参数：
+    s1: 第一个字符串
+    s2: 第二个字符串
 
-    返回：
-      欧氏距离（非负数）
-    """
-    # 按空格分词，构造词频向量
-    words1 = s1.split()
-    words2 = s2.split()
-    vec1 = Counter(words1)
-    vec2 = Counter(words2)
+  返回：
+    欧氏相似度，范围在 [0, 1] 之间。
+  """
+  # 按空格分词，构造词频向量
+  words1 = s1.split()
+  words2 = s2.split()
+  vec1 = Counter(words1)
+  vec2 = Counter(words2)
 
-    # 取两个向量的并集构建完整特征集合
-    all_words = set(vec1.keys()).union(vec2.keys())
+  # 取两个向量的并集构建完整特征集合
+  all_words = set(vec1.keys()).union(vec2.keys())
 
-    # 计算欧氏距离的平方和（随后开平方）
-    distance_sq = sum((vec1[word] - vec2[word]) ** 2 for word in all_words)
+  # 计算欧氏距离的平方和（随后开平方）
+  distance_sq = sum((vec1[word] - vec2[word]) ** 2 for word in all_words)
+  distance = math.sqrt(distance_sq)
 
-    return math.sqrt(distance_sq)
+  # 转换为相似度，使用公式 1 / (1 + 距离)
+  return 1 / (1 + distance)

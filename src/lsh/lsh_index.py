@@ -73,7 +73,7 @@ class MinHashLSHIndex:
         参数:
             signatures (List[List[int]]): MinHash 签名列表。
         """
-        for doc_id, signature in enumerate(signatures):
+        for doc_id, signature in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
             # 如果可能，可以提前将 signature 转换为元组，避免每个 band 都转换
             for band_idx, (start, end) in enumerate(self.band_indices):
                 band = tuple(signature[start:end])
@@ -102,7 +102,7 @@ class MinHashLSHIndex:
             Set[Tuple[int, int]]: 候选文档对集合。
         """
         candidate_pairs = set()
-        for band in self.buckets:
+        for band in tqdm(self.buckets, desc="Processing bands", total=len(self.buckets)):
             for bucket in band.values():
                 if len(bucket) > 1:
                     for pair in itertools.combinations(bucket, 2):
@@ -110,17 +110,17 @@ class MinHashLSHIndex:
         return candidate_pairs
 
 
-
 class SimHashLSHIndex:
     """
     基于 SimHash 签名的 LSH 索引，适用于 Hamming 距离。
     """
+
     def __init__(self, radius: int, hush_bits: int = 64, parallel_enabled: bool = False, process_pool_size: int = 4):
         self.radius = radius
         self.buckets = defaultdict(list)
         self.neighbor_cache = {}
         # 使用实际签名位数，建议与指纹生成时保持一致
-        self.bits = hush_bits  
+        self.bits = hush_bits
         self.parallel_enabled = parallel_enabled
         self.process_pool_size = process_pool_size
 
@@ -148,7 +148,8 @@ class SimHashLSHIndex:
         if tasks:
             if self.parallel_enabled:
                 with Pool(processes=self.process_pool_size) as pool:
-                    results = pool.map(self._generate_neighbors_for_flip, tasks)
+                    results = pool.map(
+                        self._generate_neighbors_for_flip, tasks)
             else:
                 results = list(map(self._generate_neighbors_for_flip, tasks))
             for neighbor in results:
@@ -178,6 +179,7 @@ class SimHashLSHIndex:
                     candidate_pairs.add(tuple(sorted(pair)))
         return candidate_pairs
 
+
 class BitSamplingLSHIndex:
     """
     基于 BitSampling 签名的 LSH 索引，适用于 Hamming 相似度。
@@ -197,34 +199,38 @@ class BitSamplingLSHIndex:
         # 预先采样每个哈希表需要的 bit 位
         self.sampled_bits = []
         for table_idx in range(num_hash_tables):
-            # 保证每个表的采样一致，可以指定随机种子
-            rnd = random.Random(table_idx)
+            rnd = random.Random(table_idx)  # 固定种子保证每个表一致
             sampled = rnd.sample(range(64), bits_per_table)
             self.sampled_bits.append(sampled)
+        # 存储文档签名，便于候选对过滤
+        self.doc_signatures = {}
 
     def _hash_signature(self, signature: int, table_idx: int) -> int:
         """
         对签名进行采样哈希，利用预采样的 bit 位。
+
         参数:
             signature (int): 输入签名。
             table_idx (int): 哈希表索引。
+
         返回:
             int: 哈希值。
         """
-        sampled_bits = self.sampled_bits[table_idx]
         hash_value = 0
-        for i, bit in enumerate(sampled_bits):
+        for i, bit in enumerate(self.sampled_bits[table_idx]):
             if signature & (1 << bit):
                 hash_value |= (1 << i)
         return hash_value
 
     def index(self, signatures: List[int]):
         """
-        将签名存入多个采样哈希表。
+        将签名存入多个采样哈希表，并记录文档签名。
+
         参数:
             signatures (List[int]): BitSampling 签名列表。
         """
         for doc_id, signature in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
+            self.doc_signatures[doc_id] = signature
             for table_idx in range(self.num_hash_tables):
                 bucket_key = self._hash_signature(signature, table_idx)
                 self.tables[table_idx][bucket_key].append(doc_id)
@@ -232,8 +238,10 @@ class BitSamplingLSHIndex:
     def query(self, signature: int) -> Set[int]:
         """
         查询可能相似的文档。
+
         参数:
             signature (int): 查询的 BitSampling 签名。
+
         返回:
             Set[int]: 可能相似的文档 ID 集合。
         """
@@ -243,21 +251,39 @@ class BitSamplingLSHIndex:
             candidates.update(self.tables[table_idx].get(bucket_key, []))
         return candidates
 
-
-
-    def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
+    def get_candidate_pairs(self, min_similarity: float = 0.8, full_signature_bits: int = 64) -> Set[Tuple[int, int]]:
         """
-        返回所有候选文档对。
+        返回相似度高于阈值的候选文档对。
+
+        参数:
+            min_similarity (float): 签名相似度阈值，默认为 0.8。
+            full_signature_bits (int): 完整签名的位数，用于构造位集合计算 Jaccard 相似度。
+
         返回:
             Set[Tuple[int, int]]: 候选文档对集合。
         """
         candidate_pairs = set()
-
+        raw_pairs = set()
         for table in tqdm(self.tables, desc="Processing tables", total=len(self.tables)):
             for bucket in table.values():
                 if len(bucket) > 1:
                     for pair in itertools.combinations(bucket, 2):
-                        candidate_pairs.add(tuple(sorted(pair)))
+                        raw_pairs.add(tuple(sorted(pair)))
+        # 使用完整签名计算 Jaccard 相似度
+        for doc_id1, doc_id2 in tqdm(raw_pairs, desc="Filtering candidate pairs", total=len(raw_pairs)):
+            sig1 = self.doc_signatures[doc_id1]
+            sig2 = self.doc_signatures[doc_id2]
+            # 将签名转换为位索引集合
+            set1 = {i for i in range(full_signature_bits) if sig1 & (1 << i)}
+            set2 = {i for i in range(full_signature_bits) if sig2 & (1 << i)}
+            union = set1 | set2
+            intersection = set1 & set2
+            if union:
+                similarity = len(intersection) / len(union)
+            else:
+                similarity = 1.0
+            if similarity >= min_similarity:
+                candidate_pairs.add((doc_id1, doc_id2))
         return candidate_pairs
 
 class HybridLSHIndex:
