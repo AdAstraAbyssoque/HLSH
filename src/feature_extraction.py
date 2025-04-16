@@ -51,8 +51,6 @@ class FeatureExtractor:
             return self._extract_ngrams(text)
         elif self.method == "token":
             return self._extract_tokens(text)
-        elif self.method == "vectorize":
-            return self._extract_vectorized_features(text)
         elif self.method == "frequency":
             return self._extract_frequency(text)
         else:
@@ -70,6 +68,11 @@ class FeatureExtractor:
         返回:
             list[Set[str]]: 提取的特征集合列表。
         """
+
+        if self.method == "vectorize":
+            # 如果方法是 vectorize，则直接使用 vectorizer 进行转换
+            return self._extract_vectorized_features(texts)
+        # 否则使用 extract_features 方法提取特征
         if parallel_enabled:
             print(f"并行特征提取已启用，进程数：{process_pool_size}")
             features = Parallel(n_jobs=process_pool_size, prefer="processes")(
@@ -109,7 +112,7 @@ class FeatureExtractor:
         """
         return set(text.split())
 
-    def _extract_frequency(self, text: str) -> Set[str]:
+    def _extract_frequency(self, text: str) -> dict:
         """
         Extracts the frequency of words from the given text.
 
@@ -122,29 +125,37 @@ class FeatureExtractor:
         Returns:
             Set[str]: A set of unique words from the text with their frequencies.
         """
-        return Counter(text.split())
+        return dict(Counter(text.split()))
 
-    def _extract_vectorized_features(self, documents: Union[str, List[str]]):
+    def _extract_vectorized_features(self, documents: List[str]) -> dict:
         """
         利用预先拟合或当前初始化的 TfidfVectorizer，
-        将输入文档转换为 TF-IDF 矩阵表示。
+        将输入文档列表转换为 TF-IDF 字典表示，
+        以 token 为 key，值为该 token 跨所有文档的 TF-IDF 分数总和。
 
         参数:
-            documents (str 或 List[str]): 输入单个文档或文档列表。
+            documents (List[str]): 输入文档列表。
 
         返回:
-            tfidf_matrix (sparse matrix): 表示文档中每个词 TF-IDF 值的稀疏矩阵。
+            token_dict: 以 token 为 key 的 TF-IDF 分数累计字典。
         """
-        # 若传入单个文档，则构造单元素列表
-        if isinstance(documents, str):
-            documents = [documents]
         try:
             # 尝试直接转换（假设 vectorizer 已经拟合）
+            print("尝试直接转换 TF-IDF 矩阵")
             tfidf_matrix = self.vectorizer.transform(documents)
         except Exception:
             # 若未拟合，则先拟合后转换
+            print("未拟合，尝试拟合 TF-IDF 矩阵")
             tfidf_matrix = self.vectorizer.fit_transform(documents)
-        return tfidf_matrix
+
+        print("转换 TF-IDF 矩阵成功,开始提取特征")
+        feature_names = self.vectorizer.get_feature_names_out()
+        # 使用矩阵运算对各 token 的 TF-IDF 分数进行累计
+        token_scores = tfidf_matrix.sum(axis=0)  # 计算每列即每个 token 的累加分数
+        # 将结果转换为一维数组（如果 tfidf_matrix 为稀疏矩阵）
+        token_scores = token_scores.A1
+        token_dict = dict(zip(feature_names, token_scores))
+        return token_dict
 
 
 # 示例用法

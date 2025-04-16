@@ -1156,3 +1156,431 @@
 2025-04-17 00:12:56,101 - data/processed/system.log - INFO - 开启并行
 2025-04-17 00:13:04,072 - data/processed/system.log - INFO - 特征提取完成。
 2025-04-17 00:13:04,072 - data/processed/system.log - INFO - 特征提取时间：7.97 秒
+2025-04-17 00:38:29,727 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:38:29,727 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:38:29,727 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:38:30,101 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:38:30,101 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 00:38:30,101 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:38:34,360 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:38:34,360 - data/processed/system.log - INFO - 数据预处理时间：4.26 秒
+2025-04-17 00:38:34,360 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:38:34,360 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:38:39,492 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:38:39,493 - data/processed/system.log - INFO - 特征提取时间：5.13 秒
+2025-04-17 00:38:39,493 - data/processed/system.log - INFO - 特征结构类型：<class 'list'>
+2025-04-17 00:38:39,493 - data/processed/system.log - INFO - 特征列表元素类型：<class 'collections.Counter'>
+2025-04-17 00:38:39,493 - data/processed/system.log - INFO - 特征字典键值类型：[('_start_article_', <class 'int'>), ('bernhard', <class 'int'>), ('w', <class 'int'>), ('roth', <class 'int'>), ('_start_section_', <class 'int'>), ('scientific', <class 'int'>), ('career', <class 'int'>), ('_start_paragraph_', <class 'int'>), ('from', <class 'int'>), ('1992', <class 'int'>), ('to', <class 'int'>), ('1997', <class 'int'>), ('studied', <class 'int'>), ('physics', <class 'int'>), ('at', <class 'int'>), ('the', <class 'int'>), ('universität', <class 'int'>), ('bielefeld', <class 'int'>), ('where', <class 'int'>), ('he', <class 'int'>), ('obtained', <class 'int'>), ('his', <class 'int'>), ('diploma', <class 'int'>), ('in', <class 'int'>), ('received', <class 'int'>), ('doctoral', <class 'int'>), ('degree', <class 'int'>), ('dr', <class 'int'>), ('rer', <class 'int'>), ('nat', <class 'int'>), ('field', <class 'int'>), ('of', <class 'int'>), ('atomic', <class 'int'>), ('and', <class 'int'>), ('particle', <class 'int'>), ('2002', <class 'int'>), ('2007', <class 'int'>), ('her', <class 'int'>), ('worked', <class 'int'>), ('as', <class 'int'>), ('assistant', <class 'int'>), ('professor', <class 'int'>), ('group', <class 'int'>), ('leader', <class 'int'>), ('experimental', <class 'int'>), ('quantum', <class 'int'>), ('optics', <class 'int'>), ('institute', <class 'int'>), ('for', <class 'int'>), ('relativity', <class 'int'>), ('heinrichheineuniversität', <class 'int'>), ('düsseldorf', <class 'int'>), ('state', <class 'int'>), ('doctorate', <class 'int'>), ('habilitation', <class 'int'>), ('production', <class 'int'>), ('spectroscopy', <class 'int'>), ('on', <class 'int'>), ('ultracold', <class 'int'>), ('molecular', <class 'int'>), ('ions', <class 'int'>), ('2010', <class 'int'>), ('was', <class 'int'>), ('associate', <class 'int'>), ('2011', <class 'int'>), ('2012', <class 'int'>), ('center', <class 'int'>), ('manager', <class 'int'>), ('centre', <class 'int'>), ('innovation', <class 'int'>), ('competence', <class 'int'>), ('innofspec', <class 'int'>), ('potsdam', <class 'int'>), ('leibniz', <class 'int'>), ('astrophysics', <class 'int'>), ('aip', <class 'int'>), ('since', <class 'int'>), ('is', <class 'int'>), ('managing', <class 'int'>), ('director', <class 'int'>), ('hannover', <class 'int'>), ('optical', <class 'int'>), ('technologies', <class 'int'>), ('hot', <class 'int'>), ('an', <class 'int'>), ('interdisciplinary', <class 'int'>), ('research', <class 'int'>), ('gottfried', <class 'int'>), ('wilhelm', <class 'int'>), ('also', <class 'int'>), ('2014', <class 'int'>), ('appointed', <class 'int'>), ('extraordinary', <class 'int'>), ('faculty', <class 'int'>), ('mathematics', <class 'int'>), ('see', <class 'int'>), ('one', <class 'int'>), ('coordinators', <class 'int'>), ('international', <class 'int'>), ('master', <class 'int'>), ('program', <class 'int'>), ('photonics', <class 'int'>), ('laser', <class 'int'>), ('technology', <class 'int'>), ('msc', <class 'int'>), ('activities', <class 'int'>), ('b', <class 'int'>), ('are', <class 'int'>), ('focused', <class 'int'>), ('applied', <class 'int'>), ('fundamental', <class 'int'>), ('this', <class 'int'>), ('includes', <class 'int'>), ('development', <class 'int'>), ('integrated', <class 'int'>), ('functional', <class 'int'>), ('polymeroptical', <class 'int'>), ('sensing', <class 'int'>), ('eg', <class 'int'>), ('based', <class 'int'>), ('fibreoptic', <class 'int'>), ('or', <class 'int'>), ('planar', <class 'int'>), ('concepts', <class 'int'>), ('optofluidics', <class 'int'>), ('analytics', <class 'int'>), ('life', <class 'int'>), ('sciences', <class 'int'>), ('multimodal', <class 'int'>), ('imaging', <class 'int'>), ('medicine', <class 'int'>), ('information', <class 'int'>), ('illumination', <class 'int'>), ('well', <class 'int'>), ('digital', <class 'int'>), ('holography', <class 'int'>), ('furthermore', <class 'int'>), ('hybrid', <class 'int'>), ('multiphysics', <class 'int'>), ('multiscale', <class 'int'>), ('numerical', <class 'int'>), ('simulations', <class 'int'>), ('complex', <class 'int'>), ('systems', <class 'int'>), ('algorithms', <class 'int'>), ('simulation', <class 'int'>), ('inversion', <class 'int'>), ('investigated', <class 'int'>), ('initial', <class 'int'>), ('fields', <class 'int'>), ('include', <class 'int'>), ('particular', <class 'int'>), ('cooling', <class 'int'>), ('trapped', <class 'int'>), ('highprecision', <class 'int'>), ('lowenergy', <class 'int'>), ('member', <class 'int'>), ('collaborative', <class 'int'>), ('planos', <class 'int'>), ('optronic', <class 'int'>), ('team', <class 'int'>), ('principal', <class 'int'>), ('investigators', <class 'int'>), ('pi', <class 'int'>), ('newly', <class 'int'>), ('established', <class 'int'>), ('cluster', <class 'int'>), ('excellence', <class 'int'>), ('phoenixd', <class 'int'>), ('engineering', <class 'int'>), ('across', <class 'int'>), ('disciplines', <class 'int'>), ('german', <class 'int'>), ('foundation', <class 'int'>), ('dfg', <class 'int'>), ('awards', <class 'int'>), ('recipient', <class 'int'>), ('prestigious', <class 'int'>), ('kaiserfriedrich', <class 'int'>), ('forschungspreis', <class 'int'>), ('2018', <class 'int'>), ('award', <class 'int'>), ('project', <class 'int'>), ('smartsens', <class 'int'>), ('together', <class 'int'>), ('with', <class 'int'>), ('johannagabriela', <class 'int'>), ('walter', <class 'int'>), ('tci', <class 'int'>), ('university', <class 'int'>), ('kort', <class 'int'>), ('bremer', <class 'int'>)]
+2025-04-17 00:55:12,828 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:55:12,828 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:55:12,829 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:55:13,186 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:55:13,186 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 00:55:13,186 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:55:28,929 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:55:28,929 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:55:28,929 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:55:29,269 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:55:29,269 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 00:55:29,269 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:55:33,551 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:55:33,551 - data/processed/system.log - INFO - 数据预处理时间：4.28 秒
+2025-04-17 00:55:33,551 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:55:33,551 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:55:38,118 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:55:38,118 - data/processed/system.log - INFO - 特征提取时间：4.57 秒
+2025-04-17 00:55:58,768 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:55:58,768 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:55:58,768 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:55:59,106 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:55:59,106 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 00:55:59,106 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:56:03,217 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:56:03,217 - data/processed/system.log - INFO - 数据预处理时间：4.11 秒
+2025-04-17 00:56:03,217 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:56:03,217 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:56:07,670 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:56:07,671 - data/processed/system.log - INFO - 特征提取时间：4.45 秒
+2025-04-17 01:03:57,496 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:03:57,496 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:03:57,496 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:03:57,899 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:03:57,899 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-17 01:03:57,941 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:03:58,935 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:03:58,936 - data/processed/system.log - INFO - 数据预处理时间：0.99 秒
+2025-04-17 01:03:58,936 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:03:58,936 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:03:59,664 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:03:59,664 - data/processed/system.log - INFO - 特征提取时间：0.73 秒
+2025-04-17 01:04:04,311 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:04:04,311 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:04:04,311 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:04:04,662 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:04:04,662 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:04:04,711 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:04:05,656 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:04:05,657 - data/processed/system.log - INFO - 数据预处理时间：0.95 秒
+2025-04-17 01:04:05,657 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:04:05,657 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:04:06,245 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:04:06,245 - data/processed/system.log - INFO - 特征提取时间：0.59 秒
+2025-04-17 01:06:47,096 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:06:47,096 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:06:47,096 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:06:47,446 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:06:47,446 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:06:47,499 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:06:48,478 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:06:48,478 - data/processed/system.log - INFO - 数据预处理时间：0.98 秒
+2025-04-17 01:06:48,478 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:06:48,478 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:06:49,152 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:06:49,153 - data/processed/system.log - INFO - 特征提取时间：0.67 秒
+2025-04-17 01:07:40,689 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:07:40,689 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:07:40,689 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:07:41,043 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:07:41,043 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:07:41,097 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:07:42,038 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:07:42,038 - data/processed/system.log - INFO - 数据预处理时间：0.94 秒
+2025-04-17 01:07:42,038 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:07:42,038 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:07:42,674 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:07:42,674 - data/processed/system.log - INFO - 特征提取时间：0.64 秒
+2025-04-17 01:07:53,258 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:07:53,258 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:07:53,258 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:07:53,617 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:07:53,617 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:07:53,669 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:07:54,735 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:07:54,735 - data/processed/system.log - INFO - 数据预处理时间：1.07 秒
+2025-04-17 01:07:54,735 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:07:54,735 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:07:55,308 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:07:55,308 - data/processed/system.log - INFO - 特征提取时间：0.57 秒
+2025-04-17 01:08:24,843 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:08:24,843 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:08:24,843 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:08:25,189 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:08:25,189 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:08:25,189 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:08:29,498 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:08:29,498 - data/processed/system.log - INFO - 数据预处理时间：4.31 秒
+2025-04-17 01:08:29,498 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:08:29,498 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:08:34,046 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:08:34,046 - data/processed/system.log - INFO - 特征提取时间：4.55 秒
+2025-04-17 01:09:07,594 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:09:07,594 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:09:07,595 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:09:07,953 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:09:07,954 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:09:07,954 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:09:12,290 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:09:12,290 - data/processed/system.log - INFO - 数据预处理时间：4.34 秒
+2025-04-17 01:09:12,290 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:09:12,290 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:09:16,891 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:09:16,892 - data/processed/system.log - INFO - 特征提取时间：4.60 秒
+2025-04-17 01:10:14,390 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:10:14,390 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:10:14,390 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:10:14,760 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:10:14,760 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 01:10:14,760 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:10:18,993 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:10:18,994 - data/processed/system.log - INFO - 数据预处理时间：4.23 秒
+2025-04-17 01:10:18,994 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:10:18,994 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:10:44,002 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:10:44,003 - data/processed/system.log - INFO - 特征提取时间：25.01 秒
+2025-04-17 01:11:08,244 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:11:08,244 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:11:08,244 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:11:08,612 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:11:08,612 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 01:11:08,649 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:11:09,648 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:11:09,648 - data/processed/system.log - INFO - 数据预处理时间：1.00 秒
+2025-04-17 01:11:09,648 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:11:09,648 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:11:10,406 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:11:10,406 - data/processed/system.log - INFO - 特征提取时间：0.76 秒
+2025-04-17 01:15:00,358 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:15:00,358 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:15:00,358 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:15:00,761 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:15:00,761 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-17 01:15:00,813 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:15:01,798 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:15:01,798 - data/processed/system.log - INFO - 数据预处理时间：0.98 秒
+2025-04-17 01:15:01,798 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:15:01,798 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:15:02,555 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:15:02,555 - data/processed/system.log - INFO - 特征提取时间：0.76 秒
+2025-04-17 01:16:16,481 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:16:16,481 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:16:16,481 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:16:16,828 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:16:16,828 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:16:16,881 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:16:17,863 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:16:17,863 - data/processed/system.log - INFO - 数据预处理时间：0.98 秒
+2025-04-17 01:16:17,863 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:16:17,864 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:16:18,647 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:16:18,647 - data/processed/system.log - INFO - 特征提取时间：0.78 秒
+2025-04-17 01:25:44,881 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:25:44,881 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:25:44,881 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:25:45,225 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:25:45,225 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 01:25:45,275 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:25:46,245 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:25:46,245 - data/processed/system.log - INFO - 数据预处理时间：0.97 秒
+2025-04-17 01:25:46,245 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:25:46,245 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:25:58,009 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:25:58,009 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:25:58,009 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:25:58,394 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:25:58,394 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 01:25:58,436 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:25:59,561 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:25:59,561 - data/processed/system.log - INFO - 数据预处理时间：1.13 秒
+2025-04-17 01:25:59,561 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:25:59,561 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:28:05,985 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:28:05,985 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:28:05,985 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:28:06,331 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:28:06,331 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:28:06,383 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:28:07,331 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:28:07,332 - data/processed/system.log - INFO - 数据预处理时间：0.95 秒
+2025-04-17 01:28:07,332 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:28:07,332 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:28:12,619 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:28:12,620 - data/processed/system.log - INFO - 特征提取时间：5.29 秒
+2025-04-17 01:29:48,534 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:29:48,534 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:29:48,534 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:29:48,885 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:29:48,885 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:29:48,936 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:29:49,883 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:29:49,884 - data/processed/system.log - INFO - 数据预处理时间：0.95 秒
+2025-04-17 01:29:49,884 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:29:49,884 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:29:55,199 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:29:55,199 - data/processed/system.log - INFO - 特征提取时间：5.32 秒
+2025-04-17 01:30:29,188 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:30:29,188 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:30:29,188 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:30:29,543 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:30:29,543 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:30:29,601 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:30:30,684 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:30:30,684 - data/processed/system.log - INFO - 数据预处理时间：1.08 秒
+2025-04-17 01:30:30,684 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:30:30,684 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:30:36,004 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:30:36,004 - data/processed/system.log - INFO - 特征提取时间：5.32 秒
+2025-04-17 01:30:47,677 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:30:47,677 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:30:47,677 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:30:48,034 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:30:48,034 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:30:48,034 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:30:52,218 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:30:52,218 - data/processed/system.log - INFO - 数据预处理时间：4.18 秒
+2025-04-17 01:30:52,218 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:30:52,218 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:35:41,617 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:35:41,617 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:35:41,617 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:35:41,997 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:35:41,997 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 01:35:41,997 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:35:46,234 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:35:46,234 - data/processed/system.log - INFO - 数据预处理时间：4.24 秒
+2025-04-17 01:35:46,234 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:35:46,234 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:36:33,018 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:36:33,019 - data/processed/system.log - INFO - 特征提取时间：46.78 秒
+2025-04-17 01:38:24,331 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:38:24,331 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:38:24,331 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:38:24,899 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:38:24,899 - data/processed/system.log - INFO - 数据加载时间：0.57 秒
+2025-04-17 01:38:24,899 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:38:29,133 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:38:29,133 - data/processed/system.log - INFO - 数据预处理时间：4.23 秒
+2025-04-17 01:38:29,133 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:38:29,133 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:39:12,381 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:39:12,381 - data/processed/system.log - INFO - 特征提取时间：43.25 秒
+2025-04-17 01:40:47,788 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:40:47,788 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:40:47,788 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:40:48,182 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:40:48,182 - data/processed/system.log - INFO - 数据加载时间：0.39 秒
+2025-04-17 01:40:48,182 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:40:52,444 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:40:52,444 - data/processed/system.log - INFO - 数据预处理时间：4.26 秒
+2025-04-17 01:40:52,444 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:40:52,444 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:41:37,371 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:41:37,372 - data/processed/system.log - INFO - 特征提取时间：44.93 秒
+2025-04-17 01:43:13,927 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:43:13,927 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:43:13,927 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:43:14,295 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:43:14,295 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 01:43:14,295 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:43:18,805 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:43:18,805 - data/processed/system.log - INFO - 数据预处理时间：4.51 秒
+2025-04-17 01:43:18,805 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:43:18,805 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:44:05,378 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:44:05,379 - data/processed/system.log - INFO - 特征提取时间：46.57 秒
+2025-04-17 01:57:14,880 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:57:14,880 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:57:14,880 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:57:15,279 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:57:15,279 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-17 01:57:15,279 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:57:19,661 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:57:19,662 - data/processed/system.log - INFO - 数据预处理时间：4.38 秒
+2025-04-17 01:57:19,662 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:57:19,662 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:57:24,388 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:57:24,388 - data/processed/system.log - INFO - 特征提取时间：4.73 秒
+2025-04-17 01:57:32,380 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:57:32,380 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:57:32,380 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:57:32,733 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:57:32,733 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:57:32,772 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:57:33,472 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:57:33,472 - data/processed/system.log - INFO - 数据预处理时间：0.70 秒
+2025-04-17 01:57:33,472 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:57:33,472 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:57:34,409 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:57:34,409 - data/processed/system.log - INFO - 特征提取时间：0.94 秒
+2025-04-17 01:57:35,824 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 01:57:35,824 - data/processed/system.log - INFO - 关闭并行
+2025-04-17 01:57:37,264 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 01:57:37,264 - data/processed/system.log - INFO - 指纹生成时间：1.44 秒
+2025-04-17 01:57:37,264 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 01:57:37,269 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 01:57:46,339 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:57:46,340 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:57:46,340 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:57:46,675 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:57:46,675 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 01:57:46,713 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:57:47,628 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:57:47,629 - data/processed/system.log - INFO - 数据预处理时间：0.92 秒
+2025-04-17 01:57:47,629 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:57:47,629 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:57:48,268 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:57:48,268 - data/processed/system.log - INFO - 特征提取时间：0.64 秒
+2025-04-17 01:57:49,737 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 01:57:49,737 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:57:51,205 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 01:57:51,205 - data/processed/system.log - INFO - 指纹生成时间：1.47 秒
+2025-04-17 01:57:51,205 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 01:57:51,207 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 01:58:05,740 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:58:05,740 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:58:05,740 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:58:06,074 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:58:06,074 - data/processed/system.log - INFO - 数据加载时间：0.33 秒
+2025-04-17 01:58:06,118 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:58:07,125 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:58:07,126 - data/processed/system.log - INFO - 数据预处理时间：1.01 秒
+2025-04-17 01:58:07,126 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 01:58:07,126 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:58:07,778 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:58:07,778 - data/processed/system.log - INFO - 特征提取时间：0.65 秒
+2025-04-17 01:58:10,927 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 01:58:10,927 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:59:03,376 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:59:03,376 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:59:03,376 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:59:03,737 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:59:03,737 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:59:03,788 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:59:04,833 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:59:04,834 - data/processed/system.log - INFO - 数据预处理时间：1.05 秒
+2025-04-17 01:59:04,834 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 01:59:04,834 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:59:05,525 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:59:05,525 - data/processed/system.log - INFO - 特征提取时间：0.69 秒
+2025-04-17 01:59:08,694 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 01:59:08,694 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:59:09,212 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 01:59:09,213 - data/processed/system.log - INFO - 指纹生成时间：0.52 秒
+2025-04-17 01:59:09,213 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 01:59:09,247 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 01:59:13,734 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:59:13,734 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:59:13,734 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:59:14,074 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:59:14,074 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 01:59:14,074 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:59:18,546 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:59:18,546 - data/processed/system.log - INFO - 数据预处理时间：4.47 秒
+2025-04-17 01:59:18,546 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 01:59:18,546 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:59:37,655 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:59:37,655 - data/processed/system.log - INFO - 特征提取时间：19.11 秒
+2025-04-17 02:01:07,696 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:01:07,696 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:01:07,696 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:01:08,076 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:01:08,076 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 02:01:08,114 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:01:09,045 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:01:09,046 - data/processed/system.log - INFO - 数据预处理时间：0.93 秒
+2025-04-17 02:01:09,046 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 02:01:09,046 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:01:09,793 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:01:09,794 - data/processed/system.log - INFO - 特征提取时间：0.75 秒
+2025-04-17 02:01:09,794 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 02:01:09,794 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:01:10,302 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 02:01:10,302 - data/processed/system.log - INFO - 指纹生成时间：0.51 秒
+2025-04-17 02:01:10,302 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:01:10,337 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:01:10,337 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 02:01:10,344 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 3 个候选对。
+2025-04-17 02:01:10,345 - data/processed/system.log - INFO - LSH 索引构建时间：0.01 秒
+2025-04-17 02:01:10,618 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.94
+2025-04-17 02:01:10,618 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs_sampling.csv
+2025-04-17 02:01:10,618 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 02:01:28,237 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:01:28,237 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:01:28,237 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:01:28,624 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:01:28,624 - data/processed/system.log - INFO - 数据加载时间：0.39 秒
+2025-04-17 02:01:28,681 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:01:29,751 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:01:29,751 - data/processed/system.log - INFO - 数据预处理时间：1.07 秒
+2025-04-17 02:01:29,751 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:01:29,752 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:01:30,322 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:01:30,322 - data/processed/system.log - INFO - 特征提取时间：0.57 秒
+2025-04-17 02:01:30,322 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:01:30,322 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:01:31,786 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 02:01:31,786 - data/processed/system.log - INFO - 指纹生成时间：1.46 秒
+2025-04-17 02:01:31,786 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:01:31,789 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:01:31,789 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 02:01:32,466 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 499500 个候选对。
+2025-04-17 02:01:32,467 - data/processed/system.log - INFO - LSH 索引构建时间：0.68 秒

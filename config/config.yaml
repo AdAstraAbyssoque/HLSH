@@ -10,15 +10,14 @@ data:
 
 # 特征提取配置
 feature_extraction:
-  method: vectorize # 可选值: ngram, token,vectorize,frequency
+  method: frequency # 可选值: ngram(for minhash) | token,vectorize,frequency(for simhash)
   ngram_size: 3 # n-gram 的 n 值
 
 # 指纹生成配置
 fingerprint:
-  method: minhash # 可选值: minhash, simhash, bitsampling, hybrid
+  method: simhash # 可选值: minhash, simhash, hybrid
   num_hashes: 150 # MinHash 的哈希函数数量
-  hash_bits: 128 # SimHash 和 BitSampling 的签名位数
-  sample_size: 128 # BitSampling 的采样位数
+  hash_bits: 128 # SimHash 的签名位数
   seed: 42 # 随机种子
 
 # LSH 索引配置
@@ -48,6 +47,7 @@ parallel:
   data_loader_parallel: False # 是否启用数据加载并行(没必要)
   preprocess_parallel: True # 是否启用预处理并行(可以开)
   feature_extraction_parallel: true # 是否启用特征提取并行(可以开)
+  fingerprint_parallel: true # 是否启用指纹生成并行((simhash,frequency)能开,(simhash,vectorize)不能开)
   thread_pool_size: 4 # I/O密集型任务线程数
   process_pool_size: 8 # CPU密集型任务进程数
   use_memory_cache: True # 是否使用内存缓存

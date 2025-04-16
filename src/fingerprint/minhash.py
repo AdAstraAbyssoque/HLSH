@@ -66,7 +66,7 @@ class MinHash:
             signature.append(int(transformed.min()))
         return signature
 
-    def compute_signatures_parallel(self, feature_sets: List[Set[str]], process_pool_size: int, parallel_enable: bool) -> List[List[int]]:
+    def parallel_compute_signature(self, feature_sets: List[Set[str]],parallel_enable: bool, process_pool_size: int) -> List[List[int]]:
         """
         并行计算多个特征集合的 MinHash 签名。
 

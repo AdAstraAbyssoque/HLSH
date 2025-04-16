@@ -104,8 +104,8 @@ class MinHashLSHIndex:
         for band in tqdm(self.buckets, desc="Processing bands", total=len(self.buckets)):
             for bucket in band.values():
                 if len(bucket) > 1:
-                    for pair in itertools.combinations(bucket, 2):
-                        candidate_pairs.add(tuple(sorted(pair)))
+                    # 直接利用集合推导组合并更新候选对集合
+                    candidate_pairs.update({tuple(sorted(pair)) for pair in itertools.combinations(bucket, 2)})
         return candidate_pairs
 
 
