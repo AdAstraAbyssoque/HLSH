@@ -27,8 +27,9 @@ from lsh.lsh_index import MinHashLSHIndex, SimHashLSHIndex, BitSamplingLSHIndex,
 from lsh.evaluation import Evaluator
 from tqdm import tqdm
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
-from preprocessing import preprocess_text
 from lsh.helper import cosine_similarity, jaccard_similarity, euclidean_distance
+from preprocessing import preprocess_text, parallel_preprocess_texts
+
 
 
 # 加载配置文件
@@ -76,19 +77,15 @@ def main():
 
     # 4. 数据预处理
 
-    # raw_data = raw_data[:1000]
+
+    # 4. 数据预处理
     preprocess_data_time = time.time()
     logger.info("开始数据预处理...")
-    if parallel_enabled:
-        logger.info(f"并行已启用，进程数：{process_pool_size}")
-        from joblib import Parallel, delayed
-        preprocessed_data = Parallel(n_jobs=process_pool_size, prefer="processes")(
-            delayed(preprocess_text)(text)
-            for text in tqdm(raw_data, desc="并行预处理")
-        )
-    else:
-        preprocessed_data = [preprocess_text(
-            text) for text in tqdm(raw_data, desc="预处理")]
+
+    preprocessed_data = parallel_preprocess_texts(
+        raw_data, process_pool_size=process_pool_size, parallel_enabled=parallel_enabled
+    )
+
     logger.info("数据预处理完成。")
     preprocess_data_time = time.time() - preprocess_data_time
     pipeline_log.add_runtime("preprocess_data_time", preprocess_data_time)

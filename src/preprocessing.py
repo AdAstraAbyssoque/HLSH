@@ -1,6 +1,6 @@
-
+from joblib import Parallel, delayed
+from tqdm import tqdm
 import re
-
 
 def preprocess_text(text: str) -> str:
     """
@@ -21,3 +21,25 @@ def preprocess_text(text: str) -> str:
     # 转换为小写
     text = text.lower()
     return text
+
+
+def parallel_preprocess_texts(texts: list[str], process_pool_size: int, parallel_enabled: bool) -> list[str]:
+    """
+    并行或串行预处理文本列表。
+
+    参数:
+        texts (list[str]): 原始文本列表。
+        process_pool_size (int): 并行处理的进程数。
+        parallel_enabled (bool): 是否启用并行处理。
+
+    返回:
+        list[str]: 预处理后的文本列表。
+    """
+    if parallel_enabled:
+        print(f"并行已启用，进程数：{process_pool_size}")
+        preprocessed_data = Parallel(n_jobs=process_pool_size, prefer="processes")(
+            delayed(preprocess_text)(text) for text in tqdm(texts, desc="并行预处理")
+        )
+    else:
+        preprocessed_data = [preprocess_text(text) for text in tqdm(texts, desc="预处理")]
+    return preprocessed_data
