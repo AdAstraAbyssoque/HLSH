@@ -158,7 +158,7 @@ def main():
     fingerprint_time = time.time()
     fingerprint_method = config["fingerprint"]["method"]
     use_cache = parallel_config.get("use_memory_cache", True)
-    logger.info(f"开始指纹生成，方法：{fingerprint_method}，批处理大小：{batch_size}")
+    logger.info(f"开始指纹生成，方法：{fingerprint_method}")
 
     if parallel_enabled == False:
         if fingerprint_method == "minhash":
@@ -337,7 +337,7 @@ def main():
     runtime_log = pipeline_log.runtime_log
     evaluator = Evaluator(candidate_pairs, runtime_log, preprocessed_data)
     duplicate_rate = evaluator.compute_near_duplicate_rate(
-        similarity_func=euclidean_distance)
+        similarity_func=cosine_similarity)
     evaluator.generate_visualizations(output_dir=evaluation_output_path)
     pipeline_log.add_result("duplicate_rate", duplicate_rate)
     logger.info(f"候选对中的近重复文档比率：{duplicate_rate:.2f}")
