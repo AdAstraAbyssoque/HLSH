@@ -66,45 +66,7 @@ def main():
     logger.info(f"加载数据路径：{raw_data_path}")
 
     raw_data = []
-
-    if os.path.isfile(raw_data_path) and raw_data_path.endswith(".parquet"):
-        # 如果是单个 Parquet 文件路径
-        try:
-            logger.info(f"加载单个文件：{raw_data_path}")
-            raw_data = data_loader.load_data(raw_data_path)
-        except Exception as e:
-            logger.error(f"文件 {raw_data_path} 加载失败，错误信息：{e}")
-            return
-    elif os.path.isdir(raw_data_path):
-        # 如果是目录路径，加载目录下所有 .parquet 文件
-        logger.info(f"加载目录中的所有 Parquet 文件：{raw_data_path}")
-        parquet_files = [os.path.join(raw_data_path, f) for f in os.listdir(
-            raw_data_path) if f.endswith(".parquet")]
-        if not parquet_files:
-            logger.error("指定目录中未找到任何 Parquet 文件。")
-            return
-
-        if parallel_enabled:
-            logger.info(f"并行已启用，线程数：{thread_pool_size}")
-            with ThreadPoolExecutor(max_workers=thread_pool_size) as executor:
-                results = list(executor.map(
-                    data_loader.load_data, parquet_files))
-                for result in results:
-                    raw_data.extend(result)
-        else:
-            for file_path in parquet_files:
-                try:
-                    logger.info(f"加载文件：{file_path}")
-                    raw_data.extend(data_loader.load_data(file_path))
-                except Exception as e:
-                    logger.warning(f"文件 {file_path} 加载失败，错误信息：{e}")
-    else:
-        logger.error("提供的路径既不是有效的 Parquet 文件，也不是目录路径。")
-        return
-
-    if not raw_data:
-        logger.error("未能成功加载任何数据。")
-        return
+    raw_data = data_loader.load_data(raw_data_path, parallel_enabled, thread_pool_size=thread_pool_size)
 
     logger.info(f"数据加载完成，共加载 {len(raw_data)} 条记录。")
     pipeline_log.add_result("raw_data_count", len(raw_data))
@@ -172,15 +134,17 @@ def main():
             simhash = SimHash(hash_bits=hash_bits)
             signatures = [simhash.compute_signature(
                 feature) for feature in tqdm(features, desc="生成 SimHash 签名")]
-        
+
         elif fingerprint_method == "bitsampling":
-            vectorizer=TfidfVectorizer()
+            vectorizer = TfidfVectorizer()
             vectorizer.fit(preprocessed_data)
             sample_size = config["fingerprint"]["sample_size"]
             hash_bits = config["fingerprint"]["hash_bits"]
             seed = config["fingerprint"].get("seed", None)
-            bitsampling = BitSampling(sample_size=sample_size, hash_bits=hash_bits, seed=seed, vectorizer=vectorizer)
-            signatures = [bitsampling.compute_signature(feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
+            bitsampling = BitSampling(
+                sample_size=sample_size, hash_bits=hash_bits, seed=seed, vectorizer=vectorizer)
+            signatures = [bitsampling.compute_signature(
+                feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
         else:
             logger.error(f"未知的指纹生成方法：{fingerprint_method}")
             return
@@ -191,23 +155,23 @@ def main():
         num_hashes = config["fingerprint"]["num_hashes"]
         hash_bits = config["fingerprint"]["hash_bits"]
         seed = config["fingerprint"].get("seed", None)
-        
+
         minhash = MinHash(num_hashes=num_hashes, seed=seed)
         simhash = SimHash(hash_bits=hash_bits)
-        
+
         if parallel_enabled:
             logger.info(f"并行已启用，进程数：{process_pool_size}")
             with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
                 minhash_sigs = list(tqdm(executor.map(minhash.compute_signature, features),
-                                total=len(features), desc="并行生成 MinHash 签名"))
+                                         total=len(features), desc="并行生成 MinHash 签名"))
                 simhash_sigs = list(tqdm(executor.map(simhash.compute_signature, features),
-                                total=len(features), desc="并行生成 SimHash 签名"))
+                                         total=len(features), desc="并行生成 SimHash 签名"))
                 signatures = list(zip(minhash_sigs, simhash_sigs))
         else:
-            minhash_sigs = [minhash.compute_signature(feature) 
-                          for feature in tqdm(features, desc="生成 MinHash 签名")]
-            simhash_sigs = [simhash.compute_signature(feature) 
-                          for feature in tqdm(features, desc="生成 SimHash 签名")]
+            minhash_sigs = [minhash.compute_signature(feature)
+                            for feature in tqdm(features, desc="生成 MinHash 签名")]
+            simhash_sigs = [simhash.compute_signature(feature)
+                            for feature in tqdm(features, desc="生成 SimHash 签名")]
             signatures = list(zip(minhash_sigs, simhash_sigs))
     else:
         if parallel_enabled == False:
@@ -257,13 +221,13 @@ def main():
             with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
                 if fingerprint_method == "minhash":
                     signatures = list(tqdm(executor.map(minhash.compute_signature, features),
-                                    total=len(features), desc="并行生成 MinHash 签名"))
+                                           total=len(features), desc="并行生成 MinHash 签名"))
                 elif fingerprint_method == "simhash":
                     signatures = list(tqdm(executor.map(simhash.compute_signature, features),
-                                    total=len(features), desc="并行生成 SimHash 签名"))
+                                           total=len(features), desc="并行生成 SimHash 签名"))
                 elif fingerprint_method == "bitsampling":
                     signatures = list(tqdm(executor.map(bitsampling.compute_signature, features),
-                                    total=len(features), desc="并行生成 BitSampling 签名"))
+                                           total=len(features), desc="并行生成 BitSampling 签名"))
 
             # 如果启用内存缓存，清理进程池
             if use_cache:
@@ -306,7 +270,7 @@ def main():
         bits_per_table = config["lsh"]["bits_per_table"]
         lsh_index = BitSamplingLSHIndex(
             num_hash_tables=num_hash_tables, bits_per_table=bits_per_table)
-    
+
     elif lsh_method == "hybrid":
         minhash_params = {
             "num_bands": config["lsh"]["minhash_num_bands"],
@@ -318,7 +282,8 @@ def main():
         }
         merge_strategy = config["lsh"].get("merge_strategy")
         weights = config["lsh"].get("weights")
-        lsh_index = HybridLSHIndex(minhash_params, simhash_params, merge_strategy, weights)
+        lsh_index = HybridLSHIndex(
+            minhash_params, simhash_params, merge_strategy, weights)
 
     else:
         logger.error(f"未知的 LSH 方法：{lsh_method}")

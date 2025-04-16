@@ -8,6 +8,8 @@
 '''
 import os
 import pandas as pd
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from tqdm import tqdm
 
 
 class DataLoader:
@@ -50,7 +52,52 @@ class DataLoader:
         else:
             raise ValueError(f"不支持的文件类型: {file_extension}")
 
-    def load_data(self, file_path: str) -> list[str]:
+    def load_data(self, file_path: str, parallel_enabled: bool, thread_pool_size=4) -> list[str]:
+        """
+        从指定路径加载原始数据, 且可区分是否为目录路径或单个文件路径。
+        如果是目录路径，则加载该目录下所有的 Parquet 和 CSV 文件。
+        如果是单个文件路径，则加载该文件。
+        如果文件不存在或格式不支持，则抛出异常。
+
+        参数:
+            file_path (str): 数据文件路径（支持 Parquet 和 CSV 格式）。
+
+        返回:
+            list[str]: 原始文本数据列表。
+        """
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"路径不存在: {file_path}")
+        elif os.path.isfile(file_path):
+            return self._load_data(file_path)
+        elif os.path.isdir(file_path):
+            data = []
+            if parallel_enabled:
+                with ThreadPoolExecutor(max_workers=thread_pool_size) as executor:
+                    futures = []
+                    for root, _, files in os.walk(file_path):
+                        for file in files:
+                            file_path = os.path.join(root, file)
+                            if file_path.endswith((".parquet", ".csv")):
+                                futures.append(executor.submit(
+                                    self._load_data, file_path))
+                    for future in futures:
+                        try:
+                            data.extend(future.result())
+                        except Exception as e:
+                            print(f"加载文件时发生错误: {e}")
+            else:
+                for root, _, files in os.walk(file_path):
+                    for file in tqdm(files, desc="加载文件"):
+                        file_path = os.path.join(root, file)
+                        try:
+                            data.extend(self._load_data(file_path))
+                        except Exception as e:
+                            print(f"加载文件 {file_path} 时发生错误: {e}")
+            return data
+        else:
+            raise ValueError(f"无效的文件路径: {file_path}")
+
+    def _load_data(self, file_path: str) -> list[str]:
         """
         从指定路径加载原始数据。
 
@@ -132,6 +179,11 @@ class DataLoader:
 # 示例用法
 if __name__ == "__main__":
     data_loader = DataLoader()
+
+    loader_filepath = "data/raw/test"
+    # load data
+    data = data_loader.load_data(loader_filepath, True, 4)
+    print("加载的数据:", data[:10])
 
     # 示例签名指纹数据
     signatures = [
