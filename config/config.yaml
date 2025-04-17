@@ -5,8 +5,8 @@ logging:
 
 # 数据配置
 data:
-  raw_data_path: data/raw/test # 原始数据文件路径
-  # raw_data_path: data/raw/sample_test.parquet  # 原始数据文件路径
+  # raw_data_path: data/raw/test # 原始数据文件路径
+  raw_data_path: data/raw/sample_test.parquet  # 原始数据文件路径
 
 # 特征提取配置
 feature_extraction:
@@ -16,16 +16,16 @@ feature_extraction:
 # 指纹生成配置
 fingerprint:
   method: simhash # 可选值: minhash, simhash, hybrid
-  num_hashes: 150 # MinHash 的哈希函数数量
-  hash_bits: 128 # SimHash 的签名位数
+  num_hashes: 100 # MinHash 的哈希函数数量
+  hash_bits: 64 # SimHash 的签名位数
   seed: 42 # 随机种子
 
 # LSH 索引配置
 lsh:
-  method: minhash # 可选值: minhash, simhash, bitsampling, hybrid
+  method: bitsampling # 可选值: minhash, simhash, bitsampling, hybrid
   num_bands: 30 # MinHash 的 band 数量
   rows_per_band: 5 # 每个 band 的行数
-  radius: 1 # SimHash 的 Hamming 距离半径
+  radius: 5 # SimHash 的 Hamming 距离半径
   num_hash_tables: 2 # BitSampling 的哈希表数量
   bits_per_table: 32 # 每个哈希表的采样位数
   # 混合方法特有参数

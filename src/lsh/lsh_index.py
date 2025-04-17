@@ -105,197 +105,211 @@ class MinHashLSHIndex:
             for bucket in band.values():
                 if len(bucket) > 1:
                     # 直接利用集合推导组合并更新候选对集合
-                    candidate_pairs.update({tuple(sorted(pair)) for pair in itertools.combinations(bucket, 2)})
+                    candidate_pairs.update(
+                        {tuple(sorted(pair)) for pair in itertools.combinations(bucket, 2)})
         return candidate_pairs
 
 
 class SimHashLSHIndex:
     """
-    基于 SimHash 签名的 LSH 索引，适用于 Hamming 距离。
+    LSH index for SimHash binary string signatures using segment-based bucketing.
     """
 
-    def __init__(self, radius: int, hush_bits: int = 64, parallel_enabled: bool = False, process_pool_size: int = 4):
+    def __init__(self, radius: int, hash_bits: int):
+        """
+        :param radius: Maximum Hamming distance to consider as neighbors.
+        :param hash_bits: Length of each binary signature string.
+        """
         self.radius = radius
-        self.buckets = defaultdict(list)
-        self.neighbor_cache = {}
-        # 使用实际签名位数，建议与指纹生成时保持一致
-        self.bits = hush_bits
-        self.parallel_enabled = parallel_enabled
-        self.process_pool_size = process_pool_size
+        self.hash_bits = hash_bits
+        self.buckets: defaultdict[Tuple[int, str],
+                                  List[int]] = defaultdict(list)
+        self.signatures: List[str] = []
 
-    def _generate_neighbors_for_flip(self, args):
-        signature, bits_to_flip = args
-        neighbor = signature
-        for bit in bits_to_flip:
-            neighbor ^= (1 << bit)
-        return neighbor
+    def _hamming_distance(self, a: str, b: str) -> int:
+        """Compute the Hamming distance between two equal-length binary strings."""
+        return sum(ch1 != ch2 for ch1, ch2 in zip(a, b))
 
-    def _generate_neighbors(self, signature: int) -> List[int]:
+    def index(self, signatures: List[str]) -> None:
         """
-        生成签名所有可能的近邻，保留 Hamming 距离不超过 radius 的邻居。
+        Build the LSH index by bucketing each signature into radius+1 segments.
+        :param signatures: List of binary string signatures to index.
         """
-        if signature in self.neighbor_cache:
-            return self.neighbor_cache[signature]
+        assert all(len(s) == self.hash_bits for s in signatures), \
+            f"All signatures must have length {self.hash_bits}"
+        self.signatures = signatures
+        k = self.radius + 1
+        part_len = self.hash_bits // k
 
-        neighbors = {signature}
-        max_d = min(self.radius, 2)  # 限制 radius 以防止任务数量爆炸
-        tasks = []
-        for d in range(1, max_d + 1):
-            for bits_to_flip in itertools.combinations(range(self.bits), d):
-                tasks.append((signature, bits_to_flip))
+        for idx, sig in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
+            for p in range(k):
+                start = p * part_len
+                end = (p + 1) * part_len if p < k - 1 else self.hash_bits
+                seg = sig[start:end]
+                key = (p, seg)
+                self.buckets[key].append(idx)
 
-        if tasks:
-            if self.parallel_enabled:
-                with Pool(processes=self.process_pool_size) as pool:
-                    results = pool.map(
-                        self._generate_neighbors_for_flip, tasks)
-            else:
-                results = list(map(self._generate_neighbors_for_flip, tasks))
-            for neighbor in results:
-                neighbors.add(neighbor)
-        neighbor_list = list(neighbors)
-        self.neighbor_cache[signature] = neighbor_list
-        return neighbor_list
-
-    def index(self, signatures: List[int]):
+    def query(self, sig: str) -> Set[int]:
         """
-        将签名存入哈希桶。
+        Retrieve all indexed documents whose signatures are within the given Hamming radius from the query signature.
+        :param sig: Binary string signature to query.
+        :return: Set of document indices whose signatures are within radius.
         """
-        for doc_id, signature in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
-            neighbor_signatures = self._generate_neighbors(signature)
-            for neighbor in neighbor_signatures:
-                self.buckets[neighbor].append(doc_id)
+        assert len(
+            sig) == self.hash_bits, f"Query signature must have length {self.hash_bits}"
+        k = self.radius + 1
+        part_len = self.hash_bits // k
+        candidates: Set[int] = set()
 
-    def query(self, signature: int) -> Set[int]:
-        return set(self.buckets.get(signature, []))
+        for p in range(k):
+            start = p * part_len
+            end = (p + 1) * part_len if p < k - 1 else self.hash_bits
+            seg = sig[start:end]
+            key = (p, seg)
+            candidates.update(self.buckets.get(key, []))
+
+        # Filter candidates by exact Hamming distance
+        return {i for i in candidates if self._hamming_distance(self.signatures[i], sig) <= self.radius}
 
     def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
-        candidate_pairs = set()
+        """
+        Generate all document index pairs whose signatures fall into the same bucket and verify they are within the Hamming radius.
+        :return: Set of tuples (i, j) where i < j.
+        """
+        pairs: Set[Tuple[int, int]] = set()
         for bucket in tqdm(self.buckets.values(), desc="Processing buckets", total=len(self.buckets)):
-            if len(bucket) > 1:
-                # 使用 set() 移除重复文档 id，然后求组合
-                for pair in itertools.combinations(set(bucket), 2):
-                    candidate_pairs.add(tuple(sorted(pair)))
-        return candidate_pairs
+            unique_ids = sorted(set(bucket))
+            if len(unique_ids) > 1:
+                for i, j in itertools.combinations(unique_ids, 2):
+                    if self._hamming_distance(self.signatures[i], self.signatures[j]) <= self.radius:
+                        pairs.add((i, j))
+        return pairs
 
 
 class BitSamplingLSHIndex:
     """
-    基于 BitSampling 签名的 LSH 索引，适用于 Hamming 相似度。
+    LSH index for SimHash binary‑string signatures using random‑bit sampling.
+
+    * 预先为每个哈希表随机选取 bits_per_table 个比特位置；
+    * 同一张表中，取签名在这些位置上的比特拼成 bucket key；
+    * 查询或生成候选对时，只需在相同 key 的 bucket 内做 Hamming 距离过滤。
     """
 
-    def __init__(self, num_hash_tables: int, bits_per_table: int):
+    def __init__(
+        self,
+        radius: int,
+        hash_bits: int,
+        num_tables: int = 12,
+        bits_per_table: int | None = None,
+        seed: int | None = None,
+    ):
         """
-        初始化 BitSampling LSH 索引。
-
-        参数:
-            num_hash_tables (int): 哈希表数量。
-            bits_per_table (int): 每个哈希表使用的采样位数。
+        :param radius: 最大 Hamming 距离阈值。
+        :param hash_bits: 签名长度（bits）。
+        :param num_tables: 哈希表（采样方案）数量，越大命中率越高、内存也越大。
+        :param bits_per_table: 每张表采样的 bit 数；默认取 ceil(hash_bits / (radius + 1))。
+        :param seed: 随机种子，便于结果复现。
         """
-        self.num_hash_tables = num_hash_tables
-        self.bits_per_table = bits_per_table
-        self.tables = [defaultdict(list) for _ in range(num_hash_tables)]
-        # 预先采样每个哈希表需要的 bit 位
-        self.sampled_bits = []
-        for table_idx in range(num_hash_tables):
-            rnd = random.Random(table_idx)  # 固定种子保证每个表一致
-            sampled = rnd.sample(range(64), bits_per_table)
-            self.sampled_bits.append(sampled)
-        # 存储文档签名，便于候选对过滤
-        self.doc_signatures = {}
+        self.radius = radius
+        self.hash_bits = hash_bits
+        self.num_tables = num_tables
+        self.bits_per_table = bits_per_table or -(-hash_bits // (radius + 1))
+        self.random = random.Random(seed)
 
-    def _hash_signature(self, signature: int, table_idx: int) -> int:
+        # 记录每张表采样到的 bit 位置，例如 [[3,17,44,…], …]
+        self.tables_bits: List[List[int]] = [
+            self.random.sample(range(hash_bits), self.bits_per_table)
+            for _ in range(num_tables)
+        ]
+
+        # buckets[table_id][bucket_key] -> list[doc_id]
+        self.buckets: List[defaultdict[str, List[int]]] = [
+            defaultdict(list) for _ in range(num_tables)
+        ]
+        self.signatures: List[str] = []
+
+    # ---------- 内部工具 ---------- #
+    @staticmethod
+    def _hamming_distance(a: str, b: str) -> int:
+        return sum(ch1 != ch2 for ch1, ch2 in zip(a, b))
+
+    def _bucket_key(self, sig: str, table_id: int) -> str:
+        """拼接指定采样位上的比特，形成桶键。"""
+        bits = self.tables_bits[table_id]
+        return "".join(sig[p] for p in bits)
+
+    # ---------- 构建索引 ---------- #
+    def index(self, signatures: List[str]) -> None:
         """
-        对签名进行采样哈希，利用预采样的 bit 位。
-
-        参数:
-            signature (int): 输入签名。
-            table_idx (int): 哈希表索引。
-
-        返回:
-            int: 哈希值。
+        建立索引。
+        :param signatures: 二进制字符串列表，长度均为 hash_bits。
         """
-        hash_value = 0
-        for i, bit in enumerate(self.sampled_bits[table_idx]):
-            if signature & (1 << bit):
-                hash_value |= (1 << i)
-        return hash_value
+        assert all(len(s) == self.hash_bits for s in signatures), \
+            f"All signatures must have length {self.hash_bits}"
 
-    def index(self, signatures: List[int]):
+        self.signatures = signatures
+
+        for doc_id, sig in tqdm(
+            enumerate(signatures), desc="Indexing signatures", total=len(signatures)
+        ):
+            for t in range(self.num_tables):
+                key = self._bucket_key(sig, t)
+                self.buckets[t][key].append(doc_id)
+
+    # ---------- 单条查询 ---------- #
+    def query(self, sig: str) -> Set[int]:
         """
-        将签名存入多个采样哈希表，并记录文档签名。
-
-        参数:
-            signatures (List[int]): BitSampling 签名列表。
+        返回与查询签名 Hamming 距离 ≤ radius 的文档 id 集合。
         """
-        for doc_id, signature in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
-            self.doc_signatures[doc_id] = signature
-            for table_idx in range(self.num_hash_tables):
-                bucket_key = self._hash_signature(signature, table_idx)
-                self.tables[table_idx][bucket_key].append(doc_id)
+        assert len(sig) == self.hash_bits, \
+            f"Query signature must have length {self.hash_bits}"
 
-    def query(self, signature: int) -> Set[int]:
+        candidates: Set[int] = set()
+        for t in range(self.num_tables):
+            key = self._bucket_key(sig, t)
+            candidates.update(self.buckets[t].get(key, []))
+
+        return {
+            i for i in candidates
+            if self._hamming_distance(self.signatures[i], sig) <= self.radius
+        }
+
+    # ---------- 批量候选对 ---------- #
+    def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
         """
-        查询可能相似的文档。
-
-        参数:
-            signature (int): 查询的 BitSampling 签名。
-
-        返回:
-            Set[int]: 可能相似的文档 ID 集合。
+        返回所有满足 Hamming 距离 ≤ radius 的文档对 (i, j)，且 i < j。
         """
-        candidates = set()
-        for table_idx in tqdm(range(self.num_hash_tables), desc="Querying tables", total=self.num_hash_tables):
-            bucket_key = self._hash_signature(signature, table_idx)
-            candidates.update(self.tables[table_idx].get(bucket_key, []))
-        return candidates
+        pairs: Set[Tuple[int, int]] = set()
 
-    def get_candidate_pairs(self, min_similarity: float = 0.8, full_signature_bits: int = 64) -> Set[Tuple[int, int]]:
-        """
-        返回相似度高于阈值的候选文档对。
+        # 把每个表独立处理，避免重复遍历
+        for t in range(self.num_tables):
+            for bucket in tqdm(
+                self.buckets[t].values(),
+                desc=f"Processing buckets (table {t})",
+                total=len(self.buckets[t]),
+            ):
+                uniq = sorted(set(bucket))
+                if len(uniq) > 1:
+                    for i, j in itertools.combinations(uniq, 2):
+                        if self._hamming_distance(
+                            self.signatures[i], self.signatures[j]
+                        ) <= self.radius:
+                            pairs.add((i, j))
 
-        参数:
-            min_similarity (float): 签名相似度阈值，默认为 0.8。
-            full_signature_bits (int): 完整签名的位数，用于构造位集合计算 Jaccard 相似度。
+        return pairs
 
-        返回:
-            Set[Tuple[int, int]]: 候选文档对集合。
-        """
-        candidate_pairs = set()
-        raw_pairs = set()
-        for table in tqdm(self.tables, desc="Processing tables", total=len(self.tables)):
-            for bucket in table.values():
-                if len(bucket) > 1:
-                    for pair in itertools.combinations(bucket, 2):
-                        raw_pairs.add(tuple(sorted(pair)))
-        # 使用完整签名计算 Jaccard 相似度
-        for doc_id1, doc_id2 in tqdm(raw_pairs, desc="Filtering candidate pairs", total=len(raw_pairs)):
-            sig1 = self.doc_signatures[doc_id1]
-            sig2 = self.doc_signatures[doc_id2]
-            # 将签名转换为位索引集合
-            set1 = {i for i in range(full_signature_bits) if sig1 & (1 << i)}
-            set2 = {i for i in range(full_signature_bits) if sig2 & (1 << i)}
-            union = set1 | set2
-            intersection = set1 & set2
-            if union:
-                similarity = len(intersection) / len(union)
-            else:
-                similarity = 1.0
-            if similarity >= min_similarity:
-                candidate_pairs.add((doc_id1, doc_id2))
-        return candidate_pairs
 
 class HybridLSHIndex:
     """
     基于 MinHash 和 SimHash 混合签名的 LSH 索引，支持多种合并策略。
-    
+
     参数:
         minhash_params (dict): MinHash 参数，包含:
             num_bands (int): band 数量
             rows_per_band (int): 每个 band 的哈希行数
         simhash_params (dict): SimHash 参数，包含:
             radius (int): 允许的 Hamming 距离误差半径
-            hush_bits (int): 签名位数(默认64)
+            hash_bits (int): 签名位数(默认64)
         merge_strategy (str): 合并策略，可选:
             "union": 取两种方法的并集(默认)
             "intersection": 取两种方法的交集
@@ -305,12 +319,13 @@ class HybridLSHIndex:
             "minhash" (float): MinHash权重
             "simhash" (float): SimHash权重
     """
+
     def __init__(self, minhash_params: dict, simhash_params: dict, merge_strategy: str = "union", weights: dict = None):
         """
         初始化混合 LSH 索引。
         参数:
             minhash_params (dict): MinHash 参数 {num_bands, rows_per_band}
-            simhash_params (dict): SimHash 参数 {radius, hush_bits}
+            simhash_params (dict): SimHash 参数 {radius, hash_bits}
             merge_strategy (str): 合并策略，可选"union"/"intersection"/"two-stage"/"weighted"
             weights (dict): 权重参数 {"minhash": float, "simhash": float}，仅weighted策略使用
         """
@@ -325,7 +340,7 @@ class HybridLSHIndex:
         )
         self.simhash_lsh = SimHashLSHIndex(
             radius=simhash_params["radius"],
-            hush_bits=simhash_params["hush_bits"]
+            hash_bits=simhash_params["hash_bits"]
         )
         self.minhash_signatures = []
         self.simhash_signatures = []
@@ -362,7 +377,7 @@ class HybridLSHIndex:
         """
         minhash_pairs = self.minhash_lsh.get_candidate_pairs()
         simhash_pairs = self.simhash_lsh.get_candidate_pairs()
-        
+
         if self.merge_strategy == "union":
             return minhash_pairs.union(simhash_pairs)
         elif self.merge_strategy == "intersection":
@@ -387,34 +402,36 @@ class HybridLSHIndex:
             weighted_pairs = set()
             minhash_weight = self.weights["minhash"]
             simhash_weight = self.weights["simhash"]
-            
+
             # 合并所有候选对
             all_pairs = minhash_pairs.union(simhash_pairs)
-            
+
             for pair in all_pairs:
                 doc1, doc2 = pair
                 # 计算minhash相似度得分
                 sig1 = self.minhash_signatures[doc1]
                 sig2 = self.minhash_signatures[doc2]
-                minhash_score = sum(1 for a, b in zip(sig1, sig2) if a == b) / len(sig1)
-                
+                minhash_score = sum(1 for a, b in zip(
+                    sig1, sig2) if a == b) / len(sig1)
+
                 # 计算simhash相似度得分
                 sig1 = self.simhash_signatures[doc1]
                 sig2 = self.simhash_signatures[doc2]
                 hamming_dist = bin(sig1 ^ sig2).count('1')
                 simhash_score = 1 - (hamming_dist / self.simhash_lsh.bits)
-                
+
                 # 计算加权得分
-                weighted_score = (minhash_score * minhash_weight + 
-                                 simhash_score * simhash_weight)
-                
+                weighted_score = (minhash_score * minhash_weight +
+                                  simhash_score * simhash_weight)
+
                 # 如果加权得分超过阈值(0.5)
                 if weighted_score >= 0.5:
                     weighted_pairs.add(pair)
-            
+
             return weighted_pairs
         else:
             raise ValueError(f"未知的合并策略: {self.merge_strategy}")
+
 
 # 示例用法
 if __name__ == "__main__":

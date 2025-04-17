@@ -77,7 +77,7 @@ def main():
     pipeline_log.add_runtime("data_loader_time", data_loader_time)
     logger.info(f"数据加载时间：{data_loader_time:.2f} 秒")
 
-    raw_data=raw_data[:1000]  # 测试时只取前1000条数据
+    raw_data=raw_data[:4000]  # 测试时只取前1000条数据
 
     # 4. 数据预处理
     preprocess_data_time = time.time()
@@ -204,13 +204,15 @@ def main():
     elif lsh_method == "simhash":
         radius = config["lsh"]["radius"]
         hash_bits = config["fingerprint"]["hash_bits"]
-        lsh_index = SimHashLSHIndex(radius=radius, hush_bits=hash_bits)
+        lsh_index = SimHashLSHIndex(radius=radius, hash_bits=hash_bits)
 
     elif lsh_method == "bitsampling":
         num_hash_tables = config["lsh"]["num_hash_tables"]
         bits_per_table = config["lsh"]["bits_per_table"]
+        hash_bits = config["fingerprint"]["hash_bits"]
+        radius= config["lsh"]["radius"]
         lsh_index = BitSamplingLSHIndex(
-            num_hash_tables=num_hash_tables, bits_per_table=bits_per_table)
+            radius=radius,hash_bits=hash_bits,num_tables=num_hash_tables, bits_per_table=bits_per_table,seed=42)
 
     elif lsh_method == "hybrid":
         minhash_params = {
@@ -219,7 +221,7 @@ def main():
         }
         simhash_params = {
             "radius": config["lsh"]["simhash_radius"],
-            "hush_bits": config["fingerprint"]["hash_bits"]
+            "hash_bits": config["fingerprint"]["hash_bits"]
         }
         merge_strategy = config["lsh"].get("merge_strategy")
         weights = config["lsh"].get("weights")
