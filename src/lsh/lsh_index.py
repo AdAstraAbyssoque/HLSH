@@ -313,10 +313,15 @@ class HybridLSHIndex:
             minhash_params (dict): MinHash 参数 {num_bands, rows_per_band}
             simhash_params (dict): SimHash 参数 {radius, hush_bits}
             merge_strategy (str): 合并策略，可选"union"/"intersection"/"two-stage"/"weighted"
-            weights (dict): 权重参数 {"minhash": float, "simhash": float}，仅weighted策略使用
+            weights (dict): 权重参数 {"minhash": float, "simhash": float, "weighted_score_threshold": float, "minhash_score_threshold": float}，仅weighted策略使用
         """
         if weights is None:
-            self.weights = {"minhash": 0.5, "simhash": 0.5}
+            self.weights = {
+                "minhash": 0.5, 
+                "simhash": 0.5,
+                "weighted_score_threshold": 0.65,
+                "minhash_score_threshold": 0.3
+            }
         else:
             self.weights = weights
 
@@ -407,8 +412,9 @@ class HybridLSHIndex:
                 # 计算加权得分
                 weighted_score = math.sqrt(minhash_score * minhash_weight + simhash_score * simhash_weight)
 
-                # 阈值
-                if weighted_score >= 0.65 and minhash_score >= 0.3:
+                # 使用配置的阈值
+                if (weighted_score >= self.weights["weighted_score_threshold"] and 
+                    minhash_score >= self.weights["minhash_score_threshold"]):
                     weighted_pairs.add(pair)
             
             return weighted_pairs

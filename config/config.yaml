@@ -42,6 +42,8 @@ lsh:
   weights:  # weighted策略专用配置
     minhash: 0.80  # MinHash权重
     simhash: 0.20  # SimHash权重
+    weighted_score_threshold: 0.25  # 加权得分阈值
+    minhash_score_threshold: 0.3  # MinHash得分最低阈值
 
 # 评估配置
 evaluation:
@@ -58,5 +60,5 @@ parallel:
 output:
   fingerpritnts_path: data/processed/fingerprints.csv  # 指纹输出路径
   evaluation_output_path: data/processed  # 评估结果图保存路径
-  results_path: data/results/candidate_pairs_sampling.csv  # 候选对结果保存路径
+  results_path: data/results/0.65/0.65-.csv  # 候选对结果保存路径
   pipeline_output_path: data/processed/pipeline_output.csv  # 流水线输出路径
