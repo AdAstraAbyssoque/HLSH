@@ -32,14 +32,10 @@ from joblib import Parallel, delayed
 from preprocessing import Preprocessor
 from lsh.helper import cosine_similarity, jaccard_similarity, euclidean_distance
 
-
 # 加载配置文件
-
-
 def load_config(config_path: str) -> dict:
     with open(config_path, "r") as file:
         return yaml.safe_load(file)
-
 
 def main():
     # 1. 加载配置
@@ -214,7 +210,8 @@ def main():
                 hash_bits = config["fingerprint"]["hash_bits"]
                 seed = config["fingerprint"].get("seed", None)
                 bitsampling = BitSampling(sample_size=sample_size, hash_bits=hash_bits, seed=seed, vectorizer=vectorizer)
-                signatures = [bitsampling.compute_signature(feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
+                signatures = [bitsampling.compute_signature(
+                    feature) for feature in tqdm(features, desc="生成 BitSampling 签名")]
             else:
                 logger.error(f"未知的指纹生成方法：{fingerprint_method}")
                 return
@@ -229,11 +226,12 @@ def main():
                 hash_bits = config["fingerprint"]["hash_bits"]
                 simhash = SimHash(hash_bits=hash_bits)
             elif fingerprint_method == "bitsampling":
+                vectorizer=TfidfVectorizer()
+                vectorizer.fit(preprocessed_data)
                 sample_size = config["fingerprint"]["sample_size"]
                 hash_bits = config["fingerprint"]["hash_bits"]
                 seed = config["fingerprint"].get("seed", None)
-                bitsampling = BitSampling(
-                    sample_size=sample_size, hash_bits=hash_bits, seed=seed)
+                bitsampling = BitSampling(sample_size=sample_size, hash_bits=hash_bits, seed=seed, vectorizer=vectorizer)
             else:
                 logger.error(f"未知的指纹生成方法：{fingerprint_method}")
                 return
