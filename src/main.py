@@ -77,7 +77,7 @@ def main():
     pipeline_log.add_runtime("data_loader_time", data_loader_time)
     logger.info(f"数据加载时间：{data_loader_time:.2f} 秒")
 
-    raw_data=raw_data[:4000]  # 测试时只取前1000条数据
+    # raw_data=raw_data[:4000]  # 测试时只取前1000条数据
 
     # 4. 数据预处理
     preprocess_data_time = time.time()
