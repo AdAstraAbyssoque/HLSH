@@ -117,29 +117,35 @@ class SimHashLSHIndex:
 
     def __init__(self, radius: int, hash_bits: int):
         """
-        :param radius: Maximum Hamming distance to consider as neighbors.
-        :param hash_bits: Length of each binary signature string.
+        初始化 SimHash LSH 索引。
+        :param radius: 最大 Hamming 距离（允许的误差半径）。
+        :param hash_bits: 每个签名的二进制位数。
         """
         self.radius = radius
         self.hash_bits = hash_bits
-        self.buckets: defaultdict[Tuple[int, str],
-                                  List[int]] = defaultdict(list)
+        self.buckets: defaultdict[Tuple[int, str], List[int]] = defaultdict(list)
         self.signatures: List[str] = []
 
-    def _hamming_distance(self, a: str, b: str) -> int:
-        """Compute the Hamming distance between two equal-length binary strings."""
+    @staticmethod
+    def _hamming_distance(a: str, b: str) -> int:
+        """
+        计算两个等长二进制字符串的 Hamming 距离。
+        :param a: 二进制字符串1。
+        :param b: 二进制字符串2。
+        :return: Hamming 距离。
+        """
         return sum(ch1 != ch2 for ch1, ch2 in zip(a, b))
 
     def index(self, signatures: List[str]) -> None:
         """
-        Build the LSH index by bucketing each signature into radius+1 segments.
-        :param signatures: List of binary string signatures to index.
+        构建 LSH 索引，将每个签名分段存入桶中。
+        :param signatures: 二进制字符串签名列表。
         """
         assert all(len(s) == self.hash_bits for s in signatures), \
-            f"All signatures must have length {self.hash_bits}"
+            f"所有签名的长度必须为 {self.hash_bits} 位。"
         self.signatures = signatures
-        k = self.radius + 1
-        part_len = self.hash_bits // k
+        k = self.radius + 1  # 分段数量
+        part_len = self.hash_bits // k  # 每段的长度
 
         for idx, sig in tqdm(enumerate(signatures), desc="Indexing signatures", total=len(signatures)):
             for p in range(k):
@@ -151,12 +157,11 @@ class SimHashLSHIndex:
 
     def query(self, sig: str) -> Set[int]:
         """
-        Retrieve all indexed documents whose signatures are within the given Hamming radius from the query signature.
-        :param sig: Binary string signature to query.
-        :return: Set of document indices whose signatures are within radius.
+        查询与给定签名在 Hamming 距离范围内的文档。
+        :param sig: 查询的二进制字符串签名。
+        :return: 满足条件的文档索引集合。
         """
-        assert len(
-            sig) == self.hash_bits, f"Query signature must have length {self.hash_bits}"
+        assert len(sig) == self.hash_bits, f"查询签名的长度必须为 {self.hash_bits} 位。"
         k = self.radius + 1
         part_len = self.hash_bits // k
         candidates: Set[int] = set()
@@ -168,13 +173,13 @@ class SimHashLSHIndex:
             key = (p, seg)
             candidates.update(self.buckets.get(key, []))
 
-        # Filter candidates by exact Hamming distance
+        # 精确过滤候选集合
         return {i for i in candidates if self._hamming_distance(self.signatures[i], sig) <= self.radius}
 
     def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
         """
-        Generate all document index pairs whose signatures fall into the same bucket and verify they are within the Hamming radius.
-        :return: Set of tuples (i, j) where i < j.
+        生成所有满足 Hamming 距离条件的文档对。
+        :return: 满足条件的文档对集合 (i, j)，其中 i < j。
         """
         pairs: Set[Tuple[int, int]] = set()
         for bucket in tqdm(self.buckets.values(), desc="Processing buckets", total=len(self.buckets)):
