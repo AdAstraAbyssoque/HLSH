@@ -39,6 +39,7 @@ HLSH/
 │   │   ├── logger.py       # 日志功能
 │   │   └── data_loader.py  # 数据加载工具
 │   ├── feature_extraction.py  # 特征提取逻辑
+│   ├── result_evaluation.py  # 挑选结果预览
 │   ├── preprocessing.py    # 数据预处理逻辑
 │   └── main.py             # 流水线入口点
 ├── exploration.ipynb       # 探索性分析 Jupyter 笔记本
@@ -67,7 +68,7 @@ pip install -r requirements.txt
    ```bash
    python src/main.py
    ```
-
+3. 运行`python src/result_evaluation 10`随机挑选10个数据查看重复对效果
 ---
 
 ## 配置说明（`config/config.yaml`）
@@ -122,6 +123,7 @@ output:
   evaluation_output_path: "data/processed"                   # 评估结果图保存路径
   results_path: "data/results/candidate_pairs_sampling.csv" # 候选对结果
   pipeline_output_path: "data/processed/pipeline_output.csv" # 流水线输出
+  evaluation_html_path: data/results/sim_validation_evaluation.html # 评估结果HTML保存路径
 ```
 
 ---
