@@ -55,3 +55,4 @@ output:
   evaluation_output_path: data/processed # 评估结果图保存路径
   results_path: data/results/sim_validation_candidate_pairs.csv # 候选对结果保存路径
   pipeline_output_path: data/processed/sim_validation_pipeline_output.csv # 流水线输出路径
+  evaluation_html_path: data/results/sim_validation_evaluation.html # 评估结果HTML保存路径

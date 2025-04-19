@@ -136,6 +136,37 @@ class DataLoader:
         # 返回原始文本数据列表
         return df["text"].tolist()
 
+    def load_candidate_pairs_csv(self, file_path: str) -> list[tuple]:
+        """
+        从指定路径加载候选对数据（CSV 格式）。
+
+        参数:
+            file_path (str): 候选对数据文件路径。
+
+        返回:
+            list[tuple]: 候选对数据列表，每个元素为一个元组 (id1, id2)。
+        """
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"文件未找到: {file_path}")
+
+        _, file_extension = os.path.splitext(file_path)
+
+        if file_extension != ".csv":
+            raise ValueError(f"不支持的文件类型: {file_extension}，仅支持 CSV 格式。")
+
+        try:
+            # 读取 CSV 文件
+            df = pd.read_csv(file_path, header=None)  # 假设没有表头
+            if df.shape[1] != 2:
+                raise ValueError("候选对文件格式错误，必须包含两列 (id1, id2)。")
+
+            # 转换为元组列表
+            candidate_pairs = list(df.itertuples(index=False, name=None))
+            return candidate_pairs
+        except Exception as e:
+            raise ValueError(f"无法读取候选对文件: {e}")
+            
+    
     def save_signatures(self, data, output_path: str):
         """
         将数据保存到指定路径。
@@ -175,27 +206,16 @@ class DataLoader:
         else:
             raise ValueError(f"不支持的文件类型: {file_extension}")
 
+from difflib import Differ
+from termcolor import colored
+
+from termcolor import colored
 
 # 示例用法
 if __name__ == "__main__":
+    rawdata_path = "data/raw/test"
+    final_result_path = "data/results/min_test_candidate_pairs.csv"
     data_loader = DataLoader()
-
-    loader_filepath = "data/raw/test"
-    # load data
-    data = data_loader.load_data(loader_filepath, True, 4)
-    print("加载的数据:", data[:10])
-
-    # 示例签名指纹数据
-    signatures = [
-        [0.1, 0.2, 0.3],
-        [0.4, 0.5, 0.6],
-        [0.7, 0.8, 0.9]
-    ]
-
-    # 保存签名指纹
-    try:
-        data_loader.save_signatures(
-            signatures, "data/processed/signatures.parquet")
-        print("签名指纹已保存。")
-    except Exception as e:
-        print(e)
+    # 加载数据
+    data = data_loader.load_data(rawdata_path, parallel_enabled=True)
+    condidate_pairs= data_loader.load_candidate_pairs_csv(final_result_path)
