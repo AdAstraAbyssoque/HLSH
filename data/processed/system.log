@@ -1036,3 +1036,1479 @@
 2025-04-13 17:40:18,020 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：bitsampling
 2025-04-13 17:41:29,284 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 8997750 个候选对。
 2025-04-13 17:41:29,285 - data/processed/system.log - INFO - LSH 索引构建时间：71.27 秒
+2025-04-16 23:10:29,547 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:10:29,548 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:10:29,979 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:10:29,979 - data/processed/system.log - INFO - 数据加载时间：0.43 秒
+2025-04-16 23:10:59,530 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:10:59,530 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:11:00,151 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:11:00,151 - data/processed/system.log - INFO - 数据加载时间：0.62 秒
+2025-04-16 23:11:10,107 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:11:10,107 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:11:10,528 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:11:10,528 - data/processed/system.log - INFO - 数据加载时间：0.42 秒
+2025-04-16 23:34:08,186 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:34:08,186 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:34:08,737 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:34:08,737 - data/processed/system.log - INFO - 数据加载时间：0.55 秒
+2025-04-16 23:34:08,737 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-16 23:34:24,064 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-16 23:34:24,064 - data/processed/system.log - INFO - 数据预处理时间：15.33 秒
+2025-04-16 23:36:55,057 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:36:55,057 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:36:55,455 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:36:55,455 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-16 23:36:55,455 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-16 23:36:59,907 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-16 23:36:59,907 - data/processed/system.log - INFO - 数据预处理时间：4.45 秒
+2025-04-16 23:58:08,488 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:58:08,489 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:58:08,942 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:58:08,942 - data/processed/system.log - INFO - 数据加载时间：0.45 秒
+2025-04-16 23:58:08,942 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-16 23:58:13,364 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-16 23:58:13,365 - data/processed/system.log - INFO - 数据预处理时间：4.42 秒
+2025-04-16 23:58:13,365 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-16 23:58:13,365 - data/processed/system.log - INFO - 关闭并行
+2025-04-16 23:58:34,816 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-16 23:58:34,818 - data/processed/system.log - INFO - 特征提取时间：21.45 秒
+2025-04-16 23:59:05,667 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-16 23:59:05,667 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-16 23:59:06,035 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-16 23:59:06,035 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-16 23:59:06,035 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-16 23:59:10,182 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-16 23:59:10,182 - data/processed/system.log - INFO - 数据预处理时间：4.15 秒
+2025-04-16 23:59:10,182 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-16 23:59:10,183 - data/processed/system.log - INFO - 开启并行
+2025-04-16 23:59:27,175 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-16 23:59:27,176 - data/processed/system.log - INFO - 特征提取时间：16.99 秒
+2025-04-17 00:02:10,964 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:02:10,964 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:02:10,964 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:02:11,340 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:02:11,340 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 00:02:11,340 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:02:15,482 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:02:15,482 - data/processed/system.log - INFO - 数据预处理时间：4.14 秒
+2025-04-17 00:02:15,482 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:02:15,482 - data/processed/system.log - INFO - 关闭并行
+2025-04-17 00:02:21,935 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:02:21,935 - data/processed/system.log - INFO - 特征提取时间：6.45 秒
+2025-04-17 00:02:30,507 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:02:30,507 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:02:30,507 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:02:30,874 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:02:30,875 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 00:02:30,875 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:02:35,076 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:02:35,076 - data/processed/system.log - INFO - 数据预处理时间：4.20 秒
+2025-04-17 00:02:35,076 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:02:35,076 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:02:40,174 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:02:40,175 - data/processed/system.log - INFO - 特征提取时间：5.10 秒
+2025-04-17 00:03:01,964 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:03:01,964 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:03:01,964 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:03:02,305 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:03:02,305 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 00:03:02,305 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:03:06,514 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:03:06,514 - data/processed/system.log - INFO - 数据预处理时间：4.21 秒
+2025-04-17 00:03:06,514 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-17 00:03:06,514 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:03:12,182 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:03:12,183 - data/processed/system.log - INFO - 特征提取时间：5.67 秒
+2025-04-17 00:03:20,776 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:03:20,776 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:03:20,776 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:03:21,131 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:03:21,131 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 00:03:21,131 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:03:25,338 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:03:25,338 - data/processed/system.log - INFO - 数据预处理时间：4.21 秒
+2025-04-17 00:03:25,338 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-17 00:03:25,338 - data/processed/system.log - INFO - 关闭并行
+2025-04-17 00:03:32,047 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:03:32,047 - data/processed/system.log - INFO - 特征提取时间：6.71 秒
+2025-04-17 00:12:13,467 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:12:13,467 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:12:13,467 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:12:13,849 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:12:13,849 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 00:12:13,849 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:12:18,081 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:12:18,082 - data/processed/system.log - INFO - 数据预处理时间：4.23 秒
+2025-04-17 00:12:18,082 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 00:12:18,082 - data/processed/system.log - INFO - 关闭并行
+2025-04-17 00:12:47,329 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:12:47,330 - data/processed/system.log - INFO - 特征提取时间：29.25 秒
+2025-04-17 00:12:51,562 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:12:51,562 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:12:51,562 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:12:51,943 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:12:51,943 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 00:12:51,943 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:12:56,101 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:12:56,101 - data/processed/system.log - INFO - 数据预处理时间：4.16 秒
+2025-04-17 00:12:56,101 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 00:12:56,101 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:13:04,072 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:13:04,072 - data/processed/system.log - INFO - 特征提取时间：7.97 秒
+2025-04-17 00:38:29,727 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:38:29,727 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:38:29,727 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:38:30,101 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:38:30,101 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 00:38:30,101 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:38:34,360 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:38:34,360 - data/processed/system.log - INFO - 数据预处理时间：4.26 秒
+2025-04-17 00:38:34,360 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:38:34,360 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:38:39,492 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:38:39,493 - data/processed/system.log - INFO - 特征提取时间：5.13 秒
+2025-04-17 00:38:39,493 - data/processed/system.log - INFO - 特征结构类型：<class 'list'>
+2025-04-17 00:38:39,493 - data/processed/system.log - INFO - 特征列表元素类型：<class 'collections.Counter'>
+2025-04-17 00:38:39,493 - data/processed/system.log - INFO - 特征字典键值类型：[('_start_article_', <class 'int'>), ('bernhard', <class 'int'>), ('w', <class 'int'>), ('roth', <class 'int'>), ('_start_section_', <class 'int'>), ('scientific', <class 'int'>), ('career', <class 'int'>), ('_start_paragraph_', <class 'int'>), ('from', <class 'int'>), ('1992', <class 'int'>), ('to', <class 'int'>), ('1997', <class 'int'>), ('studied', <class 'int'>), ('physics', <class 'int'>), ('at', <class 'int'>), ('the', <class 'int'>), ('universität', <class 'int'>), ('bielefeld', <class 'int'>), ('where', <class 'int'>), ('he', <class 'int'>), ('obtained', <class 'int'>), ('his', <class 'int'>), ('diploma', <class 'int'>), ('in', <class 'int'>), ('received', <class 'int'>), ('doctoral', <class 'int'>), ('degree', <class 'int'>), ('dr', <class 'int'>), ('rer', <class 'int'>), ('nat', <class 'int'>), ('field', <class 'int'>), ('of', <class 'int'>), ('atomic', <class 'int'>), ('and', <class 'int'>), ('particle', <class 'int'>), ('2002', <class 'int'>), ('2007', <class 'int'>), ('her', <class 'int'>), ('worked', <class 'int'>), ('as', <class 'int'>), ('assistant', <class 'int'>), ('professor', <class 'int'>), ('group', <class 'int'>), ('leader', <class 'int'>), ('experimental', <class 'int'>), ('quantum', <class 'int'>), ('optics', <class 'int'>), ('institute', <class 'int'>), ('for', <class 'int'>), ('relativity', <class 'int'>), ('heinrichheineuniversität', <class 'int'>), ('düsseldorf', <class 'int'>), ('state', <class 'int'>), ('doctorate', <class 'int'>), ('habilitation', <class 'int'>), ('production', <class 'int'>), ('spectroscopy', <class 'int'>), ('on', <class 'int'>), ('ultracold', <class 'int'>), ('molecular', <class 'int'>), ('ions', <class 'int'>), ('2010', <class 'int'>), ('was', <class 'int'>), ('associate', <class 'int'>), ('2011', <class 'int'>), ('2012', <class 'int'>), ('center', <class 'int'>), ('manager', <class 'int'>), ('centre', <class 'int'>), ('innovation', <class 'int'>), ('competence', <class 'int'>), ('innofspec', <class 'int'>), ('potsdam', <class 'int'>), ('leibniz', <class 'int'>), ('astrophysics', <class 'int'>), ('aip', <class 'int'>), ('since', <class 'int'>), ('is', <class 'int'>), ('managing', <class 'int'>), ('director', <class 'int'>), ('hannover', <class 'int'>), ('optical', <class 'int'>), ('technologies', <class 'int'>), ('hot', <class 'int'>), ('an', <class 'int'>), ('interdisciplinary', <class 'int'>), ('research', <class 'int'>), ('gottfried', <class 'int'>), ('wilhelm', <class 'int'>), ('also', <class 'int'>), ('2014', <class 'int'>), ('appointed', <class 'int'>), ('extraordinary', <class 'int'>), ('faculty', <class 'int'>), ('mathematics', <class 'int'>), ('see', <class 'int'>), ('one', <class 'int'>), ('coordinators', <class 'int'>), ('international', <class 'int'>), ('master', <class 'int'>), ('program', <class 'int'>), ('photonics', <class 'int'>), ('laser', <class 'int'>), ('technology', <class 'int'>), ('msc', <class 'int'>), ('activities', <class 'int'>), ('b', <class 'int'>), ('are', <class 'int'>), ('focused', <class 'int'>), ('applied', <class 'int'>), ('fundamental', <class 'int'>), ('this', <class 'int'>), ('includes', <class 'int'>), ('development', <class 'int'>), ('integrated', <class 'int'>), ('functional', <class 'int'>), ('polymeroptical', <class 'int'>), ('sensing', <class 'int'>), ('eg', <class 'int'>), ('based', <class 'int'>), ('fibreoptic', <class 'int'>), ('or', <class 'int'>), ('planar', <class 'int'>), ('concepts', <class 'int'>), ('optofluidics', <class 'int'>), ('analytics', <class 'int'>), ('life', <class 'int'>), ('sciences', <class 'int'>), ('multimodal', <class 'int'>), ('imaging', <class 'int'>), ('medicine', <class 'int'>), ('information', <class 'int'>), ('illumination', <class 'int'>), ('well', <class 'int'>), ('digital', <class 'int'>), ('holography', <class 'int'>), ('furthermore', <class 'int'>), ('hybrid', <class 'int'>), ('multiphysics', <class 'int'>), ('multiscale', <class 'int'>), ('numerical', <class 'int'>), ('simulations', <class 'int'>), ('complex', <class 'int'>), ('systems', <class 'int'>), ('algorithms', <class 'int'>), ('simulation', <class 'int'>), ('inversion', <class 'int'>), ('investigated', <class 'int'>), ('initial', <class 'int'>), ('fields', <class 'int'>), ('include', <class 'int'>), ('particular', <class 'int'>), ('cooling', <class 'int'>), ('trapped', <class 'int'>), ('highprecision', <class 'int'>), ('lowenergy', <class 'int'>), ('member', <class 'int'>), ('collaborative', <class 'int'>), ('planos', <class 'int'>), ('optronic', <class 'int'>), ('team', <class 'int'>), ('principal', <class 'int'>), ('investigators', <class 'int'>), ('pi', <class 'int'>), ('newly', <class 'int'>), ('established', <class 'int'>), ('cluster', <class 'int'>), ('excellence', <class 'int'>), ('phoenixd', <class 'int'>), ('engineering', <class 'int'>), ('across', <class 'int'>), ('disciplines', <class 'int'>), ('german', <class 'int'>), ('foundation', <class 'int'>), ('dfg', <class 'int'>), ('awards', <class 'int'>), ('recipient', <class 'int'>), ('prestigious', <class 'int'>), ('kaiserfriedrich', <class 'int'>), ('forschungspreis', <class 'int'>), ('2018', <class 'int'>), ('award', <class 'int'>), ('project', <class 'int'>), ('smartsens', <class 'int'>), ('together', <class 'int'>), ('with', <class 'int'>), ('johannagabriela', <class 'int'>), ('walter', <class 'int'>), ('tci', <class 'int'>), ('university', <class 'int'>), ('kort', <class 'int'>), ('bremer', <class 'int'>)]
+2025-04-17 00:55:12,828 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:55:12,828 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:55:12,829 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:55:13,186 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:55:13,186 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 00:55:13,186 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:55:28,929 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:55:28,929 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:55:28,929 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:55:29,269 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:55:29,269 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 00:55:29,269 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:55:33,551 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:55:33,551 - data/processed/system.log - INFO - 数据预处理时间：4.28 秒
+2025-04-17 00:55:33,551 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:55:33,551 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:55:38,118 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:55:38,118 - data/processed/system.log - INFO - 特征提取时间：4.57 秒
+2025-04-17 00:55:58,768 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 00:55:58,768 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 00:55:58,768 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 00:55:59,106 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 00:55:59,106 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 00:55:59,106 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 00:56:03,217 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 00:56:03,217 - data/processed/system.log - INFO - 数据预处理时间：4.11 秒
+2025-04-17 00:56:03,217 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 00:56:03,217 - data/processed/system.log - INFO - 开启并行
+2025-04-17 00:56:07,670 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 00:56:07,671 - data/processed/system.log - INFO - 特征提取时间：4.45 秒
+2025-04-17 01:03:57,496 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:03:57,496 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:03:57,496 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:03:57,899 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:03:57,899 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-17 01:03:57,941 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:03:58,935 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:03:58,936 - data/processed/system.log - INFO - 数据预处理时间：0.99 秒
+2025-04-17 01:03:58,936 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:03:58,936 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:03:59,664 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:03:59,664 - data/processed/system.log - INFO - 特征提取时间：0.73 秒
+2025-04-17 01:04:04,311 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:04:04,311 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:04:04,311 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:04:04,662 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:04:04,662 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:04:04,711 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:04:05,656 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:04:05,657 - data/processed/system.log - INFO - 数据预处理时间：0.95 秒
+2025-04-17 01:04:05,657 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:04:05,657 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:04:06,245 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:04:06,245 - data/processed/system.log - INFO - 特征提取时间：0.59 秒
+2025-04-17 01:06:47,096 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:06:47,096 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:06:47,096 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:06:47,446 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:06:47,446 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:06:47,499 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:06:48,478 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:06:48,478 - data/processed/system.log - INFO - 数据预处理时间：0.98 秒
+2025-04-17 01:06:48,478 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:06:48,478 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:06:49,152 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:06:49,153 - data/processed/system.log - INFO - 特征提取时间：0.67 秒
+2025-04-17 01:07:40,689 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:07:40,689 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:07:40,689 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:07:41,043 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:07:41,043 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:07:41,097 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:07:42,038 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:07:42,038 - data/processed/system.log - INFO - 数据预处理时间：0.94 秒
+2025-04-17 01:07:42,038 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:07:42,038 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:07:42,674 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:07:42,674 - data/processed/system.log - INFO - 特征提取时间：0.64 秒
+2025-04-17 01:07:53,258 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:07:53,258 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:07:53,258 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:07:53,617 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:07:53,617 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:07:53,669 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:07:54,735 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:07:54,735 - data/processed/system.log - INFO - 数据预处理时间：1.07 秒
+2025-04-17 01:07:54,735 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:07:54,735 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:07:55,308 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:07:55,308 - data/processed/system.log - INFO - 特征提取时间：0.57 秒
+2025-04-17 01:08:24,843 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:08:24,843 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:08:24,843 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:08:25,189 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:08:25,189 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:08:25,189 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:08:29,498 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:08:29,498 - data/processed/system.log - INFO - 数据预处理时间：4.31 秒
+2025-04-17 01:08:29,498 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:08:29,498 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:08:34,046 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:08:34,046 - data/processed/system.log - INFO - 特征提取时间：4.55 秒
+2025-04-17 01:09:07,594 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:09:07,594 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:09:07,595 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:09:07,953 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:09:07,954 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:09:07,954 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:09:12,290 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:09:12,290 - data/processed/system.log - INFO - 数据预处理时间：4.34 秒
+2025-04-17 01:09:12,290 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:09:12,290 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:09:16,891 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:09:16,892 - data/processed/system.log - INFO - 特征提取时间：4.60 秒
+2025-04-17 01:10:14,390 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:10:14,390 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:10:14,390 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:10:14,760 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:10:14,760 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 01:10:14,760 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:10:18,993 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:10:18,994 - data/processed/system.log - INFO - 数据预处理时间：4.23 秒
+2025-04-17 01:10:18,994 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:10:18,994 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:10:44,002 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:10:44,003 - data/processed/system.log - INFO - 特征提取时间：25.01 秒
+2025-04-17 01:11:08,244 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:11:08,244 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:11:08,244 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:11:08,612 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:11:08,612 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 01:11:08,649 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:11:09,648 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:11:09,648 - data/processed/system.log - INFO - 数据预处理时间：1.00 秒
+2025-04-17 01:11:09,648 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:11:09,648 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:11:10,406 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:11:10,406 - data/processed/system.log - INFO - 特征提取时间：0.76 秒
+2025-04-17 01:15:00,358 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:15:00,358 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:15:00,358 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:15:00,761 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:15:00,761 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-17 01:15:00,813 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:15:01,798 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:15:01,798 - data/processed/system.log - INFO - 数据预处理时间：0.98 秒
+2025-04-17 01:15:01,798 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:15:01,798 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:15:02,555 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:15:02,555 - data/processed/system.log - INFO - 特征提取时间：0.76 秒
+2025-04-17 01:16:16,481 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:16:16,481 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:16:16,481 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:16:16,828 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:16:16,828 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:16:16,881 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:16:17,863 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:16:17,863 - data/processed/system.log - INFO - 数据预处理时间：0.98 秒
+2025-04-17 01:16:17,863 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:16:17,864 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:16:18,647 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:16:18,647 - data/processed/system.log - INFO - 特征提取时间：0.78 秒
+2025-04-17 01:25:44,881 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:25:44,881 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:25:44,881 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:25:45,225 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:25:45,225 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 01:25:45,275 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:25:46,245 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:25:46,245 - data/processed/system.log - INFO - 数据预处理时间：0.97 秒
+2025-04-17 01:25:46,245 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:25:46,245 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:25:58,009 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:25:58,009 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:25:58,009 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:25:58,394 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:25:58,394 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 01:25:58,436 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:25:59,561 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:25:59,561 - data/processed/system.log - INFO - 数据预处理时间：1.13 秒
+2025-04-17 01:25:59,561 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:25:59,561 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:28:05,985 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:28:05,985 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:28:05,985 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:28:06,331 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:28:06,331 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:28:06,383 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:28:07,331 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:28:07,332 - data/processed/system.log - INFO - 数据预处理时间：0.95 秒
+2025-04-17 01:28:07,332 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:28:07,332 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:28:12,619 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:28:12,620 - data/processed/system.log - INFO - 特征提取时间：5.29 秒
+2025-04-17 01:29:48,534 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:29:48,534 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:29:48,534 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:29:48,885 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:29:48,885 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:29:48,936 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:29:49,883 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:29:49,884 - data/processed/system.log - INFO - 数据预处理时间：0.95 秒
+2025-04-17 01:29:49,884 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:29:49,884 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:29:55,199 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:29:55,199 - data/processed/system.log - INFO - 特征提取时间：5.32 秒
+2025-04-17 01:30:29,188 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:30:29,188 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:30:29,188 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:30:29,543 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:30:29,543 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:30:29,601 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:30:30,684 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:30:30,684 - data/processed/system.log - INFO - 数据预处理时间：1.08 秒
+2025-04-17 01:30:30,684 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:30:30,684 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:30:36,004 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:30:36,004 - data/processed/system.log - INFO - 特征提取时间：5.32 秒
+2025-04-17 01:30:47,677 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:30:47,677 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:30:47,677 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:30:48,034 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:30:48,034 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:30:48,034 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:30:52,218 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:30:52,218 - data/processed/system.log - INFO - 数据预处理时间：4.18 秒
+2025-04-17 01:30:52,218 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:30:52,218 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:35:41,617 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:35:41,617 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:35:41,617 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:35:41,997 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:35:41,997 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 01:35:41,997 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:35:46,234 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:35:46,234 - data/processed/system.log - INFO - 数据预处理时间：4.24 秒
+2025-04-17 01:35:46,234 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:35:46,234 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:36:33,018 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:36:33,019 - data/processed/system.log - INFO - 特征提取时间：46.78 秒
+2025-04-17 01:38:24,331 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:38:24,331 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:38:24,331 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:38:24,899 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:38:24,899 - data/processed/system.log - INFO - 数据加载时间：0.57 秒
+2025-04-17 01:38:24,899 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:38:29,133 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:38:29,133 - data/processed/system.log - INFO - 数据预处理时间：4.23 秒
+2025-04-17 01:38:29,133 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:38:29,133 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:39:12,381 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:39:12,381 - data/processed/system.log - INFO - 特征提取时间：43.25 秒
+2025-04-17 01:40:47,788 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:40:47,788 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:40:47,788 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:40:48,182 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:40:48,182 - data/processed/system.log - INFO - 数据加载时间：0.39 秒
+2025-04-17 01:40:48,182 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:40:52,444 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:40:52,444 - data/processed/system.log - INFO - 数据预处理时间：4.26 秒
+2025-04-17 01:40:52,444 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:40:52,444 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:41:37,371 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:41:37,372 - data/processed/system.log - INFO - 特征提取时间：44.93 秒
+2025-04-17 01:43:13,927 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:43:13,927 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:43:13,927 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:43:14,295 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:43:14,295 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 01:43:14,295 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:43:18,805 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:43:18,805 - data/processed/system.log - INFO - 数据预处理时间：4.51 秒
+2025-04-17 01:43:18,805 - data/processed/system.log - INFO - 开始特征提取，方法：vectorize
+2025-04-17 01:43:18,805 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:44:05,378 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:44:05,379 - data/processed/system.log - INFO - 特征提取时间：46.57 秒
+2025-04-17 01:57:14,880 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:57:14,880 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:57:14,880 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:57:15,279 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:57:15,279 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-17 01:57:15,279 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:57:19,661 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:57:19,662 - data/processed/system.log - INFO - 数据预处理时间：4.38 秒
+2025-04-17 01:57:19,662 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:57:19,662 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:57:24,388 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:57:24,388 - data/processed/system.log - INFO - 特征提取时间：4.73 秒
+2025-04-17 01:57:32,380 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:57:32,380 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:57:32,380 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:57:32,733 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:57:32,733 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-17 01:57:32,772 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:57:33,472 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:57:33,472 - data/processed/system.log - INFO - 数据预处理时间：0.70 秒
+2025-04-17 01:57:33,472 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:57:33,472 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:57:34,409 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:57:34,409 - data/processed/system.log - INFO - 特征提取时间：0.94 秒
+2025-04-17 01:57:35,824 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 01:57:35,824 - data/processed/system.log - INFO - 关闭并行
+2025-04-17 01:57:37,264 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 01:57:37,264 - data/processed/system.log - INFO - 指纹生成时间：1.44 秒
+2025-04-17 01:57:37,264 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 01:57:37,269 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 01:57:46,339 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:57:46,340 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:57:46,340 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:57:46,675 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:57:46,675 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 01:57:46,713 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:57:47,628 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:57:47,629 - data/processed/system.log - INFO - 数据预处理时间：0.92 秒
+2025-04-17 01:57:47,629 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 01:57:47,629 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:57:48,268 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:57:48,268 - data/processed/system.log - INFO - 特征提取时间：0.64 秒
+2025-04-17 01:57:49,737 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 01:57:49,737 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:57:51,205 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 01:57:51,205 - data/processed/system.log - INFO - 指纹生成时间：1.47 秒
+2025-04-17 01:57:51,205 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 01:57:51,207 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 01:58:05,740 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:58:05,740 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:58:05,740 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:58:06,074 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:58:06,074 - data/processed/system.log - INFO - 数据加载时间：0.33 秒
+2025-04-17 01:58:06,118 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:58:07,125 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:58:07,126 - data/processed/system.log - INFO - 数据预处理时间：1.01 秒
+2025-04-17 01:58:07,126 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 01:58:07,126 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:58:07,778 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:58:07,778 - data/processed/system.log - INFO - 特征提取时间：0.65 秒
+2025-04-17 01:58:10,927 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 01:58:10,927 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:59:03,376 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:59:03,376 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:59:03,376 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:59:03,737 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:59:03,737 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 01:59:03,788 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:59:04,833 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:59:04,834 - data/processed/system.log - INFO - 数据预处理时间：1.05 秒
+2025-04-17 01:59:04,834 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 01:59:04,834 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:59:05,525 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:59:05,525 - data/processed/system.log - INFO - 特征提取时间：0.69 秒
+2025-04-17 01:59:08,694 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 01:59:08,694 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:59:09,212 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 01:59:09,213 - data/processed/system.log - INFO - 指纹生成时间：0.52 秒
+2025-04-17 01:59:09,213 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 01:59:09,247 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 01:59:13,734 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 01:59:13,734 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 01:59:13,734 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 01:59:14,074 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 01:59:14,074 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 01:59:14,074 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 01:59:18,546 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 01:59:18,546 - data/processed/system.log - INFO - 数据预处理时间：4.47 秒
+2025-04-17 01:59:18,546 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 01:59:18,546 - data/processed/system.log - INFO - 开启并行
+2025-04-17 01:59:37,655 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 01:59:37,655 - data/processed/system.log - INFO - 特征提取时间：19.11 秒
+2025-04-17 02:01:07,696 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:01:07,696 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:01:07,696 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:01:08,076 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:01:08,076 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 02:01:08,114 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:01:09,045 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:01:09,046 - data/processed/system.log - INFO - 数据预处理时间：0.93 秒
+2025-04-17 02:01:09,046 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 02:01:09,046 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:01:09,793 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:01:09,794 - data/processed/system.log - INFO - 特征提取时间：0.75 秒
+2025-04-17 02:01:09,794 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 02:01:09,794 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:01:10,302 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 02:01:10,302 - data/processed/system.log - INFO - 指纹生成时间：0.51 秒
+2025-04-17 02:01:10,302 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:01:10,337 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:01:10,337 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 02:01:10,344 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 3 个候选对。
+2025-04-17 02:01:10,345 - data/processed/system.log - INFO - LSH 索引构建时间：0.01 秒
+2025-04-17 02:01:10,618 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.94
+2025-04-17 02:01:10,618 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs_sampling.csv
+2025-04-17 02:01:10,618 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 02:01:28,237 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:01:28,237 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:01:28,237 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:01:28,624 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:01:28,624 - data/processed/system.log - INFO - 数据加载时间：0.39 秒
+2025-04-17 02:01:28,681 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:01:29,751 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:01:29,751 - data/processed/system.log - INFO - 数据预处理时间：1.07 秒
+2025-04-17 02:01:29,751 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:01:29,752 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:01:30,322 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:01:30,322 - data/processed/system.log - INFO - 特征提取时间：0.57 秒
+2025-04-17 02:01:30,322 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:01:30,322 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:01:31,786 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 02:01:31,786 - data/processed/system.log - INFO - 指纹生成时间：1.46 秒
+2025-04-17 02:01:31,786 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:01:31,789 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:01:31,789 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 02:01:32,466 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 499500 个候选对。
+2025-04-17 02:01:32,467 - data/processed/system.log - INFO - LSH 索引构建时间：0.68 秒
+2025-04-17 02:17:39,766 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:17:39,766 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:17:39,766 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:17:40,150 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:17:40,150 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 02:17:40,193 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:17:41,069 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:17:41,069 - data/processed/system.log - INFO - 数据预处理时间：0.88 秒
+2025-04-17 02:17:41,069 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:17:41,069 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:17:41,934 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:17:41,934 - data/processed/system.log - INFO - 特征提取时间：0.86 秒
+2025-04-17 02:17:41,934 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:17:41,934 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:17:43,433 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 02:17:43,433 - data/processed/system.log - INFO - 指纹生成时间：1.50 秒
+2025-04-17 02:17:43,433 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:17:43,435 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:17:43,435 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-17 02:19:41,523 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:19:41,523 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:19:41,523 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:19:41,893 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:19:41,893 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 02:19:41,941 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:19:42,972 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:19:42,973 - data/processed/system.log - INFO - 数据预处理时间：1.03 秒
+2025-04-17 02:19:42,973 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:19:42,973 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:19:43,547 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:19:43,548 - data/processed/system.log - INFO - 特征提取时间：0.58 秒
+2025-04-17 02:19:43,548 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:19:43,548 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:19:45,021 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 02:19:45,021 - data/processed/system.log - INFO - 指纹生成时间：1.47 秒
+2025-04-17 02:19:45,021 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:19:45,023 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:19:45,023 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-17 02:20:46,044 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:20:46,044 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:20:46,044 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:20:46,382 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:20:46,382 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 02:20:46,434 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:20:47,405 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:20:47,405 - data/processed/system.log - INFO - 数据预处理时间：0.97 秒
+2025-04-17 02:20:47,405 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:20:47,405 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:20:47,983 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:20:47,983 - data/processed/system.log - INFO - 特征提取时间：0.58 秒
+2025-04-17 02:20:47,983 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:20:47,983 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:20:49,500 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：1000
+2025-04-17 02:20:49,500 - data/processed/system.log - INFO - 指纹生成时间：1.52 秒
+2025-04-17 02:20:49,500 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:20:49,502 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:20:49,502 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-17 02:20:50,261 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 0 个候选对。
+2025-04-17 02:20:50,261 - data/processed/system.log - INFO - LSH 索引构建时间：0.76 秒
+2025-04-17 02:20:50,390 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.00
+2025-04-17 02:20:50,390 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs_sampling.csv
+2025-04-17 02:20:50,391 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 02:21:59,328 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:21:59,328 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:21:59,328 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:21:59,692 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:21:59,692 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 02:21:59,742 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:22:00,809 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:22:00,810 - data/processed/system.log - INFO - 数据预处理时间：1.07 秒
+2025-04-17 02:22:00,810 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:22:00,810 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:22:01,483 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:22:01,483 - data/processed/system.log - INFO - 特征提取时间：0.67 秒
+2025-04-17 02:22:01,483 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:22:01,483 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:22:07,563 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：4000
+2025-04-17 02:22:07,563 - data/processed/system.log - INFO - 指纹生成时间：6.08 秒
+2025-04-17 02:22:07,563 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:22:07,568 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:22:07,568 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-17 02:22:23,106 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 0 个候选对。
+2025-04-17 02:22:23,106 - data/processed/system.log - INFO - LSH 索引构建时间：15.54 秒
+2025-04-17 02:22:23,240 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.00
+2025-04-17 02:22:23,240 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs_sampling.csv
+2025-04-17 02:22:23,240 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 02:24:25,609 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:24:25,609 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:24:25,609 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:24:25,973 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:24:25,973 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 02:24:26,021 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:24:27,060 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:24:27,060 - data/processed/system.log - INFO - 数据预处理时间：1.04 秒
+2025-04-17 02:24:27,060 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:24:27,060 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:24:27,708 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:24:27,709 - data/processed/system.log - INFO - 特征提取时间：0.65 秒
+2025-04-17 02:24:27,709 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:24:27,709 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:24:30,904 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：4000
+2025-04-17 02:24:30,904 - data/processed/system.log - INFO - 指纹生成时间：3.20 秒
+2025-04-17 02:24:30,904 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:24:30,909 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:24:30,909 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-17 02:24:49,398 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:24:49,398 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:24:49,398 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:24:49,764 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:24:49,764 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 02:24:49,813 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:24:50,870 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:24:50,870 - data/processed/system.log - INFO - 数据预处理时间：1.06 秒
+2025-04-17 02:24:50,870 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:24:50,870 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:24:51,527 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:24:51,527 - data/processed/system.log - INFO - 特征提取时间：0.66 秒
+2025-04-17 02:24:51,528 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:24:51,528 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:24:54,673 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：4000
+2025-04-17 02:24:54,673 - data/processed/system.log - INFO - 指纹生成时间：3.15 秒
+2025-04-17 02:24:54,673 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:24:54,677 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:24:54,677 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-17 02:24:54,688 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 0 个候选对。
+2025-04-17 02:24:54,688 - data/processed/system.log - INFO - LSH 索引构建时间：0.01 秒
+2025-04-17 02:24:54,820 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.00
+2025-04-17 02:24:54,820 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs_sampling.csv
+2025-04-17 02:24:54,820 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 02:27:27,199 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:27:27,199 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:27:27,199 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:27:27,538 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:27:27,538 - data/processed/system.log - INFO - 数据加载时间：0.34 秒
+2025-04-17 02:27:27,538 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:27:31,862 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:27:31,862 - data/processed/system.log - INFO - 数据预处理时间：4.32 秒
+2025-04-17 02:27:31,862 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:27:31,862 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:27:36,232 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:27:36,233 - data/processed/system.log - INFO - 特征提取时间：4.37 秒
+2025-04-17 02:27:36,233 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:27:36,233 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:29:56,419 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 02:29:56,420 - data/processed/system.log - INFO - 指纹生成时间：140.19 秒
+2025-04-17 02:29:56,421 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 02:29:56,523 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 02:29:56,523 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-17 02:31:51,511 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:31:51,512 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:31:51,512 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:31:51,892 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:31:51,892 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 02:31:51,892 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:31:56,260 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:31:56,260 - data/processed/system.log - INFO - 数据预处理时间：4.37 秒
+2025-04-17 02:31:56,260 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:31:56,260 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:32:00,986 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:32:00,987 - data/processed/system.log - INFO - 特征提取时间：4.73 秒
+2025-04-17 02:32:00,988 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:32:00,988 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:32:49,265 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 02:32:49,265 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 02:32:49,265 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 02:32:49,622 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 02:32:49,622 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 02:32:49,622 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 02:32:54,305 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 02:32:54,305 - data/processed/system.log - INFO - 数据预处理时间：4.68 秒
+2025-04-17 02:32:54,305 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 02:32:54,305 - data/processed/system.log - INFO - 开启并行
+2025-04-17 02:32:58,855 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 02:32:58,856 - data/processed/system.log - INFO - 特征提取时间：4.55 秒
+2025-04-17 02:32:58,856 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 02:32:58,856 - data/processed/system.log - INFO - 开启并行
+2025-04-17 14:04:40,419 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 14:04:45,271 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 14:04:45,272 - data/processed/system.log - INFO - 加载目录中的 Parquet 文件：data/raw/test
+2025-04-17 14:04:45,272 - data/processed/system.log - INFO - 加载文件：data/raw/test/0001.parquet
+2025-04-17 14:04:45,273 - data/processed/system.log - WARNING - data/raw/test/0001.parquet 加载失败：DataLoader.load_data() missing 1 required positional argument: 'parallel_enabled'
+2025-04-17 14:04:45,273 - data/processed/system.log - INFO - 加载文件：data/raw/test/0000.parquet
+2025-04-17 14:04:45,273 - data/processed/system.log - WARNING - data/raw/test/0000.parquet 加载失败：DataLoader.load_data() missing 1 required positional argument: 'parallel_enabled'
+2025-04-17 14:04:45,273 - data/processed/system.log - INFO - 数据加载完成，共加载 0 条记录。
+2025-04-17 14:04:49,005 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 14:04:49,006 - data/processed/system.log - INFO - 加载目录中的 Parquet 文件：data/raw/test
+2025-04-17 14:04:49,007 - data/processed/system.log - INFO - 加载文件：data/raw/test/0001.parquet
+2025-04-17 14:04:49,007 - data/processed/system.log - WARNING - data/raw/test/0001.parquet 加载失败：DataLoader.load_data() missing 1 required positional argument: 'parallel_enabled'
+2025-04-17 14:04:49,007 - data/processed/system.log - INFO - 加载文件：data/raw/test/0000.parquet
+2025-04-17 14:04:49,008 - data/processed/system.log - WARNING - data/raw/test/0000.parquet 加载失败：DataLoader.load_data() missing 1 required positional argument: 'parallel_enabled'
+2025-04-17 14:04:49,008 - data/processed/system.log - INFO - 数据加载完成，共加载 0 条记录。
+2025-04-17 14:10:03,007 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 14:10:03,008 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 14:10:03,008 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 14:10:03,707 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 14:10:03,707 - data/processed/system.log - INFO - 数据加载时间：0.70 秒
+2025-04-17 14:10:03,707 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 14:10:08,054 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 14:10:08,054 - data/processed/system.log - INFO - 数据预处理时间：4.35 秒
+2025-04-17 14:10:08,054 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 14:10:08,054 - data/processed/system.log - INFO - 开启并行
+2025-04-17 14:10:26,799 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 14:10:26,800 - data/processed/system.log - INFO - 特征提取时间：18.75 秒
+2025-04-17 14:10:26,800 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 14:10:26,800 - data/processed/system.log - INFO - 开启并行
+2025-04-17 14:11:53,688 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 14:11:53,689 - data/processed/system.log - INFO - 指纹生成时间：86.89 秒
+2025-04-17 14:11:53,689 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 14:12:03,861 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 14:12:03,862 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 14:13:19,937 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 20219 个候选对。
+2025-04-17 14:13:19,938 - data/processed/system.log - INFO - LSH 索引构建时间：76.08 秒
+2025-04-17 14:13:22,949 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.91
+2025-04-17 14:13:22,955 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs_sampling.csv
+2025-04-17 14:13:22,956 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 14:43:47,979 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 14:43:47,979 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 14:43:47,979 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 14:43:48,398 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 14:43:48,398 - data/processed/system.log - INFO - 数据加载时间：0.42 秒
+2025-04-17 14:43:48,440 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 14:43:49,540 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 14:43:49,540 - data/processed/system.log - INFO - 数据预处理时间：1.10 秒
+2025-04-17 14:43:49,540 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 14:43:49,540 - data/processed/system.log - INFO - 开启并行
+2025-04-17 14:43:50,190 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 14:43:50,191 - data/processed/system.log - INFO - 特征提取时间：0.65 秒
+2025-04-17 14:43:50,191 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 14:43:50,191 - data/processed/system.log - INFO - 开启并行
+2025-04-17 14:43:53,532 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：4000
+2025-04-17 14:43:53,532 - data/processed/system.log - INFO - 指纹生成时间：3.34 秒
+2025-04-17 14:43:53,532 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 14:43:53,538 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 14:43:53,538 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：bitsampling
+2025-04-17 14:43:53,548 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 0 个候选对。
+2025-04-17 14:43:53,548 - data/processed/system.log - INFO - LSH 索引构建时间：0.01 秒
+2025-04-17 14:43:53,676 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.00
+2025-04-17 14:43:53,676 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs_sampling.csv
+2025-04-17 14:43:53,676 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 14:45:41,501 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 14:45:41,501 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 14:45:41,501 - data/processed/system.log - INFO - 加载数据路径：data/raw/sample_test.parquet
+2025-04-17 14:45:41,631 - data/processed/system.log - INFO - 数据加载完成，共加载 8 条记录。
+2025-04-17 14:45:41,631 - data/processed/system.log - INFO - 数据加载时间：0.13 秒
+2025-04-17 14:45:41,631 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 14:45:42,479 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 14:45:42,480 - data/processed/system.log - INFO - 数据预处理时间：0.85 秒
+2025-04-17 14:45:42,480 - data/processed/system.log - INFO - 开始特征提取，方法：frequency
+2025-04-17 14:45:42,480 - data/processed/system.log - INFO - 开启并行
+2025-04-17 14:45:43,210 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 14:45:43,210 - data/processed/system.log - INFO - 特征提取时间：0.73 秒
+2025-04-17 14:45:43,210 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 14:45:43,210 - data/processed/system.log - INFO - 开启并行
+2025-04-17 14:45:43,237 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：8
+2025-04-17 14:45:43,238 - data/processed/system.log - INFO - 指纹生成时间：0.03 秒
+2025-04-17 14:45:43,238 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 14:45:43,240 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 14:45:43,240 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：bitsampling
+2025-04-17 14:45:43,241 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 1 个候选对。
+2025-04-17 14:45:43,241 - data/processed/system.log - INFO - LSH 索引构建时间：0.00 秒
+2025-04-17 14:45:43,371 - data/processed/system.log - INFO - 候选对中的近重复文档比率：1.00
+2025-04-17 14:45:43,371 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/candidate_pairs_sampling.csv
+2025-04-17 14:45:43,372 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 15:29:22,628 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 15:29:22,629 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 15:29:22,629 - data/processed/system.log - INFO - 加载数据路径：data/raw/total
+2025-04-17 15:29:23,538 - data/processed/system.log - INFO - 数据加载完成，共加载 325871 条记录。
+2025-04-17 15:29:23,538 - data/processed/system.log - INFO - 数据加载时间：0.91 秒
+2025-04-17 15:29:23,667 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 15:29:24,702 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 15:29:24,702 - data/processed/system.log - INFO - 数据预处理时间：1.03 秒
+2025-04-17 15:29:24,702 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 15:29:24,702 - data/processed/system.log - INFO - 开启并行
+2025-04-17 15:29:25,494 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 15:29:25,494 - data/processed/system.log - INFO - 特征提取时间：0.79 秒
+2025-04-17 15:29:25,494 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 15:29:25,494 - data/processed/system.log - INFO - 开启并行
+2025-04-17 15:29:26,936 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：4000
+2025-04-17 15:29:26,936 - data/processed/system.log - INFO - 指纹生成时间：1.44 秒
+2025-04-17 15:29:26,936 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/fingerprints.csv
+2025-04-17 15:29:27,026 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/fingerprints.csv
+2025-04-17 15:29:27,026 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 15:29:48,430 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 15:29:48,430 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 15:29:48,430 - data/processed/system.log - INFO - 加载数据路径：data/raw/total
+2025-04-17 15:29:49,116 - data/processed/system.log - INFO - 数据加载完成，共加载 325871 条记录。
+2025-04-17 15:29:49,116 - data/processed/system.log - INFO - 数据加载时间：0.69 秒
+2025-04-17 15:29:49,116 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 15:29:57,592 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 15:29:57,592 - data/processed/system.log - INFO - 数据预处理时间：8.48 秒
+2025-04-17 15:29:57,592 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 15:29:57,592 - data/processed/system.log - INFO - 开启并行
+2025-04-17 15:31:14,499 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 15:31:14,502 - data/processed/system.log - INFO - 特征提取时间：76.91 秒
+2025-04-17 15:31:14,502 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 15:31:14,502 - data/processed/system.log - INFO - 开启并行
+2025-04-17 15:44:41,431 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 15:44:41,431 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 15:44:41,431 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 15:44:42,003 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 15:44:42,003 - data/processed/system.log - INFO - 数据加载时间：0.57 秒
+2025-04-17 15:44:42,003 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 15:44:46,412 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 15:44:46,412 - data/processed/system.log - INFO - 数据预处理时间：4.41 秒
+2025-04-17 15:44:46,412 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 15:44:46,412 - data/processed/system.log - INFO - 开启并行
+2025-04-17 15:45:04,672 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 15:45:04,672 - data/processed/system.log - INFO - 特征提取时间：18.26 秒
+2025-04-17 15:45:04,672 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 15:45:04,672 - data/processed/system.log - INFO - 开启并行
+2025-04-17 15:46:07,169 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 15:46:07,170 - data/processed/system.log - INFO - 指纹生成时间：62.50 秒
+2025-04-17 15:46:07,170 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 15:46:14,164 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 15:46:14,165 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 15:53:25,860 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 15:53:25,860 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 15:53:25,860 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 15:53:26,508 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 15:53:26,508 - data/processed/system.log - INFO - 数据加载时间：0.65 秒
+2025-04-17 15:53:26,508 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 15:53:31,087 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 15:53:31,088 - data/processed/system.log - INFO - 数据预处理时间：4.58 秒
+2025-04-17 15:53:31,088 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 15:53:31,088 - data/processed/system.log - INFO - 开启并行
+2025-04-17 15:53:53,909 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 15:53:53,910 - data/processed/system.log - INFO - 特征提取时间：22.82 秒
+2025-04-17 15:53:53,910 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 15:53:53,910 - data/processed/system.log - INFO - 开启并行
+2025-04-17 15:55:10,846 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 15:55:10,848 - data/processed/system.log - INFO - 指纹生成时间：76.94 秒
+2025-04-17 15:55:10,848 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 15:55:17,483 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 15:55:17,486 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:12:17,611 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:12:17,611 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:12:17,611 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:12:18,012 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:12:18,012 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-17 16:12:18,012 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:12:22,376 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:12:22,376 - data/processed/system.log - INFO - 数据预处理时间：4.36 秒
+2025-04-17 16:12:22,376 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:12:22,376 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:12:49,857 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:12:49,858 - data/processed/system.log - INFO - 特征提取时间：27.48 秒
+2025-04-17 16:12:49,858 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:12:49,858 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:13:28,618 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:13:28,619 - data/processed/system.log - INFO - 指纹生成时间：38.76 秒
+2025-04-17 16:13:28,619 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:13:29,949 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:13:29,949 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:19:44,672 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:19:44,672 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:19:44,672 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:19:45,057 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:19:45,057 - data/processed/system.log - INFO - 数据加载时间：0.39 秒
+2025-04-17 16:19:45,057 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:19:49,413 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:19:49,413 - data/processed/system.log - INFO - 数据预处理时间：4.36 秒
+2025-04-17 16:19:49,413 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:19:49,413 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:20:12,616 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:20:12,616 - data/processed/system.log - INFO - 特征提取时间：23.20 秒
+2025-04-17 16:20:12,616 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:20:12,616 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:20:57,674 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:20:57,675 - data/processed/system.log - INFO - 指纹生成时间：45.06 秒
+2025-04-17 16:20:57,675 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:20:58,974 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:20:58,974 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:23:39,294 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:23:39,294 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:23:39,294 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:23:39,685 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:23:39,685 - data/processed/system.log - INFO - 数据加载时间：0.39 秒
+2025-04-17 16:23:39,685 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:23:43,947 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:23:43,948 - data/processed/system.log - INFO - 数据预处理时间：4.26 秒
+2025-04-17 16:23:43,948 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:23:43,948 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:24:08,997 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:24:08,997 - data/processed/system.log - INFO - 特征提取时间：25.05 秒
+2025-04-17 16:24:08,997 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:24:08,997 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:24:54,296 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:24:54,297 - data/processed/system.log - INFO - 指纹生成时间：45.30 秒
+2025-04-17 16:24:54,297 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:24:55,578 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:24:55,578 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:25:51,710 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:25:51,710 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:25:51,710 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:25:52,092 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:25:52,092 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 16:25:52,092 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:25:56,396 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:25:56,397 - data/processed/system.log - INFO - 数据预处理时间：4.30 秒
+2025-04-17 16:25:56,397 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:25:56,397 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:26:20,294 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:26:20,295 - data/processed/system.log - INFO - 特征提取时间：23.90 秒
+2025-04-17 16:26:20,295 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:26:20,296 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:26:57,180 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:26:57,181 - data/processed/system.log - INFO - 指纹生成时间：36.89 秒
+2025-04-17 16:26:57,181 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:26:57,835 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:26:57,835 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:39:21,576 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:39:21,577 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:39:21,577 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:39:22,100 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:39:22,100 - data/processed/system.log - INFO - 数据加载时间：0.52 秒
+2025-04-17 16:39:22,100 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:39:26,518 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:39:26,518 - data/processed/system.log - INFO - 数据预处理时间：4.42 秒
+2025-04-17 16:39:26,518 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:39:26,518 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:39:52,809 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:39:52,810 - data/processed/system.log - INFO - 特征提取时间：26.29 秒
+2025-04-17 16:39:52,810 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:39:52,810 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:40:29,154 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:40:29,155 - data/processed/system.log - INFO - 指纹生成时间：36.34 秒
+2025-04-17 16:40:29,155 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:40:29,818 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:40:29,818 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:41:23,942 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:41:23,942 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:41:23,942 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:41:24,310 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:41:24,310 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 16:41:24,310 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:41:29,356 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:41:29,356 - data/processed/system.log - INFO - 数据预处理时间：5.05 秒
+2025-04-17 16:41:29,356 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:41:29,356 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:41:55,281 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:41:55,281 - data/processed/system.log - INFO - 特征提取时间：25.93 秒
+2025-04-17 16:41:55,281 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:41:55,281 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:42:31,514 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:42:31,515 - data/processed/system.log - INFO - 指纹生成时间：36.23 秒
+2025-04-17 16:42:31,515 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:42:32,221 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:42:32,221 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:45:14,624 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:45:14,624 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:45:14,624 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:45:14,999 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:45:14,999 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 16:45:14,999 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:45:19,591 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:45:19,592 - data/processed/system.log - INFO - 数据预处理时间：4.59 秒
+2025-04-17 16:45:19,592 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:45:19,592 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:45:44,644 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:45:44,644 - data/processed/system.log - INFO - 特征提取时间：25.05 秒
+2025-04-17 16:45:44,644 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:45:44,644 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:46:21,568 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:46:21,569 - data/processed/system.log - INFO - 指纹生成时间：36.93 秒
+2025-04-17 16:46:21,569 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:46:22,298 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:46:22,298 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:48:39,646 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:48:39,646 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:48:39,646 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:48:40,011 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:48:40,011 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-17 16:48:40,011 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:48:44,403 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:48:44,403 - data/processed/system.log - INFO - 数据预处理时间：4.39 秒
+2025-04-17 16:48:44,403 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:48:44,403 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:49:05,843 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:49:05,843 - data/processed/system.log - INFO - 特征提取时间：21.44 秒
+2025-04-17 16:49:05,843 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:49:05,843 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:49:43,363 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:49:43,364 - data/processed/system.log - INFO - 指纹生成时间：37.52 秒
+2025-04-17 16:49:43,364 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:49:44,058 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:49:44,058 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:50:10,546 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 3054254 个候选对。
+2025-04-17 16:50:10,547 - data/processed/system.log - INFO - LSH 索引构建时间：26.49 秒
+2025-04-17 16:51:50,168 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:51:50,168 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:51:50,168 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:51:50,552 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:51:50,553 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 16:51:50,553 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:51:55,026 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:51:55,026 - data/processed/system.log - INFO - 数据预处理时间：4.47 秒
+2025-04-17 16:51:55,026 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:51:55,026 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:52:17,930 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:52:17,931 - data/processed/system.log - INFO - 特征提取时间：22.90 秒
+2025-04-17 16:52:17,931 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:52:17,931 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:52:55,571 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:52:55,572 - data/processed/system.log - INFO - 指纹生成时间：37.64 秒
+2025-04-17 16:52:55,572 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:52:56,262 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:52:56,262 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:56:20,078 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:56:20,078 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:56:20,078 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:56:20,475 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:56:20,475 - data/processed/system.log - INFO - 数据加载时间：0.40 秒
+2025-04-17 16:56:20,475 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:56:24,946 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:56:24,946 - data/processed/system.log - INFO - 数据预处理时间：4.47 秒
+2025-04-17 16:56:24,946 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:56:24,946 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:56:48,281 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:56:48,282 - data/processed/system.log - INFO - 特征提取时间：23.34 秒
+2025-04-17 16:56:48,282 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:56:48,282 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:57:24,079 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 16:57:24,080 - data/processed/system.log - INFO - 指纹生成时间：35.80 秒
+2025-04-17 16:57:24,080 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:57:24,734 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 16:57:24,735 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 16:59:24,016 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 16:59:24,016 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 16:59:24,016 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 16:59:24,399 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 16:59:24,399 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 16:59:24,399 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 16:59:28,851 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 16:59:28,851 - data/processed/system.log - INFO - 数据预处理时间：4.45 秒
+2025-04-17 16:59:28,851 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 16:59:28,851 - data/processed/system.log - INFO - 开启并行
+2025-04-17 16:59:51,683 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 16:59:51,684 - data/processed/system.log - INFO - 特征提取时间：22.83 秒
+2025-04-17 16:59:51,684 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 16:59:51,684 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:00:33,714 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 17:00:33,717 - data/processed/system.log - INFO - 指纹生成时间：42.03 秒
+2025-04-17 17:00:33,717 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 17:00:34,607 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 17:00:34,607 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 17:01:44,906 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 17:01:44,906 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 17:01:44,906 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 17:01:45,378 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 17:01:45,378 - data/processed/system.log - INFO - 数据加载时间：0.47 秒
+2025-04-17 17:01:45,378 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 17:01:50,792 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 17:01:50,792 - data/processed/system.log - INFO - 数据预处理时间：5.41 秒
+2025-04-17 17:01:50,792 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 17:01:50,792 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:02:17,002 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 17:02:17,003 - data/processed/system.log - INFO - 特征提取时间：26.21 秒
+2025-04-17 17:02:17,003 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 17:02:17,003 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:02:53,118 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 17:02:53,120 - data/processed/system.log - INFO - 指纹生成时间：36.12 秒
+2025-04-17 17:02:53,120 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 17:02:53,903 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 17:02:53,903 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 17:05:43,231 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 17:05:43,231 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 17:05:43,231 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 17:05:43,600 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 17:05:43,600 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 17:05:43,600 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 17:05:47,904 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 17:05:47,905 - data/processed/system.log - INFO - 数据预处理时间：4.30 秒
+2025-04-17 17:05:47,905 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 17:05:47,905 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:06:15,486 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 17:06:15,487 - data/processed/system.log - INFO - 特征提取时间：27.58 秒
+2025-04-17 17:06:15,487 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 17:06:15,487 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:06:55,290 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 17:06:55,292 - data/processed/system.log - INFO - 指纹生成时间：39.81 秒
+2025-04-17 17:06:55,293 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 17:06:56,793 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 17:06:56,793 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 17:11:11,099 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 17:11:11,099 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 17:11:11,099 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-17 17:11:11,509 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-17 17:11:11,509 - data/processed/system.log - INFO - 数据加载时间：0.41 秒
+2025-04-17 17:11:11,510 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 17:11:15,822 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 17:11:15,822 - data/processed/system.log - INFO - 数据预处理时间：4.31 秒
+2025-04-17 17:11:15,822 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 17:11:15,822 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:11:38,986 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 17:11:38,987 - data/processed/system.log - INFO - 特征提取时间：23.16 秒
+2025-04-17 17:11:38,987 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 17:11:38,987 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:12:39,446 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-17 17:12:39,447 - data/processed/system.log - INFO - 指纹生成时间：60.46 秒
+2025-04-17 17:12:39,448 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/test_fingerprints.csv
+2025-04-17 17:12:42,469 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/test_fingerprints.csv
+2025-04-17 17:12:42,470 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 17:13:04,881 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 3817 个候选对。
+2025-04-17 17:13:04,882 - data/processed/system.log - INFO - LSH 索引构建时间：22.41 秒
+2025-04-17 17:13:05,330 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.88
+2025-04-17 17:13:05,331 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/test_candidate_pairs_sampling.csv
+2025-04-17 17:13:05,331 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 17:18:53,793 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 17:18:53,793 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 17:18:53,793 - data/processed/system.log - INFO - 加载数据路径：data/raw/validation
+2025-04-17 17:18:54,159 - data/processed/system.log - INFO - 数据加载完成，共加载 163597 条记录。
+2025-04-17 17:18:54,159 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-17 17:18:54,159 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 17:18:58,443 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 17:18:58,443 - data/processed/system.log - INFO - 数据预处理时间：4.28 秒
+2025-04-17 17:18:58,443 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-17 17:18:58,443 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:19:21,318 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 17:19:21,318 - data/processed/system.log - INFO - 特征提取时间：22.87 秒
+2025-04-17 17:19:21,318 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-17 17:19:21,318 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:20:21,772 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：163597
+2025-04-17 17:20:21,774 - data/processed/system.log - INFO - 指纹生成时间：60.46 秒
+2025-04-17 17:20:21,774 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/min_validation_fingerprints.csv
+2025-04-17 17:20:24,823 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/min_validation_fingerprints.csv
+2025-04-17 17:20:24,823 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-17 17:20:46,721 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 2691 个候选对。
+2025-04-17 17:20:46,721 - data/processed/system.log - INFO - LSH 索引构建时间：21.90 秒
+2025-04-17 17:20:46,980 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.87
+2025-04-17 17:20:46,981 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/min_validation_candidate_pairs.csv
+2025-04-17 17:20:46,981 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-17 17:22:14,129 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-17 17:22:14,129 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-17 17:22:14,129 - data/processed/system.log - INFO - 加载数据路径：data/raw/validation
+2025-04-17 17:22:14,511 - data/processed/system.log - INFO - 数据加载完成，共加载 163597 条记录。
+2025-04-17 17:22:14,511 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-17 17:22:14,511 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-17 17:22:18,867 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-17 17:22:18,868 - data/processed/system.log - INFO - 数据预处理时间：4.36 秒
+2025-04-17 17:22:18,868 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-17 17:22:18,868 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:22:26,043 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-17 17:22:26,044 - data/processed/system.log - INFO - 特征提取时间：7.18 秒
+2025-04-17 17:22:26,044 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-17 17:22:26,044 - data/processed/system.log - INFO - 开启并行
+2025-04-17 17:24:54,935 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：163597
+2025-04-17 17:24:54,936 - data/processed/system.log - INFO - 指纹生成时间：148.89 秒
+2025-04-17 17:24:54,936 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-17 17:24:55,059 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-17 17:24:55,059 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-19 20:30:29,147 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-19 20:30:29,147 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-19 20:30:29,148 - data/processed/system.log - INFO - 加载数据路径：data/raw/validation
+2025-04-19 20:30:29,708 - data/processed/system.log - INFO - 数据加载完成，共加载 163597 条记录。
+2025-04-19 20:30:29,708 - data/processed/system.log - INFO - 数据加载时间：0.56 秒
+2025-04-19 20:30:29,708 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-19 20:30:34,323 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-19 20:30:34,324 - data/processed/system.log - INFO - 数据预处理时间：4.62 秒
+2025-04-19 20:30:34,324 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-19 20:30:34,324 - data/processed/system.log - INFO - 开启并行
+2025-04-19 20:30:44,920 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-19 20:30:44,921 - data/processed/system.log - INFO - 特征提取时间：10.60 秒
+2025-04-19 20:30:44,921 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-19 20:30:44,921 - data/processed/system.log - INFO - 开启并行
+2025-04-19 20:31:55,974 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：163597
+2025-04-19 20:31:55,975 - data/processed/system.log - INFO - 指纹生成时间：71.05 秒
+2025-04-19 20:31:55,976 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 20:31:56,075 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 20:31:56,075 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-19 20:33:10,118 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 21347 个候选对。
+2025-04-19 20:33:10,120 - data/processed/system.log - INFO - LSH 索引构建时间：74.04 秒
+2025-04-19 20:33:12,564 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.50
+2025-04-19 20:33:12,569 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/sim_validation_candidate_pairs.csv
+2025-04-19 20:33:12,569 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-19 20:34:20,782 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-19 20:34:20,782 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-19 20:34:20,782 - data/processed/system.log - INFO - 加载数据路径：data/raw/validation
+2025-04-19 20:34:21,135 - data/processed/system.log - INFO - 数据加载完成，共加载 163597 条记录。
+2025-04-19 20:34:21,135 - data/processed/system.log - INFO - 数据加载时间：0.35 秒
+2025-04-19 20:34:21,135 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-19 20:34:25,434 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-19 20:34:25,434 - data/processed/system.log - INFO - 数据预处理时间：4.30 秒
+2025-04-19 20:34:25,434 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-19 20:34:25,434 - data/processed/system.log - INFO - 开启并行
+2025-04-19 20:34:33,324 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-19 20:34:33,324 - data/processed/system.log - INFO - 特征提取时间：7.89 秒
+2025-04-19 20:34:33,324 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-19 20:34:33,324 - data/processed/system.log - INFO - 开启并行
+2025-04-19 20:35:44,985 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：163597
+2025-04-19 20:35:44,987 - data/processed/system.log - INFO - 指纹生成时间：71.66 秒
+2025-04-19 20:35:44,987 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 20:35:45,065 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 20:35:45,065 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-19 20:35:50,339 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 1342 个候选对。
+2025-04-19 20:35:50,339 - data/processed/system.log - INFO - LSH 索引构建时间：5.27 秒
+2025-04-19 20:35:50,778 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.66
+2025-04-19 20:35:50,780 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/sim_validation_candidate_pairs.csv
+2025-04-19 20:35:50,780 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-19 20:36:42,267 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-19 20:36:42,268 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-19 20:36:42,268 - data/processed/system.log - INFO - 加载数据路径：data/raw/total
+2025-04-19 20:36:42,956 - data/processed/system.log - INFO - 数据加载完成，共加载 325871 条记录。
+2025-04-19 20:36:42,956 - data/processed/system.log - INFO - 数据加载时间：0.69 秒
+2025-04-19 20:36:42,956 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-19 20:36:50,625 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-19 20:36:50,626 - data/processed/system.log - INFO - 数据预处理时间：7.67 秒
+2025-04-19 20:36:50,626 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-19 20:36:50,626 - data/processed/system.log - INFO - 开启并行
+2025-04-19 20:37:30,719 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-19 20:37:30,720 - data/processed/system.log - INFO - 特征提取时间：40.09 秒
+2025-04-19 20:37:30,720 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-19 20:37:30,720 - data/processed/system.log - INFO - 开启并行
+2025-04-19 20:39:54,590 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：325871
+2025-04-19 20:39:54,596 - data/processed/system.log - INFO - 指纹生成时间：143.88 秒
+2025-04-19 20:39:54,596 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 20:39:54,780 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 20:39:54,780 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-19 20:40:05,266 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 15231 个候选对。
+2025-04-19 20:40:05,267 - data/processed/system.log - INFO - LSH 索引构建时间：10.49 秒
+2025-04-19 20:40:06,820 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.57
+2025-04-19 20:40:06,827 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/sim_validation_candidate_pairs.csv
+2025-04-19 20:40:06,827 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-19 21:04:04,464 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-19 21:04:04,465 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-19 21:04:04,465 - data/processed/system.log - INFO - 加载数据路径：data/raw/total
+2025-04-19 21:04:05,104 - data/processed/system.log - INFO - 数据加载完成，共加载 325871 条记录。
+2025-04-19 21:04:05,104 - data/processed/system.log - INFO - 数据加载时间：0.64 秒
+2025-04-19 21:04:05,104 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-19 21:04:12,637 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-19 21:04:12,638 - data/processed/system.log - INFO - 数据预处理时间：7.53 秒
+2025-04-19 21:04:12,638 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-19 21:04:12,638 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:04:50,611 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-19 21:04:50,614 - data/processed/system.log - INFO - 特征提取时间：37.98 秒
+2025-04-19 21:04:50,614 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-19 21:04:50,614 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:07:11,188 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：325871
+2025-04-19 21:07:11,191 - data/processed/system.log - INFO - 指纹生成时间：140.58 秒
+2025-04-19 21:07:11,191 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 21:07:11,360 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 21:07:11,360 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-19 21:07:26,594 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-19 21:07:26,594 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-19 21:07:26,594 - data/processed/system.log - INFO - 加载数据路径：data/raw/total
+2025-04-19 21:07:27,298 - data/processed/system.log - INFO - 数据加载完成，共加载 325871 条记录。
+2025-04-19 21:07:27,298 - data/processed/system.log - INFO - 数据加载时间：0.70 秒
+2025-04-19 21:07:27,298 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-19 21:07:34,914 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-19 21:07:34,914 - data/processed/system.log - INFO - 数据预处理时间：7.62 秒
+2025-04-19 21:07:34,914 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-19 21:07:34,914 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:08:09,440 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-19 21:08:09,440 - data/processed/system.log - INFO - 特征提取时间：34.53 秒
+2025-04-19 21:08:09,440 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-19 21:08:09,440 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:10:33,661 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：325871
+2025-04-19 21:10:33,663 - data/processed/system.log - INFO - 指纹生成时间：144.22 秒
+2025-04-19 21:10:33,664 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 21:10:33,815 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/sim_validation_fingerprints.csv
+2025-04-19 21:10:33,816 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-19 21:10:38,696 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 942 个候选对。
+2025-04-19 21:10:38,696 - data/processed/system.log - INFO - LSH 索引构建时间：4.88 秒
+2025-04-19 21:10:39,031 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.93
+2025-04-19 21:10:39,032 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/sim_validation_candidate_pairs.csv
+2025-04-19 21:10:39,032 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-19 21:13:39,562 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-19 21:13:39,562 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-19 21:13:39,562 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-19 21:13:39,937 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-19 21:13:39,937 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-19 21:13:39,937 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-19 21:13:44,449 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-19 21:13:44,449 - data/processed/system.log - INFO - 数据预处理时间：4.51 秒
+2025-04-19 21:13:44,449 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-19 21:13:44,449 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:13:51,932 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-19 21:13:51,933 - data/processed/system.log - INFO - 特征提取时间：7.48 秒
+2025-04-19 21:13:51,933 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-19 21:13:51,933 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:14:59,696 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-19 21:14:59,697 - data/processed/system.log - INFO - 指纹生成时间：67.76 秒
+2025-04-19 21:14:59,697 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/sim_test_fingerprints.csv
+2025-04-19 21:14:59,769 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/sim_test_fingerprints.csv
+2025-04-19 21:14:59,769 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：simhash
+2025-04-19 21:15:03,808 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 220 个候选对。
+2025-04-19 21:15:03,808 - data/processed/system.log - INFO - LSH 索引构建时间：4.04 秒
+2025-04-19 21:15:03,978 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.86
+2025-04-19 21:15:03,978 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/sim_test_candidate_pairs.csv
+2025-04-19 21:15:03,979 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-19 21:32:53,702 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-19 21:32:53,702 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-19 21:32:53,702 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-19 21:32:54,168 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-19 21:32:54,168 - data/processed/system.log - INFO - 数据加载时间：0.47 秒
+2025-04-19 21:32:54,168 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-19 21:32:58,437 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-19 21:32:58,437 - data/processed/system.log - INFO - 数据预处理时间：4.27 秒
+2025-04-19 21:32:58,437 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-19 21:32:58,437 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:33:05,648 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-19 21:33:05,649 - data/processed/system.log - INFO - 特征提取时间：7.21 秒
+2025-04-19 21:33:05,649 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-19 21:33:05,649 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:34:12,155 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-19 21:34:12,156 - data/processed/system.log - INFO - 指纹生成时间：66.51 秒
+2025-04-19 21:34:12,156 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/bit_test_fingerprints.csv
+2025-04-19 21:34:12,222 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/bit_test_fingerprints.csv
+2025-04-19 21:34:12,222 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：None
+2025-04-19 21:34:12,222 - data/processed/system.log - ERROR - 未知的 LSH 方法：None
+2025-04-19 21:35:48,469 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-19 21:35:48,469 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-19 21:35:48,469 - data/processed/system.log - INFO - 加载数据路径：data/raw/test
+2025-04-19 21:35:48,826 - data/processed/system.log - INFO - 数据加载完成，共加载 162274 条记录。
+2025-04-19 21:35:48,826 - data/processed/system.log - INFO - 数据加载时间：0.36 秒
+2025-04-19 21:35:48,827 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-19 21:35:53,464 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-19 21:35:53,464 - data/processed/system.log - INFO - 数据预处理时间：4.64 秒
+2025-04-19 21:35:53,464 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-19 21:35:53,464 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:36:00,850 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-19 21:36:00,850 - data/processed/system.log - INFO - 特征提取时间：7.39 秒
+2025-04-19 21:36:00,850 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-19 21:36:00,850 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:37:07,502 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：162274
+2025-04-19 21:37:07,504 - data/processed/system.log - INFO - 指纹生成时间：66.65 秒
+2025-04-19 21:37:07,504 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/bit_test_fingerprints.csv
+2025-04-19 21:37:07,572 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/bit_test_fingerprints.csv
+2025-04-19 21:37:07,572 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：bitsampling
+2025-04-19 21:37:10,403 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 127 个候选对。
+2025-04-19 21:37:10,403 - data/processed/system.log - INFO - LSH 索引构建时间：2.83 秒
+2025-04-19 21:37:10,579 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.84
+2025-04-19 21:37:10,579 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/bit_test_candidate_pairs.csv
+2025-04-19 21:37:10,579 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-19 21:50:50,870 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-19 21:50:50,870 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-19 21:50:50,870 - data/processed/system.log - INFO - 加载数据路径：data/raw/validation
+2025-04-19 21:50:51,241 - data/processed/system.log - INFO - 数据加载完成，共加载 163597 条记录。
+2025-04-19 21:50:51,242 - data/processed/system.log - INFO - 数据加载时间：0.37 秒
+2025-04-19 21:50:51,242 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-19 21:50:55,513 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-19 21:50:55,514 - data/processed/system.log - INFO - 数据预处理时间：4.27 秒
+2025-04-19 21:50:55,514 - data/processed/system.log - INFO - 开始特征提取，方法：token
+2025-04-19 21:50:55,514 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:51:02,733 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-19 21:51:02,734 - data/processed/system.log - INFO - 特征提取时间：7.22 秒
+2025-04-19 21:51:02,734 - data/processed/system.log - INFO - 开始指纹生成，方法：simhash
+2025-04-19 21:51:02,734 - data/processed/system.log - INFO - 开启并行
+2025-04-19 21:52:10,979 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：163597
+2025-04-19 21:52:10,980 - data/processed/system.log - INFO - 指纹生成时间：68.25 秒
+2025-04-19 21:52:10,980 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/bit_validation_fingerprints.csv
+2025-04-19 21:52:11,048 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/bit_validation_fingerprints.csv
+2025-04-19 21:52:11,048 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：bitsampling
+2025-04-19 21:52:13,908 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 235 个候选对。
+2025-04-19 21:52:13,908 - data/processed/system.log - INFO - LSH 索引构建时间：2.86 秒
+2025-04-19 21:52:14,095 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.64
+2025-04-19 21:52:14,096 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/bit_validation_candidate_pairs.csv
+2025-04-19 21:52:14,096 - data/processed/system.log - INFO - 系统运行完成。
+2025-04-20 15:59:20,508 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-20 15:59:20,508 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-20 15:59:20,508 - data/processed/system.log - INFO - 加载数据路径：data/raw/validation
+2025-04-20 15:59:20,993 - data/processed/system.log - INFO - 数据加载完成，共加载 163597 条记录。
+2025-04-20 15:59:20,993 - data/processed/system.log - INFO - 数据加载时间：0.48 秒
+2025-04-20 15:59:20,993 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-20 15:59:25,891 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-20 15:59:29,401 - data/processed/system.log - INFO - 预处理数据已保存为CSV文件：data/processed/preprocessed_data.csv
+2025-04-20 15:59:29,401 - data/processed/system.log - INFO - 数据预处理时间：8.41 秒
+2025-04-20 15:59:29,401 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-20 15:59:29,401 - data/processed/system.log - INFO - 开启并行
+2025-04-20 15:59:53,349 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-20 15:59:53,349 - data/processed/system.log - INFO - 特征提取时间：23.95 秒
+2025-04-20 15:59:53,350 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-20 15:59:53,350 - data/processed/system.log - INFO - 开启并行
+2025-04-20 16:01:04,113 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-20 16:01:04,114 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-20 16:01:04,114 - data/processed/system.log - INFO - 加载数据路径：data/raw/validation
+2025-04-20 16:01:04,947 - data/processed/system.log - INFO - 数据加载完成，共加载 163597 条记录。
+2025-04-20 16:01:04,948 - data/processed/system.log - INFO - 数据加载时间：0.83 秒
+2025-04-20 16:01:04,948 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-20 16:01:13,081 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：163597
+2025-04-20 16:01:13,083 - data/processed/system.log - INFO - 指纹生成时间：79.73 秒
+2025-04-20 16:01:13,083 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/bit_validation_fingerprints.csv
+2025-04-20 16:01:19,950 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/bit_validation_fingerprints.csv
+2025-04-20 16:01:19,951 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-20 16:08:33,179 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-20 16:08:33,180 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-20 16:08:33,180 - data/processed/system.log - INFO - 加载数据路径：data/raw/validation
+2025-04-20 16:08:33,557 - data/processed/system.log - INFO - 数据加载完成，共加载 163597 条记录。
+2025-04-20 16:08:33,558 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-20 16:08:33,558 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-20 16:08:38,334 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-20 16:08:41,845 - data/processed/system.log - INFO - 预处理数据已保存为CSV文件：data/processed/preprocessed_data.csv
+2025-04-20 16:08:41,845 - data/processed/system.log - INFO - 数据预处理时间：8.29 秒
+2025-04-20 16:08:41,845 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-20 16:08:41,845 - data/processed/system.log - INFO - 开启并行
+2025-04-20 16:09:07,742 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-20 16:09:07,746 - data/processed/system.log - INFO - 特征提取时间：25.90 秒
+2025-04-20 16:09:07,746 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-20 16:09:07,746 - data/processed/system.log - INFO - 开启并行
+2025-04-20 16:10:01,238 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：163597
+2025-04-20 16:10:01,240 - data/processed/system.log - INFO - 指纹生成时间：53.49 秒
+2025-04-20 16:10:01,240 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/bit_validation_fingerprints.csv
+2025-04-20 16:10:04,119 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/bit_validation_fingerprints.csv
+2025-04-20 16:10:04,119 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-20 16:13:24,582 - data/processed/system.log - INFO - -------------------------------------------------------
+2025-04-20 16:13:24,582 - data/processed/system.log - INFO - 系统启动，加载配置完成。
+2025-04-20 16:13:24,582 - data/processed/system.log - INFO - 加载数据路径：data/raw/validation
+2025-04-20 16:13:24,963 - data/processed/system.log - INFO - 数据加载完成，共加载 163597 条记录。
+2025-04-20 16:13:24,964 - data/processed/system.log - INFO - 数据加载时间：0.38 秒
+2025-04-20 16:13:24,964 - data/processed/system.log - INFO - 开始数据预处理...
+2025-04-20 16:13:29,654 - data/processed/system.log - INFO - 数据预处理完成。
+2025-04-20 16:13:33,103 - data/processed/system.log - INFO - 预处理数据已保存为CSV文件：data/processed/preprocessed_data.csv
+2025-04-20 16:13:33,103 - data/processed/system.log - INFO - 数据预处理时间：8.14 秒
+2025-04-20 16:13:33,103 - data/processed/system.log - INFO - 开始特征提取，方法：ngram
+2025-04-20 16:13:33,103 - data/processed/system.log - INFO - 开启并行
+2025-04-20 16:13:57,272 - data/processed/system.log - INFO - 特征提取完成。
+2025-04-20 16:13:57,273 - data/processed/system.log - INFO - 特征提取时间：24.17 秒
+2025-04-20 16:13:57,273 - data/processed/system.log - INFO - 开始指纹生成，方法：minhash
+2025-04-20 16:13:57,273 - data/processed/system.log - INFO - 开启并行
+2025-04-20 16:14:58,538 - data/processed/system.log - INFO - 指纹生成完成，共生成签名数量：163597
+2025-04-20 16:14:58,539 - data/processed/system.log - INFO - 指纹生成时间：61.27 秒
+2025-04-20 16:14:58,539 - data/processed/system.log - INFO - 开始保存签名指纹到文件：data/processed/bit_validation_fingerprints.csv
+2025-04-20 16:15:01,537 - data/processed/system.log - INFO - 签名指纹已成功保存到文件：data/processed/bit_validation_fingerprints.csv
+2025-04-20 16:15:01,538 - data/processed/system.log - INFO - 开始 LSH 索引构建，方法：minhash
+2025-04-20 16:15:47,467 - data/processed/system.log - INFO - LSH 索引构建完成，共生成 9134 个候选对。
+2025-04-20 16:15:47,469 - data/processed/system.log - INFO - LSH 索引构建时间：45.93 秒
+2025-04-20 16:15:48,785 - data/processed/system.log - INFO - 候选对中的近重复文档比率：0.91
+2025-04-20 16:15:48,788 - data/processed/system.log - INFO - 候选对结果已保存至：data/results/bit_validation_candidate_pairs.csv
+2025-04-20 16:15:48,788 - data/processed/system.log - INFO - 系统运行完成。

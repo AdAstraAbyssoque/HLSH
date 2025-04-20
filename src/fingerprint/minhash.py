@@ -10,6 +10,8 @@
 import random
 import numpy as np
 from typing import List, Set
+from concurrent.futures import ProcessPoolExecutor
+from tqdm import tqdm
 
 
 class MinHash:
@@ -48,7 +50,7 @@ class MinHash:
         """
         计算 MinHash 签名。
         参数:
-            feature_set (Set[str]): 输入特征集合（如 n-gram 或 token 集合）。
+            feature_set (Set[str]): 输入特征集合（如 n-gram 集合）。
         返回:
             List[int]: 固定长度的 MinHash 签名。
         """
@@ -64,26 +66,55 @@ class MinHash:
             signature.append(int(transformed.min()))
         return signature
 
-    def compare_signatures(self, sig1: List[int], sig2: List[int]) -> float:
+    def parallel_compute_signature(self, feature_sets: List[Set[str]],parallel_enable: bool, process_pool_size: int) -> List[List[int]]:
         """
-        比较两个 MinHash 签名的相似性。
+        并行计算多个特征集合的 MinHash 签名。
+
         参数:
-            sig1 (List[int]): 第一个 MinHash 签名。
-            sig2 (List[int]): 第二个 MinHash 签名。
+            feature_sets (List[Set[str]]): 输入的特征集合列表。
+            process_pool_size (int): 并行处理的进程数。
+            parallel_enable (bool): 是否启用并行处理。
+
         返回:
-            float: 近似 Jaccard 相似度。
+            List[List[int]]: 每个特征集合对应的 MinHash 签名列表。
         """
-        if len(sig1) != len(sig2):
-            raise ValueError("签名长度不一致，无法比较。")
-        # 使用生成器表达式计算匹配率
-        return sum(1 for i in range(len(sig1)) if sig1[i] == sig2[i]) / len(sig1)
+        signatures = []
+        if not parallel_enable:
+            signatures = [self.compute_signature(feature_set) for feature_set in tqdm(
+                feature_sets, desc="生成 MinHash 签名")]
+        else:
+            # 使用 ProcessPoolExecutor 进行并行计算
+            with ProcessPoolExecutor(max_workers=process_pool_size) as executor:
+                signatures = list(tqdm(
+                    executor.map(self.compute_signature, feature_sets),
+                    total=len(feature_sets),
+                    desc="并行生成 MinHash 签名"
+                ))
+        return signatures
+
+
+def compare_signatures(sig1: List[int], sig2: List[int]) -> float:
+    """
+    比较两个 MinHash 签名的相似性。
+    参数:
+        sig1 (List[int]): 第一个 MinHash 签名。
+        sig2 (List[int]): 第二个 MinHash 签名。
+    返回:
+        float: 近似 Jaccard 相似度。
+    """
+    if len(sig1) != len(sig2):
+        raise ValueError("签名长度不一致，无法比较。")
+    # 使用生成器表达式计算匹配率
+    return sum(1 for i in range(len(sig1)) if sig1[i] == sig2[i]) / len(sig1)
 
 
 # 示例用法
 if __name__ == "__main__":
     # 示例特征集合
-    feature_set1 = {"this", "is", "a", "test"}
-    feature_set2 = {"this", "is", "another", "test", "a"}
+    feature_set1 = {"thi", "his", "is ", "s i", " is",
+                    "is ", "s a", " a ", "a t", " te", "tes", "est"}
+    feature_set2 = {"thi", "his", "is ", "s i", " is", "is ", "s a",
+                    " a ", "a t", " te", "tes", "est", "ano", "not", "oth", "the", "her"}
 
     # 初始化 MinHash
     minhash = MinHash(num_hashes=100, seed=42)
@@ -93,7 +124,7 @@ if __name__ == "__main__":
     signature2 = minhash.compute_signature(feature_set2)
 
     # 比较签名相似性
-    similarity = minhash.compare_signatures(signature1, signature2)
+    similarity = compare_signatures(signature1, signature2)
     print("MinHash 签名 1:", signature1)
     print("MinHash 签名 2:", signature2)
     print("MinHash 签名相似性:", similarity)

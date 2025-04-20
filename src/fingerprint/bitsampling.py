@@ -106,7 +106,7 @@ class BitSampling:
                 vector |= (1 << i)
         return vector
 
-    def compute_signature(self, feature_set: Set[str], feature_weights: dict = None) -> int:
+    def compute_signature(self, feature_set: Set[str], feature_weights: dict = None) -> str:
         """
         根据输入特征集合生成二进制签名。
         如果传入了 feature_weights，则使用加权向量化（例如TF-IDF），
@@ -117,7 +117,7 @@ class BitSampling:
             feature_weights (dict, 可选): 每个特征的权重字典。
 
         返回:
-            int: 采样后的二进制签名。
+            str: 采样后的二进制签名。
         """
         if feature_weights is not None:
             full_vector = self.vectorize_weighted(feature_set, feature_weights)
@@ -127,7 +127,7 @@ class BitSampling:
         for i, bit_index in enumerate(self.sample_indices):
             if full_vector & (1 << bit_index):
                 signature |= (1 << i)
-        return signature
+        return str(signature)
 
     def compare_signatures(self, sig1: int, sig2: int) -> float:
         """

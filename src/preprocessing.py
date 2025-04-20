@@ -1,20 +1,50 @@
-'''
-        •	功能：提供文本预处理功能。
-        •	主要类与函数：
-        •	Class Preprocessor
-        •	__init__(self, config): 根据配置初始化预处理参数（例如是否需要去除标点、大小写标准化、停用词列表等）。
-        •	clean_text(self, text): 对输入文本进行基础清洗（去除噪声符号、HTML标签等）。
-        •	tokenize(self, text): 实现词或字符的分词。
-        •	generate_ngrams(self, tokens, n): 基于tokens生成n-gram序列。
-        •	def preprocess_dataset(data_list, config)
-        •	循环调用Preprocessor的方法，返回预处理后的文档列表或文档对应的特征集合。
-        •	调用：main.py在加载数据后调用该模块进行文本的基础预处理。
-
-'''
-
+from joblib import Parallel, delayed
+from tqdm import tqdm
 import re
 from typing import List
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+
+def preprocess_text(text: str) -> str:
+    """
+    对输入文本进行基础清洗。
+
+    参数:
+        text (str): 原始文本。
+
+    返回:
+        str: 清洗后的文本。
+    """
+    # 去除HTML标签
+    text = re.sub(r"<[^>]+>", "", text)
+    # 去除多余的空格
+    text = re.sub(r"\s+", " ", text).strip()
+    # 去除标点符号
+    text = re.sub(r"[^\w\s]", "", text)
+    # 转换为小写
+    text = text.lower()
+    return text
+
+
+def parallel_preprocess_texts(texts: list[str], process_pool_size: int, parallel_enabled: bool) -> list[str]:
+    """
+    并行或串行预处理文本列表。
+
+    参数:
+        texts (list[str]): 原始文本列表。
+        process_pool_size (int): 并行处理的进程数。
+        parallel_enabled (bool): 是否启用并行处理。
+
+    返回:
+        list[str]: 预处理后的文本列表。
+    """
+    if parallel_enabled:
+        print(f"并行已启用，进程数：{process_pool_size}")
+        preprocessed_data = Parallel(n_jobs=process_pool_size, prefer="processes")(
+            delayed(preprocess_text)(text) for text in tqdm(texts, desc="并行预处理")
+        )
+    else:
+        preprocessed_data = [preprocess_text(text) for text in tqdm(texts, desc="预处理")]
+    return preprocessed_data
 
 class Preprocessor:
     """

@@ -8,3 +8,4 @@ data/processed/*.log
 .*
 *.ipynb
 *.png
+data/processed/system.log

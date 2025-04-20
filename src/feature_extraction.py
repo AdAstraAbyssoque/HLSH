@@ -4,11 +4,14 @@
         •	Class FeatureExtractor
         •	__init__(self, method="ngram", **kwargs): 根据方法和参数决定采用哪种特征提取策略。
         •	extract_features(self, text): 从单个文本中提取特征（返回n-gram集合或token集合）。
-        •	vectorize(self, documents): 可选，用于批量将文档转换为稀疏/密集向量，支持如CountVectorizer或TfidfVectorizer的调用。
         •	调用：main.py在预处理后调用此模块为后续指纹计算准备输入。
 '''
 from typing import List, Set, Union
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from collections import Counter
+from joblib import Parallel, delayed
+from tqdm import tqdm
+
 
 class FeatureExtractor:
     """
@@ -21,9 +24,9 @@ class FeatureExtractor:
             初始化特征提取器。
 
             参数:
-                method (str): 特征提取方法，支持 "ngram"、"token" 和 "vectorize"。
+                method (str): 特征提取方法，支持 "ngram"、"token"、"frequency" 和 "vectorize"。
                 n (int): n-gram 的 n 值（仅在 method="ngram" 时有效）。
-                **kwargs: 向量化方法的参数，可传入 vectorizer 或 CountVectorizer/TfidfVectorizer 的参数。
+                **kwargs: 向量化方法的参数，可传入 vectorizer  的参数。
             """
         self.method = method
         self.n = n
@@ -48,10 +51,37 @@ class FeatureExtractor:
             return self._extract_ngrams(text)
         elif self.method == "token":
             return self._extract_tokens(text)
-        elif self.method == "vectorize":
-            return self._extract_vectorized_features(text)
+        elif self.method == "frequency":
+            return self._extract_frequency(text)
         else:
             raise ValueError(f"不支持的特征提取方法: {self.method}")
+
+    def parallel_extract_features(self, texts: list[str], process_pool_size: int, parallel_enabled: bool) -> list[Set[str]]:
+        """
+        并行或串行提取文本特征。
+
+        参数:
+            texts (list[str]): 输入文本列表。
+            process_pool_size (int): 并行处理的进程数。
+            parallel_enabled (bool): 是否启用并行处理。
+
+        返回:
+            list[Set[str]]: 提取的特征集合列表。
+        """
+
+        if self.method == "vectorize":
+            # 如果方法是 vectorize，则直接使用 vectorizer 进行转换
+            return self._extract_vectorized_features(texts)
+        # 否则使用 extract_features 方法提取特征
+        if parallel_enabled:
+            print(f"并行特征提取已启用，进程数：{process_pool_size}")
+            features = Parallel(n_jobs=process_pool_size, prefer="processes")(
+                delayed(self.extract_features)(text) for text in tqdm(texts, desc="并行特征提取")
+            )
+        else:
+            features = [self.extract_features(text)
+                        for text in tqdm(texts, desc="特征提取")]
+        return features
 
     def _extract_ngrams(self, text: str) -> Set[str]:
         """
@@ -80,53 +110,64 @@ class FeatureExtractor:
         返回:
             Set[str]: token 集合。
         """
-        return set(text.split())  # 简单分词后去重
+        return set(text.split())
 
-    def _extract_vectorized_features(self, text: str) -> Set[str]:
+    def _extract_frequency(self, text: str) -> dict:
         """
-        利用 vectorizer 将文本转换为特征集合。
-        基于 vectorizer 的非零（或重要）特征构造集合，
-        注意：需要先对语料进行拟合，这里简单实现为对单个文档进行转换。
+        Extracts the frequency of words from the given text.
+
+        This method splits the input text into words and calculates the frequency
+        of each word using a Counter.
+
+        Args:
+            text (str): The input text from which to extract word frequencies.
+
+        Returns:
+            Set[str]: A set of unique words from the text with their frequencies.
+        """
+        return dict(Counter(text.split()))
+
+    def _extract_vectorized_features(self, documents: List[str]) -> dict:
+        """
+        利用预先拟合或当前初始化的 TfidfVectorizer，
+        将输入文档列表转换为 TF-IDF 字典表示，
+        以 token 为 key，值为该 token 跨所有文档的 TF-IDF 分数总和。
 
         参数:
-            text (str): 输入文本。
+            documents (List[str]): 输入文档列表。
 
         返回:
-            Set[str]: 特征集合，来自 vectorizer 的特征名称。
+            token_dict: 以 token 为 key 的 TF-IDF 分数累计字典。
         """
-        # 如果 vectorizer 未拟合，则先拟合单个文档
-        # 实际使用中建议先调用 fit 方法拟合语料库
         try:
-            # 尝试直接转换
-            sparse = self.vectorizer.transform([text])
+            # 尝试直接转换（假设 vectorizer 已经拟合）
+            print("尝试直接转换 TF-IDF 矩阵")
+            tfidf_matrix = self.vectorizer.transform(documents)
         except Exception:
             # 若未拟合，则先拟合后转换
-            self.vectorizer.fit([text])
-            sparse = self.vectorizer.transform([text])
+            print("未拟合，尝试拟合 TF-IDF 矩阵")
+            tfidf_matrix = self.vectorizer.fit_transform(documents)
+
+        print("转换 TF-IDF 矩阵成功,开始提取特征")
         feature_names = self.vectorizer.get_feature_names_out()
-        indices = sparse.nonzero()[1]
-        return {feature_names[i] for i in indices}
-
-    def vectorize(self, documents: List[str]):
-        """
-        将文档批量转换为稀疏/密集矩阵（直接调用 vectorizer）。
-
-        参数:
-            documents (List[str]): 文档列表。
-
-        返回:
-            稀疏矩阵或密集矩阵（取决于 vectorizer 的配置）。
-        """
-        if self.method != "vectorize" or not self.vectorizer:
-            raise ValueError(
-                "当前配置不支持向量化操作，请确保 method='vectorize' 且已初始化 vectorizer。")
-        return self.vectorizer.fit_transform(documents)
+        # 使用矩阵运算对各 token 的 TF-IDF 分数进行累计
+        token_scores = tfidf_matrix.sum(axis=0)  # 计算每列即每个 token 的累加分数
+        # 将结果转换为一维数组（如果 tfidf_matrix 为稀疏矩阵）
+        token_scores = token_scores.A1
+        token_dict = dict(zip(feature_names, token_scores))
+        return token_dict
 
 
 # 示例用法
 if __name__ == "__main__":
+    corpus = ["this is a test",
+              "this is another test",
+              "this is a simple example for feature extraction",
+              "this is another example for feature extraction",
+              "this is a test for feature extraction"
+              ]
     text = "this is a simple example for feature extraction"
-    
+
     # 示例 1: 使用 ngram 特征
     extractor_ngram = FeatureExtractor(method="ngram", n=2)
     ngram_features = extractor_ngram.extract_features(text)
@@ -138,6 +179,7 @@ if __name__ == "__main__":
     print("token 特征:", token_features)
 
     # 示例 3: 使用 vectorize 特征（转换为 TF-IDF 非零项特征集合）
-    extractor_vectorize = FeatureExtractor(method="vectorize", vectorizer=TfidfVectorizer())
+    extractor_vectorize = FeatureExtractor(
+        method="vectorize", vectorizer=TfidfVectorizer())
     vectorized_features = extractor_vectorize.extract_features(text)
-    print("vectorize 特征:", vectorized_features)
+    print("vectorized 特征:", vectorized_features)
