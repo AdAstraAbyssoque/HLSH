@@ -176,9 +176,10 @@ class SimHashLSHIndex:
         # 精确过滤候选集合
         return {i for i in candidates if self._hamming_distance(self.signatures[i], sig) <= self.radius}
 
-    def get_candidate_pairs(self) -> Set[Tuple[int, int]]:
+    def get_candidate_pairs(self, threshold: int = 0.6) -> Set[Tuple[int, int]]:
         """
-        生成所有满足 Hamming 距离条件的文档对。
+        生成所有满足 Hamming 距离条件的文档对，并根据阈值过滤。
+        :param threshold: Hamming 距离阈值（可选）。如果提供，则只返回 Hamming 距离小于等于该阈值的文档对。
         :return: 满足条件的文档对集合 (i, j)，其中 i < j。
         """
         pairs: Set[Tuple[int, int]] = set()
@@ -186,7 +187,8 @@ class SimHashLSHIndex:
             unique_ids = sorted(set(bucket))
             if len(unique_ids) > 1:
                 for i, j in itertools.combinations(unique_ids, 2):
-                    if self._hamming_distance(self.signatures[i], self.signatures[j]) <= self.radius:
+                    hamming_dist = self._hamming_distance(self.signatures[i], self.signatures[j])
+                    if hamming_dist <= self.radius and (threshold is None or hamming_dist <= threshold):
                         pairs.add((i, j))
         return pairs
 

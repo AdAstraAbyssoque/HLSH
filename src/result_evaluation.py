@@ -205,9 +205,7 @@ def visualize_diff_html(pairs: list[tuple], data: list[str], output_path: str) -
         html_content += f"""
         <div class="pair">
             <h2>候选对 {idx + 1}: 文档 {id1} vs 文档 {id2}</h2>
-            <h3>文段1（删除的部分标红）:</h3>
             <p>{html_result1}</p>
-            <h3>文段2（新增的部分标绿）:</h3>
             <p>{html_result2}</p>
         </div>
         """

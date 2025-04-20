@@ -5,8 +5,8 @@ logging:
 
 # 数据配置
 data:
-  raw_data_path: data/raw/total # 原始数据文件路径
-  # raw_data_path: data/raw/sample_test.parquet  # 原始数据文件路径
+  raw_data_path: data/raw/validation # 原始数据文件路径
+  # raw_data_path: data/raw/sample_validation.parquet  # 原始数据文件路径
 
 # 特征提取配置
 feature_extraction:
@@ -22,7 +22,7 @@ fingerprint:
 
 # LSH 索引配置
 lsh:
-  method: simhash # 可选值: minhash, simhash, bitsampling, hybrid
+  method: bitsampling  # 可选值: minhash, simhash, bitsampling, hybrid
   num_bands: 4 # MinHash 的 band 数量
   rows_per_band: 5 # 每个 band 的行数
   radius: 1 # SimHash 的 Hamming 距离半径
@@ -51,8 +51,8 @@ parallel:
 
 # 输出配置
 output:
-  fingerpritnts_path: data/processed/sim_validation_fingerprints.csv # 指纹输出路径
+  fingerpritnts_path: data/processed/bit_validation_fingerprints.csv # 指纹输出路径
   evaluation_output_path: data/processed # 评估结果图保存路径
-  results_path: data/results/sim_validation_candidate_pairs.csv # 候选对结果保存路径
-  pipeline_output_path: data/processed/sim_validation_pipeline_output.csv # 流水线输出路径
-  evaluation_html_path: data/results/sim_validation_evaluation.html # 评估结果HTML保存路径
+  results_path: data/results/bit_validation_candidate_pairs.csv # 候选对结果保存路径
+  pipeline_output_path: data/processed/bit_validation_pipeline_output.csv # 流水线输出路径
+  evaluation_html_path: data/results/bit_validation_evaluation.html # 评估结果HTML保存路径
