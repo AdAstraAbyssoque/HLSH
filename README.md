@@ -1,169 +1,184 @@
+# HLSH: Hierarchical Locality-Sensitive Hashing (HLSH) Text Similarity Detection System
 
-# HLSH: 基于局部敏感哈希的分层文本相似度检测系统
+## Contributors
 
-## 项目概述
-HLSH 是一个基于 **局部敏感哈希**（*Locality‑Sensitive Hashing*, **LSH**）的系统，旨在高效检测近似重复文档。系统采用模块化流水线处理原始数据，提取特征、生成指纹并完成评估，可灵活配置与扩展。
+- Bowen Liu
+- Junshan Tan
+- Tianyu Guo
+- Zebin Chen
 
----
+## Project Overview
 
-## 系统特点
-- **可配置工作流**：通过 `config/config.yaml` 轻松修改流水线行为
-- **多种指纹算法**：内置 *MinHash*、*SimHash*、*BitSampling* 等方法
-- **高效 LSH 索引**：快速构建索引以锁定候选文档对
-- **完整评估体系**：支持精确度、召回率、F1 等指标
-- **结果可视化**：自动生成运行时间对比与近似重复分布图
-- **并行处理支持**：可调线程池 / 进程池提升吞吐
+HLSH is a modular pipeline system based on **Locality-Sensitive Hashing (LSH)** designed for efficient detection of near-duplicate documents. The system processes raw data end-to-end by extracting features, generating fingerprints, indexing via LSH, and evaluating results. It is highly configurable and extensible.
 
 ---
 
-## 目录结构
+## Key Features
+
+- **Configurable Workflows**: Easily modify pipeline behavior via `config/config.yaml`
+- **Multiple Fingerprinting Algorithms**: Built-in support for _MinHash_, _SimHash_, _BitSampling_, and more
+- **Efficient LSH Indexing**: Rapid indexing to identify candidate document pairs
+- **Comprehensive Evaluation**: Calculates precision, recall, F1-score, and other metrics
+- **Result Visualization**: Automatically generates runtime comparison charts and duplicate-distribution plots
+- **Parallel Processing Support**: Adjustable thread and process pools to boost throughput
+
+---
+
+## Directory Structure
+
 ```text
 HLSH/
-├── config/                 # 配置文件目录
-│   └── config.yaml         # 主配置文件
-├── data/                   # 数据目录
-│   ├── raw/                # 原始输入数据
-│   ├── processed/          # 处理过的数据和中间结果
-│   └── results/            # 最终结果和报告
-├── report/                 # 最终报告目录
-│   └── final_report.pdf    # 最终报告文档
-├── src/                    # 源代码目录
-│   ├── fingerprint/        # 指纹生成模块
-│   │   ├── minhash.py      # MinHash 实现
-│   │   ├── simhash.py      # SimHash 实现
-│   │   └── bitsampling.py  # BitSampling 实现
-│   ├── lsh/                # LSH 相关模块
-│   │   ├── lsh_index.py    # LSH 索引实现
-│   │   └── evaluation.py   # 评估模块
-│   ├── utils/              # 工具函数
-│   │   ├── logger.py       # 日志功能
-│   │   └── data_loader.py  # 数据加载工具
-│   ├── feature_extraction.py  # 特征提取逻辑
-│   ├── result_evaluation.py  # 挑选结果预览
-│   ├── preprocessing.py    # 数据预处理逻辑
-│   └── main.py             # 流水线入口点
-├── exploration.ipynb       # 探索性分析 Jupyter 笔记本
-├── requirements.txt        # Python 依赖
-├── setup.py                # 安装脚本
-└── README.md               # 项目文档
+├── config/                 # Configuration files
+│   └── config.yaml         # Main config file
+├── data/                   # Data storage
+│   ├── raw/                # Raw input data
+│   ├── processed/          # Processed data and intermediates
+│   └── results/            # Final results and reports
+├── report/                 # Final report output
+│   └── final_report.pdf    # Consolidated report
+├── src/                    # Source code
+│   ├── fingerprint/        # Fingerprint generation modules
+│   │   ├── minhash.py      # MinHash implementation
+│   │   ├── simhash.py      # SimHash implementation
+│   │   └── bitsampling.py  # BitSampling implementation
+│   ├── lsh/                # LSH-specific modules
+│   │   ├── lsh_index.py    # LSH index implementation
+│   │   └── evaluation.py   # Evaluation utilities
+│   ├── utils/              # Utility functions
+│   │   ├── logger.py       # Logging functionality
+│   │   └── data_loader.py  # Data loading helpers
+│   ├── feature_extraction.py  # Feature extraction logic
+│   ├── result_evaluation.py  # Result sampling and preview
+│   ├── preprocessing.py    # Data preprocessing logic
+│   └── main.py             # Pipeline entry point
+├── exploration.ipynb       # Exploratory analysis notebook
+├── requirements.txt        # Python dependencies
+├── setup.py                # Installation script
+└── README.md               # Project documentation
 ```
 
 ---
 
-## 安装指南
+## Installation Guide
+
 ```bash
-# 1. 克隆仓库
-git clone <仓库URL>
+# 1. Clone the repository
+git clone <repo_url>
 cd HLSH
 
-# 2. 安装依赖
+# 2. Install dependencies
 pip install -r requirements.txt
 ```
 
 ---
 
-## 快速开始
-1. 修改 `config/config.yaml` 以适配你的数据集与需求。
-2. 运行主流水线：
+## Quick Start
+
+1. Modify `config/config.yaml` to suit your dataset and requirements.
+2. Run the main pipeline:
    ```bash
    python src/main.py
    ```
-3. 运行`python src/result_evaluation 10`随机挑选10个数据查看重复对效果
+3. Preview 10 random candidate pairs:
+   ```bash
+   python src/result_evaluation.py 10
+   ```
+
 ---
 
-## 配置说明（`config/config.yaml`）
-以下示例展示了常用可调选项：
+## Configuration (`config/config.yaml`)
+
+Example of common adjustable options:
+
 ```yaml
 logging:
   log_file: "data/processed/system.log"
   log_level: "INFO"
 
 data:
-  # raw_data_path: "data/raw/test"           # 备用测试数据路径
-  raw_data_path: "data/raw/sample_test.parquet"  # 原始数据文件路径
+  raw_data_path: "data/raw/sample_test.parquet"
 
 feature_extraction:
-  method: "frequency"            # 可选: ngram (MinHash) | token, vectorize, frequency (SimHash)
-  ngram_size: 3                   # n‑gram 的 n 值
+  method: "frequency"    # options: ngram | token | vectorize | frequency
+  ngram_size: 3          # n for n-grams
 
 fingerprint:
-  method: "simhash"              # 可选: minhash | simhash | hybrid
-  num_hashes: 100                # MinHash 的哈希函数数量 (仅 MinHash 使用)
-  hash_bits: 64                  # SimHash 的签名位数
-  seed: 42                       # 随机种子
+  method: "simhash"     # options: minhash | simhash | hybrid
+  num_hashes: 100        # number of hash functions (MinHash)
+  hash_bits: 64          # bit-length of signature (SimHash)
+  seed: 42               # random seed
 
 lsh:
-  method: "bitsampling"          # 可选: minhash | simhash | bitsampling | hybrid
-  num_bands: 30                  # MinHash 的 band 数量
-  rows_per_band: 5               # 每个 band 的行数
-  radius: 5                      # SimHash 的 Hamming 距离半径
-  num_hash_tables: 2             # BitSampling 的哈希表数量
-  bits_per_table: 32             # 每个哈希表采样位数
-  # 混合方法特有参数
-  minhash_num_bands: 20          # 混合方法中 MinHash 的 band 数量
-  minhash_rows_per_band: 5       # 混合方法中每个 band 的行数
-  simhash_radius: 1              # 混合方法中 SimHash 的 Hamming 距离半径
-  merge_strategy: "union"         # 合并策略: union | intersection | two-stage | weighted
-  weights:                       # weighted 策略权重
+  method: "bitsampling"  # options: minhash | simhash | bitsampling | hybrid
+  num_bands: 30           # bands (MinHash)
+  rows_per_band: 5        # rows per band (MinHash)
+  radius: 5               # hamming radius (SimHash)
+  num_hash_tables: 2      # number of tables (BitSampling)
+  bits_per_table: 32      # bits sampled per table (BitSampling)
+  # hybrid-specific parameters
+  minhash_num_bands: 20
+  minhash_rows_per_band: 5
+  simhash_radius: 1
+  merge_strategy: "union"  # union | intersection | two-stage | weighted
+  weights:
     minhash: 0.6
     simhash: 0.4
 
 parallel:
-  enable: false                  # 总开关
-  data_loader_parallel: false    # 数据加载并行
-  preprocess_parallel: true      # 预处理并行
-  feature_extraction_parallel: true  # 特征提取并行
-  fingerprint_parallel: true     # 指纹生成并行
-  thread_pool_size: 4            # 线程池大小 (I/O)
-  process_pool_size: 8           # 进程池大小 (CPU)
-  use_memory_cache: true         # 使用内存缓存
+  enable: false
+  data_loader_parallel: false
+  preprocess_parallel: true
+  feature_extraction_parallel: true
+  fingerprint_parallel: true
+  thread_pool_size: 4
+  process_pool_size: 8
+  use_memory_cache: true
 
 output:
-  fingerpritnts_path: "data/processed/fingerprints.csv"      # 指纹输出
-  evaluation_output_path: "data/processed"                   # 评估结果图保存路径
-  results_path: "data/results/candidate_pairs_sampling.csv" # 候选对结果
-  pipeline_output_path: "data/processed/pipeline_output.csv" # 流水线输出
-  evaluation_html_path: data/results/sim_validation_evaluation.html # 评估结果HTML保存路径
+  fingerprints_path: "data/processed/fingerprints.csv"
+  evaluation_output_path: "data/processed"
+  results_path: "data/results/candidate_pairs_sampling.csv"
+  pipeline_output_path: "data/processed/pipeline_output.csv"
+  evaluation_html_path: "data/results/sim_validation_evaluation.html"
 ```
 
 ---
 
-## 工作流程
+## Workflow Diagram
+
 ```mermaid
 flowchart TD
-    A[加载配置] --> B[初始化日志]
-    B --> C[数据加载]
-    C --> D[预处理 & 分词]
-    D --> E[特征提取]
-    E --> F[指纹生成]
-    F --> G[构建 LSH 索引]
-    G --> H[候选对评估]
-    H --> I[结果 & 可视化输出]
+    A[Load Configuration] --> B[Initialize Logger]
+    B --> C[Data Loading]
+    C --> D[Preprocessing & Tokenization]
+    D --> E[Feature Extraction]
+    E --> F[Fingerprint Generation]
+    F --> G[LSH Index Construction]
+    G --> H[Candidate Pair Evaluation]
+    H --> I[Results & Visualization]
 ```
 
 ---
 
-## 输出结果
-| 产出 | 位置 |
-| ---- | ----- |
-| **候选文档对** | `data/results/candidate_pairs.csv` |
-| **评估报告**   | 精确度 / 召回率 / F1 等指标 |
-| **可视化图表** | 运行时间对比图、重复分布图 |
-| **日志**       | `data/processed/system.log` |
+## Output Artifacts
+
+| Artifact                 | Location                                     |
+| ------------------------ | -------------------------------------------- |
+| **Candidate Pairs File** | `data/results/candidate_pairs.csv`           |
+| **Evaluation Report**    | Precision / Recall / F1 metrics             |
+| **Visualization Charts** | Runtime comparison & duplicate distribution |
+| **Log File**            | `data/processed/system.log`                  |
 
 ---
 
-## 故障排查
-- 查看日志：`data/processed/system.log`
-- 检查配置路径是否正确
-- 验证输入数据格式
+## Troubleshooting
+
+- Check logs at `data/processed/system.log`
+- Verify all configuration paths are correct
+- Confirm input data formats match expected schema
 
 ---
 
-## 许可证
-本项目基于 **MIT License**，详见 `LICENSE` 文件。
+## License
 
----
-
-## 致谢
-本项目源于离散数学实践课题，旨在探索高效的近似重复检测技术。感谢所有贡献者的支持与反馈！
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.

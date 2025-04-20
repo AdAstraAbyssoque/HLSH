@@ -1,50 +1,48 @@
-'''
-        •	功能：实现Bit Sampling技术。
-        •	主要类与函数：
-        •	Class BitSampling
-        •	__init__(self, sample_size): 指定采样的位数或比例。
-        •   vectorize(self, feature_set): 将特征集转换为二进制向量。
-        •	compute_signature(self, feature_set): 根据输入特征采样生成二进制签名。
-        •	调用：同样在main.py中，根据需要调用BitSampling进行实验与结果对比。
-'''
+"""
+    • Functionality: Implements the Bit Sampling technique.
+    • Main classes and functions:
+    • Class BitSampling
+    • __init__(self, sample_size): Specifies the number of bits or proportion to sample.
+    • vectorize(self, feature_set): Converts a feature set into a binary vector.
+    • compute_signature(self, feature_set): Generates a binary signature by sampling the input features.
+    • Usage: Called in main.py as needed for experiments and result comparisons.
+"""
 from typing import Set, List
 import random
 
-
-from typing import Set, List
-import random
 
 class BitSampling:
     """
-    实现 Bit Sampling 技术，用于生成二进制签名。
-    支持可选的 TF-IDF 向量化（通过传入预先拟合好的 vectorizer），
-    如果未传入，则采用简单 XOR 聚合。
+    Implements the Bit Sampling technique for generating binary signatures.
+    Supports optional TF-IDF vectorization (via a pre-fitted vectorizer).
+    If no vectorizer is provided, a simple XOR aggregation is used.
     """
 
     def __init__(self, sample_size: int, hash_bits: int = 64, seed: int = None, vectorizer=None):
         """
-        初始化 BitSampling 实例。
+        Initializes a BitSampling instance.
 
-        参数:
-            sample_size (int): 采样的位数。
-            hash_bits (int): 输入签名的位数（默认为 64 位）。
-            seed (int): 随机种子，用于生成采样位索引（默认为 None）。
-            vectorizer: 可选的 TF-IDF 向量器（例如 TfidfVectorizer），需预先拟合语料库。
+        Parameters:
+            sample_size (int): Number of bits to sample.
+            hash_bits (int): Number of bits in the input signature (default is 64 bits).
+            seed (int): Random seed for generating sample bit indices (default is None).
+            vectorizer: Optional TF-IDF vectorizer (e.g., TfidfVectorizer), must be pre-fitted on a corpus.
         """
         if sample_size > hash_bits:
-            raise ValueError("采样位数不能大于输入签名的位数。")
+            raise ValueError(
+                "Sample size cannot exceed the number of input signature bits.")
         self.sample_size = sample_size
         self.hash_bits = hash_bits
         self.seed = seed
-        self.vectorizer = vectorizer  # 可选 TF-IDF 向量器
+        self.vectorizer = vectorizer  # Optional TF-IDF vectorizer
         self.sample_indices = self._generate_sample_indices()
 
     def _generate_sample_indices(self) -> List[int]:
         """
-        生成采样位的索引。
+        Generates the indices of the bits to sample.
 
-        返回:
-            List[int]: 采样位的索引列表。
+        Returns:
+            List[int]: List of sampled bit indices.
         """
         if self.seed is not None:
             random.seed(self.seed)
@@ -52,27 +50,27 @@ class BitSampling:
 
     def vectorize(self, feature_set: Set[str]) -> int:
         """
-        优化后的将特征集转换为二进制向量的方法：
-        如果传入了 TF-IDF 向量器，则直接利用 vectorizer.vocabulary_ 和 idf_ 获取权重，
-        避免每次调用 transform，从而提高效率。
-        
-        参数:
-            feature_set (Set[str]): 输入特征集合。
-        
-        返回:
-            int: 二进制向量表示。
+        Optimized method to convert a feature set into a binary vector:
+        If a TF-IDF vectorizer is provided, it directly uses vectorizer.vocabulary_ and idf_ to get weights,
+        avoiding repeated calls to transform, thus improving efficiency.
+
+        Parameters:
+            feature_set (Set[str]): Input feature set.
+
+        Returns:
+            int: Binary vector representation.
         """
         if self.vectorizer is not None:
             weights = {}
             vocab = self.vectorizer.vocabulary_
-            # idf_ 为 numpy array，索引对应 vocab 中的值
+            # idf_ is a numpy array, indices correspond to values in vocab
             idf = self.vectorizer.idf_
             for feature in feature_set:
                 if feature in vocab:
                     weights[feature] = idf[vocab[feature]]
             return self.vectorize_weighted(feature_set, weights)
         else:
-            # 简单 XOR 聚合
+            # Simple XOR aggregation
             vector = 0
             for feature in feature_set:
                 hashed = hash(feature) & ((1 << self.hash_bits) - 1)
@@ -81,21 +79,21 @@ class BitSampling:
 
     def vectorize_weighted(self, feature_set: Set[str], feature_weights: dict) -> int:
         """
-        将特征集转换为加权后的二进制向量。
-        对每个位进行累加权值计算，最后根据每个位的正负生成二进制表示，
-        这里可以利用 TF-IDF 获得的权重。
+        Converts a feature set into a weighted binary vector.
+        For each bit, calculates cumulative weights and generates binary representation
+        based on the sign of the cumulative score. TF-IDF weights can be used here.
 
-        参数:
-            feature_set (Set[str]): 输入特征集合。
-            feature_weights (dict): 每个特征的权重字典。
+        Parameters:
+            feature_set (Set[str]): Input feature set.
+            feature_weights (dict): Dictionary of weights for each feature.
 
-        返回:
-            int: 二进制向量表示。
+        Returns:
+            int: Binary vector representation.
         """
         score = [0] * self.hash_bits
         for feature in feature_set:
             weight = feature_weights.get(feature, 1)
-            # 对特征哈希后，更新每个位的得分
+            # Hash the feature and update the score for each bit
             hashed = hash(feature)
             for i in range(self.hash_bits):
                 bit = (hashed >> i) & 1
@@ -108,16 +106,16 @@ class BitSampling:
 
     def compute_signature(self, feature_set: Set[str], feature_weights: dict = None) -> str:
         """
-        根据输入特征集合生成二进制签名。
-        如果传入了 feature_weights，则使用加权向量化（例如TF-IDF），
-        否则使用简单的 XOR 聚合。
+        Generates a binary signature from the input feature set.
+        If feature_weights are provided, uses weighted vectorization (e.g., TF-IDF),
+        otherwise uses simple XOR aggregation.
 
-        参数:
-            feature_set (Set[str]): 输入特征集合。
-            feature_weights (dict, 可选): 每个特征的权重字典。
+        Parameters:
+            feature_set (Set[str]): Input feature set.
+            feature_weights (dict, optional): Dictionary of weights for each feature.
 
-        返回:
-            str: 采样后的二进制签名。
+        Returns:
+            str: Binary signature after sampling.
         """
         if feature_weights is not None:
             full_vector = self.vectorize_weighted(feature_set, feature_weights)
@@ -131,40 +129,42 @@ class BitSampling:
 
     def compare_signatures(self, sig1: int, sig2: int) -> float:
         """
-        比较两个采样签名的相似性。
+        Compares the similarity between two sampled signatures.
 
-        参数:
-            sig1 (int): 第一个采样签名。
-            sig2 (int): 第二个采样签名。
+        Parameters:
+            sig1 (int): First sampled signature.
+            sig2 (int): Second sampled signature.
 
-        返回:
-            float: 相似性度量（0 到 1 之间）。
+        Returns:
+            float: Similarity measure (between 0 and 1).
         """
         hamming_distance = bin(sig1 ^ sig2).count("1")
         return 1 - (hamming_distance / self.sample_size)
 
 
-# 示例用法
+# Example usage
 if __name__ == "__main__":
     from sklearn.feature_extraction.text import TfidfVectorizer
 
-    # 预先拟合一个 TF-IDF 向量器（示例中仅用当前样本文档拟合）
+    # Pre-fit a TF-IDF vectorizer (example uses the current sample corpus)
     corpus = ["this is a test", "this is another test"]
     vectorizer = TfidfVectorizer()
     vectorizer.fit(corpus)
 
-    # 示例特征集合
+    # Example feature sets
     feature_set1 = {"this", "is", "a", "test"}
     feature_set2 = {"this", "is", "another", "test"}
 
-    # 初始化 BitSampling，并传入 TF-IDF 向量器
-    bitsampling = BitSampling(sample_size=16, hash_bits=64, seed=42, vectorizer=vectorizer)
+    # Initialize BitSampling and pass the TF-IDF vectorizer
+    bitsampling = BitSampling(
+        sample_size=16, hash_bits=64, seed=42, vectorizer=vectorizer)
 
-    # 计算采样签名
+    # Compute sampled signatures
     signature1 = bitsampling.compute_signature(feature_set1)
     signature2 = bitsampling.compute_signature(feature_set2)
 
-    # 打印采样签名及其相似性
-    print("采样签名 1:", bin(signature1))
-    print("采样签名 2:", bin(signature2))
-    print("采样签名相似性:", bitsampling.compare_signatures(signature1, signature2))
+    # Print sampled signatures and their similarity
+    print("Sampled Signature 1:", bin(signature1))
+    print("Sampled Signature 2:", bin(signature2))
+    print("Signature Similarity:",
+          bitsampling.compare_signatures(signature1, signature2))
